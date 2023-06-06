@@ -27,6 +27,9 @@ import {
 import { useNavigate } from "react-router-dom";
 import FlexBetween from "../CSS/FlexBetween";
 
+// Set userName in global state and delete this
+const userName = "placeholder";
+
 const Navbar = () => {
   const [isMobileMenuToggled, setIsMobileMenuToggled] = useState(false);
   const navigate = useNavigate();
@@ -75,17 +78,48 @@ const Navbar = () => {
       {/* Desktop Nav */}
       {isNonMobileScreen ? (
         <FlexBetween gap="2rem">
-          {/* TO DO: Light/Dark Mode Toggle */}
-          <IconButton onClick={"#"}>
+          {/* TO DO: Light/Dark Mode Toggle set as onClick function within iconbutton, pulls from global state*/}
+          <IconButton>
             {theme.palette.mode === "dark" ? (
               <DarkMode sx={{ fontSize: "25px" }} />
             ) : (
               <LightMode sx={{ color: dark, fontSize: "25px" }} />
             )}
           </IconButton>
+          <Message sx={{ fontSize: "25px" }} />
+          <Notifications sx={{ fontSize: "25px" }} />
+          <Help sx={{ fontSize: "25px" }} />
+          {/* TO DO: Set userName in global state on login */}
+          <FormControl variant="standard" value={userName}>
+            <Select
+              value={userName}
+              sx={{
+                backgroundColor: neutralLight,
+                width: "150px",
+                borderRadius: "0.25rem",
+                p: "0.25rem 1rem",
+                "& .MuiSvgIcon-root": {
+                  pr: "0.25rem",
+                  width: "3rem",
+                },
+                "& .MuiSvgIcon-root": {
+                  backgroundColor: neutralLight,
+                },
+              }}
+              input={<InputBase />}
+            >
+              <MenuItem value={userName}>
+                <Typography>{userName}</Typography>
+              </MenuItem>
+
+              <MenuItem>Log Out</MenuItem>
+            </Select>
+          </FormControl>
         </FlexBetween>
       ) : (
-        <IconButton></IconButton>
+        <IconButton
+          onClick={() => setIsMobileMenuToggled(!isMobileMenuToggled)}
+        ></IconButton>
       )}
     </FlexBetween>
   );
