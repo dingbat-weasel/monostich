@@ -43,7 +43,9 @@ const typeDefs = gql`
   #   }
 
   # type: Auth {}
-  # type: Query {}
+  type Query {
+    users: [User]
+  }
   # type: Mutation {}
 `;
 
