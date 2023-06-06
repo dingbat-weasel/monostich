@@ -24,25 +24,8 @@ const poemSchema = new Schema({
     // getter that formats date/time with util function
     // get: (timestamp) => dateFormat(timestamp),
   },
-  comments: [
-    {
-      commentText: {
-        type: String,
-        required: true,
-        minlength: 1,
-        maxlength: 280,
-      },
-      commentAuthor: {
-        type: String,
-        required: true,
-      },
-      createdAt: {
-        type: Date,
-        default: Date.now,
-        // same getter to format date obj
-      },
-    },
-  ],
+  // LIKES: Array of Likes, '[likedBy: user_id, ...]'
+  // COMMENTS: text, author, createdAt
 });
 
 const Poem = model("Poem", poemSchema);
