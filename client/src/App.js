@@ -16,7 +16,7 @@ import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 // import pages and components here
-// import Home from "./pages/Home/Home.jsx";
+import Home from "./pages/Home/Home.jsx";
 // ...
 
 // GraphQL API Endpoint
@@ -48,7 +48,11 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 function App() {
   return (
     // <ApolloProvider client={client}>
-    <Router></Router>
+    <Router>
+      <Routes>
+        <Route path="/" element={<Home />} />
+      </Routes>
+    </Router>
     // </ApolloProvider>
   );
 }
