@@ -5,7 +5,8 @@ import {
   ApolloProvider,
   createHttpLink,
 } from "@apollo/client";
-import { setContext } from "@apollo/client";
+// Use with JWT Token
+// import { setContext } from "@apollo/client";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 // import pages and components here
