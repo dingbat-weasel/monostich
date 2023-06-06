@@ -1,7 +1,14 @@
-import React from "react";
+import React, { Fragment } from "react";
+import { AppBar, Typography } from "@mui/material";
 
 const Navbar = () => {
-  return <div>Navbar</div>;
+  return (
+    <Fragment>
+      <AppBar>
+        <Typography>NavBar</Typography>
+      </AppBar>
+    </Fragment>
+  );
 };
 
 export default Navbar;
