@@ -50,6 +50,7 @@ import Navbar from "./components/Navbar/Navbar.jsx";
 // });
 
 function App() {
+  // TO DO: Attach this mode to global state and give toggle widget to user (light/dark)
   const mode = "light";
   const theme = React.useMemo(() => createTheme(themeSettings(mode)), [mode]);
 
