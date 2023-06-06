@@ -17,6 +17,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 // import pages and components here
 import Home from "./pages/Home/Home.jsx";
+import Navbar from "./components/Navbar/Navbar.jsx";
 // ...
 
 // GraphQL API Endpoint
@@ -49,6 +50,7 @@ function App() {
   return (
     // <ApolloProvider client={client}>
     <Router>
+      <Navbar />
       <Routes>
         <Route path="/" element={<Home />} />
       </Routes>
@@ -58,3 +60,6 @@ function App() {
 }
 
 export default App;
+
+// Notes
+// MUI can be customized with react-router in some fancy way: https://mui.com/material-ui/guides/routing/
