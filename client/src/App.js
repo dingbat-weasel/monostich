@@ -14,6 +14,9 @@ import React from "react";
 // Use with JWT Token
 // import { setContext } from "@apollo/client";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { CssBaseline, ThemeProvider } from "@mui/material";
+import { createTheme } from "@mui/material/styles";
+import { themeSettings } from "./assets/theme.js";
 
 // import pages and components here
 import Home from "./pages/Home/Home.jsx";
@@ -47,13 +50,19 @@ import Navbar from "./components/Navbar/Navbar.jsx";
 // });
 
 function App() {
+  const mode = "light";
+  const theme = React.useMemo(() => createTheme(themeSettings(mode)), [mode]);
+
   return (
     // <ApolloProvider client={client}>
     <Router>
-      <Navbar />
-      <Routes>
-        <Route path="/" element={<Home />} />
-      </Routes>
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
+        <Navbar />
+        <Routes>
+          <Route path="/" element={<Home />} />
+        </Routes>
+      </ThemeProvider>
     </Router>
     // </ApolloProvider>
   );
