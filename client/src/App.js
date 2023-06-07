@@ -21,6 +21,7 @@ import { themeSettings } from "./assets/theme.js";
 // import pages and components here
 import Home from "./pages/Home/Home.jsx";
 import Navbar from "./components/Navbar/Navbar.jsx";
+import PersistentDrawerLeft from "./components/Navbar/Drawer.jsx";
 // ...
 
 // GraphQL API Endpoint
@@ -59,7 +60,7 @@ function App() {
     <Router>
       <ThemeProvider theme={theme}>
         <CssBaseline />
-        <Navbar />
+        <PersistentDrawerLeft />
         <Routes>
           <Route path="/" element={<Home />} />
         </Routes>

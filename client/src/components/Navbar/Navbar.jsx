@@ -89,6 +89,7 @@ function Navbar() {
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           {/* TO DO: Logo here instead */}
+          {/* Logo at md+ */}
           <Typography
             variant="h6"
             noWrap
@@ -107,6 +108,7 @@ function Navbar() {
             Monostich
           </Typography>
 
+          {/* Hamburger left-side at md- */}
           <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
             <IconButton
               size="large"
@@ -144,6 +146,7 @@ function Navbar() {
               <Notifications sx={{ fontSize: "25px" }} />
             </Menu>
           </Box>
+
           <Typography
             variant="h5"
             noWrap
@@ -162,7 +165,7 @@ function Navbar() {
           >
             Monostich
           </Typography>
-          <Search>
+          <Search display={{ xs: "none", md: "flex" }}>
             <SearchIconWrapper>
               <SearchIcon />
             </SearchIconWrapper>
