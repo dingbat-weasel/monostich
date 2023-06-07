@@ -29,6 +29,10 @@ import BookmarkIcon from "@mui/icons-material/Bookmark";
 
 // animations on like, comment, save
 
+// Shift user info to its own component and render it as a prop on Main?
+// Then poemcard can be reused on profiles with minimal changes
+// Or just move poem card to Home dir and copy it for profile
+
 export default function PoemCard({ poem }) {
   return (
     <Card sx={{ minWidth: 275, my: 4 }}>
