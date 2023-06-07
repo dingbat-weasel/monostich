@@ -40,6 +40,17 @@ function a11yProps(index) {
   };
 }
 
+const poemObj = {
+  poemTitle: "Here is my title",
+  poemText: ["Here", "is", "my", "poem", "text", "!"],
+  poemAuthor: "Some user name from user.id",
+  authorImg: "A",
+  createdAt: "Wed, June 7 2023 at 12:00pm",
+  likeCount: 30,
+  commentCount: 5,
+  saveCount: 4,
+};
+
 export default function Main() {
   const [value, setValue] = React.useState(0);
 
@@ -60,7 +71,16 @@ export default function Main() {
         </Tabs>
       </Box>
       <TabPanel value={value} index={0}>
-        <PoemCard />
+        <PoemCard
+          poemTitle={poemObj.poemTitle}
+          poemContent={poemObj.poemText}
+          likeCount={poemObj.likeCount}
+          commentCount={poemObj.commentCount}
+          saveCount={poemObj.saveCount}
+          authorName={poemObj.poemAuthor}
+          authorImg={poemObj.authorImg}
+          createdAtDate={poemObj.createdAt}
+        />
       </TabPanel>
       <TabPanel value={value} index={1}>
         Item Two
