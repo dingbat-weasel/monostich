@@ -1,24 +1,26 @@
 import * as React from "react";
-import { styled } from "@mui/material/styles";
 import Card from "@mui/material/Card";
 import CardHeader from "@mui/material/CardHeader";
-import CardMedia from "@mui/material/CardMedia";
+
 import CardContent from "@mui/material/CardContent";
 import CardActions from "@mui/material/CardActions";
 
-import Collapse from "@mui/material/Collapse";
 import Avatar from "@mui/material/Avatar";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
-import { red } from "@mui/material/colors";
+
 import FavoriteIcon from "@mui/icons-material/Favorite";
-import ShareIcon from "@mui/icons-material/Share";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+
 import MoreVertIcon from "@mui/icons-material/MoreVert";
-import { Box, Container, Divider } from "@mui/material";
-import { Paper } from "@mui/material";
+import { Box, Container } from "@mui/material";
+
 import ModeCommentIcon from "@mui/icons-material/ModeComment";
 import BookmarkIcon from "@mui/icons-material/Bookmark";
+
+// TO DO:
+// This poemcard needs to be configured to read from data coming in
+// Variable names will need to be changed to match data structures,
+// DS will need to be mapped over with map()
 
 export default function PoemCard({ poem }) {
   return (
