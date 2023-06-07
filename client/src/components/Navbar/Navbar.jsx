@@ -13,11 +13,14 @@ import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import SearchIcon from "@mui/icons-material/Search";
-import { Notifications } from "@mui/icons-material";
+import { Create, Notifications } from "@mui/icons-material";
 import InputBase from "@mui/material/InputBase";
+import CreateIcon from "@mui/icons-material/Create";
+import NotificationsIcon from "@mui/icons-material/Notifications";
 
-const pages = ["Notifications", "Dark/Light Toggle"];
-const settings = ["Profile", "Logout"];
+const pages = ["Profile", "Notifications", "Dark/Light Toggle", "Logout"];
+const navItemsAtLargeScreen = ["Create Poem", "Notifications"];
+const settings = ["Profile", "Dark/Light Toggle", "Logout"];
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -109,7 +112,7 @@ function Navbar() {
           </Typography>
 
           {/* Hamburger left-side at md- */}
-          <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
+          <Box sx={{ flexGrow: 0, display: { xs: "flex", md: "none" } }}>
             <IconButton
               size="large"
               aria-label="account of current user"
@@ -143,7 +146,6 @@ function Navbar() {
                   <Typography textAlign="center">{page}</Typography>
                 </MenuItem>
               ))}
-              <Notifications sx={{ fontSize: "25px" }} />
             </Menu>
           </Box>
 
@@ -153,9 +155,9 @@ function Navbar() {
             component="a"
             href=""
             sx={{
-              mr: 2,
               display: { xs: "flex", md: "none" },
               flexGrow: 1,
+              justifyContent: "center",
               fontFamily: "monospace",
               fontWeight: 700,
               letterSpacing: ".3rem",
@@ -165,28 +167,56 @@ function Navbar() {
           >
             Monostich
           </Typography>
-          <Search display={{ xs: "none", md: "flex" }}>
-            <SearchIconWrapper>
-              <SearchIcon />
-            </SearchIconWrapper>
-            <StyledInputBase
-              placeholder="Search…"
-              inputProps={{ "aria-label": "search" }}
-            />
-          </Search>
-          <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-            {pages.map((page) => (
-              <Button
-                key={page}
-                onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: "white", display: "block" }}
+          <Box sx={{ flexGrow: 0, display: { xs: "flex", md: "none" } }}>
+            <IconButton
+              size="large"
+              aria-label="account of current user"
+              aria-controls="menu-appbar"
+              aria-haspopup="true"
+              onClick={handleOpenNavMenu}
+              color="inherit"
+            >
+              <CreateIcon />
+            </IconButton>
+          </Box>
+          <Box
+            sx={{
+              justifyContent: "flex-end",
+              flexGrow: 1,
+              display: { xs: "none", md: "flex" },
+            }}
+          >
+            <Box
+              sx={{ p: 1, flexGrow: 0, display: { xs: "none", md: "flex" } }}
+            >
+              <IconButton
+                size="large"
+                aria-label="create new poem"
+                aria-controls="menu-appbar"
+                aria-haspopup="true"
+                onClick={handleOpenNavMenu}
+                color="inherit"
               >
-                {page}
-              </Button>
-            ))}
+                <CreateIcon />
+              </IconButton>
+            </Box>
+            <Box
+              sx={{ p: 1, flexGrow: 0, display: { xs: "none", md: "flex" } }}
+            >
+              <IconButton
+                size="large"
+                aria-label="notifications page"
+                aria-controls="menu-appbar"
+                aria-haspopup="false"
+                onClick={handleOpenNavMenu}
+                color="inherit"
+              >
+                <NotificationsIcon />
+              </IconButton>
+            </Box>
           </Box>
 
-          <Box sx={{ flexGrow: 0 }}>
+          <Box sx={{ p: 1, flexGrow: 0, display: { xs: "none", md: "flex" } }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                 <Avatar alt={userName} src={profilePicture} />

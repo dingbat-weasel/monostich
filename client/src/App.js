@@ -60,7 +60,7 @@ function App() {
     <Router>
       <ThemeProvider theme={theme}>
         <CssBaseline />
-        <PersistentDrawerLeft />
+        <Navbar />
         <Routes>
           <Route path="/" element={<Home />} />
         </Routes>
