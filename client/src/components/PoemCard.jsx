@@ -22,9 +22,16 @@ import BookmarkIcon from "@mui/icons-material/Bookmark";
 // Variable names will need to be changed to match data structures,
 // DS will need to be mapped over with map()
 
+// Actual styling of poem tile array
+// Cleanup of all styles
+
+// username clickable
+
+// animations on like, comment, save
+
 export default function PoemCard({ poem }) {
   return (
-    <Card sx={{ minWidth: 275 }}>
+    <Card sx={{ minWidth: 275, my: 4 }}>
       <CardHeader
         title={poem.poemTitle}
         action={

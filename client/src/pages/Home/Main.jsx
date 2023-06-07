@@ -76,6 +76,8 @@ export default function Main() {
       </Box>
       <TabPanel value={value} index={0}>
         <PoemCard poem={poem} />
+        <PoemCard poem={poem} />
+        <PoemCard poem={poem} />
       </TabPanel>
       <TabPanel value={value} index={1}>
         Item Two
