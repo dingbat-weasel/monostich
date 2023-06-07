@@ -5,7 +5,7 @@ import { styled } from "@mui/material/styles";
 
 import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Grid";
-import { Box, Container } from "@mui/material";
+import { TextField } from "@mui/material";
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
@@ -21,9 +21,8 @@ const Home = () => {
 
       <Grid container>
         {/* Top Spacing */}
-        <Grid item xs={12} md={12}>
-          <Item>xs=12 md=12</Item>
-        </Grid>
+        <Grid item xs={12} m={4}></Grid>
+        {/* Page */}
         <Grid container mx={{ xs: 2, md: 6, lg: 10 }}>
           {/* Main Container */}
           <Grid item xs={12} md={8}>
