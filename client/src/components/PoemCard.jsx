@@ -20,20 +20,11 @@ import { Paper } from "@mui/material";
 import ModeCommentIcon from "@mui/icons-material/ModeComment";
 import BookmarkIcon from "@mui/icons-material/Bookmark";
 
-export default function PoemCard({
-  poemTitle,
-  poemContent,
-  likeCount,
-  commentCount,
-  saveCount,
-  authorName,
-  authorImg,
-  createdAtDate,
-}) {
+export default function PoemCard({ poem }) {
   return (
     <Card sx={{ minWidth: 275 }}>
       <CardHeader
-        title={poemTitle}
+        title={poem.poemTitle}
         action={
           <IconButton aria-label="settings">
             <MoreVertIcon />
@@ -41,7 +32,7 @@ export default function PoemCard({
         }
       />
       <CardContent>
-        <Container>{poemContent}</Container>
+        <Container>{poem.poemText}</Container>
       </CardContent>
       <CardActions
         sx={{
@@ -60,13 +51,15 @@ export default function PoemCard({
           }}
         >
           <CardHeader
-            avatar={<Avatar aria-label="user-photo" src={authorImg}></Avatar>}
-            title={authorName}
+            avatar={
+              <Avatar aria-label="user-photo" src={poem.authorImg}></Avatar>
+            }
+            title={poem.poemAuthor}
           />
         </Box>
       </CardActions>
       <Box sx={{ display: "flex", justifyContent: "end" }}>
-        <Typography pr={1}>{createdAtDate}</Typography>
+        <Typography pr={1}>{poem.createdAt}</Typography>
       </Box>
       <Box
         idth="100%"
@@ -75,15 +68,15 @@ export default function PoemCard({
         <IconButton aria-label="like" sx={{ p: 2 }}>
           <FavoriteIcon />
         </IconButton>
-        <Typography p={2}>{likeCount}</Typography>
+        <Typography p={2}>{poem.likeCount}</Typography>
         <IconButton aria-label="comment" sx={{ p: 2 }}>
           <ModeCommentIcon />
         </IconButton>
-        <Typography p={2}>{commentCount}</Typography>
+        <Typography p={2}>{poem.commentCount}</Typography>
         <IconButton aria-label="add-to-saved" sx={{ p: 2 }}>
           <BookmarkIcon />
         </IconButton>
-        <Typography p={2}>{saveCount}</Typography>
+        <Typography p={2}>{poem.saveCount}</Typography>
       </Box>
     </Card>
   );
