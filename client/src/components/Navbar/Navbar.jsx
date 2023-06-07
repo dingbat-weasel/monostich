@@ -21,6 +21,11 @@ const pages = ["Profile", "Notifications", "Dark/Light Toggle", "Logout"];
 const navItemsAtLargeScreen = ["Create Poem", "Notifications"];
 const settings = ["Profile", "Dark/Light Toggle", "Logout"];
 
+// TO DO:
+// Nav will need to change based on state, light/dark mode toggles, colors etc
+// But also if user is logged in/out
+// if not signed in: Only render create poem icon, d/l toggle, and login/signup options
+
 function Navbar() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
