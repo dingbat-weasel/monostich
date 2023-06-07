@@ -94,14 +94,13 @@ function Navbar() {
           {/* TO DO: Logo here instead */}
           {/* Logo at md+ */}
           <Typography
-            variant="h6"
+            variant="poemTile"
             noWrap
             component="a"
             href="/"
             sx={{
               mr: 2,
               display: { xs: "none", md: "flex" },
-              fontFamily: "monospace",
               fontWeight: 700,
               letterSpacing: ".3rem",
               color: "inherit",
@@ -150,7 +149,7 @@ function Navbar() {
           </Box>
 
           <Typography
-            variant="h5"
+            variant="poemTile"
             noWrap
             component="a"
             href=""
@@ -158,7 +157,6 @@ function Navbar() {
               display: { xs: "flex", md: "none" },
               flexGrow: 1,
               justifyContent: "center",
-              fontFamily: "monospace",
               fontWeight: 700,
               letterSpacing: ".3rem",
               color: "inherit",
