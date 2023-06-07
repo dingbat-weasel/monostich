@@ -13,9 +13,10 @@ import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import SearchIcon from "@mui/icons-material/Search";
+import { Notifications } from "@mui/icons-material";
 import InputBase from "@mui/material/InputBase";
 
-const pages = ["Products", "Pricing", "Blog"];
+const pages = ["Notifications", "Dark/Light Toggle"];
 const settings = ["Profile", "Logout"];
 
 const Search = styled("div")(({ theme }) => ({
@@ -140,6 +141,7 @@ function Navbar() {
                   <Typography textAlign="center">{page}</Typography>
                 </MenuItem>
               ))}
+              <Notifications sx={{ fontSize: "25px" }} />
             </Menu>
           </Box>
           <Typography
