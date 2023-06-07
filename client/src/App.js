@@ -22,6 +22,7 @@ import { themeSettings } from "./assets/theme.js";
 // import pages and components here
 import Home from "./pages/Home/Home.jsx";
 import Signin from "./pages/Signin/Signin.jsx";
+import Signup from "./pages/Signup/Signup.jsx";
 // ...
 
 // GraphQL API Endpoint
@@ -63,6 +64,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/signin" element={<Signin />} />
+          <Route path="/signup" element={<Signup />} />
         </Routes>
       </ThemeProvider>
     </Router>
