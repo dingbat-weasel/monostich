@@ -14,13 +14,15 @@ import React from "react";
 // Use with JWT Token
 // import { setContext } from "@apollo/client";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+
 import { CssBaseline, ThemeProvider } from "@mui/material";
 import { createTheme } from "@mui/material/styles";
 import { themeSettings } from "./assets/theme.js";
 
 // import pages and components here
 import Home from "./pages/Home/Home.jsx";
-import Navbar from "./components/Navbar/Navbar.jsx";
+import Signin from "./pages/Signin/Signin.jsx";
+import Signup from "./pages/Signup/Signup.jsx";
 // ...
 
 // GraphQL API Endpoint
@@ -59,9 +61,10 @@ function App() {
     <Router>
       <ThemeProvider theme={theme}>
         <CssBaseline />
-        <Navbar />
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/signin" element={<Signin />} />
+          <Route path="/signup" element={<Signup />} />
         </Routes>
       </ThemeProvider>
     </Router>

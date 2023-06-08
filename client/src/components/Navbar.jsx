@@ -9,57 +9,22 @@ import Menu from "@mui/material/Menu";
 import MenuIcon from "@mui/icons-material/Menu";
 import Container from "@mui/material/Container";
 import Avatar from "@mui/material/Avatar";
-import Button from "@mui/material/Button";
+
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
-import SearchIcon from "@mui/icons-material/Search";
-import { Notifications } from "@mui/icons-material";
+import { Create, Notifications } from "@mui/icons-material";
 import InputBase from "@mui/material/InputBase";
+import CreateIcon from "@mui/icons-material/Create";
+import NotificationsIcon from "@mui/icons-material/Notifications";
 
-const pages = ["Notifications", "Dark/Light Toggle"];
-const settings = ["Profile", "Logout"];
+const pages = ["Profile", "Notifications", "Dark/Light Toggle", "Logout"];
+const navItemsAtLargeScreen = ["Create Poem", "Notifications"];
+const settings = ["Profile", "Dark/Light Toggle", "Logout"];
 
-const Search = styled("div")(({ theme }) => ({
-  position: "relative",
-  borderRadius: theme.shape.borderRadius,
-  backgroundColor: alpha(theme.palette.common.white, 0.15),
-  "&:hover": {
-    backgroundColor: alpha(theme.palette.common.white, 0.25),
-  },
-  marginLeft: 0,
-  width: "100%",
-  [theme.breakpoints.up("sm")]: {
-    marginLeft: theme.spacing(1),
-    width: "auto",
-  },
-}));
-
-const SearchIconWrapper = styled("div")(({ theme }) => ({
-  padding: theme.spacing(0, 2),
-  height: "100%",
-  position: "absolute",
-  pointerEvents: "none",
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "center",
-}));
-
-const StyledInputBase = styled(InputBase)(({ theme }) => ({
-  color: "inherit",
-  "& .MuiInputBase-input": {
-    padding: theme.spacing(1, 1, 1, 0),
-    // vertical padding + font size from searchIcon
-    paddingLeft: `calc(1em + ${theme.spacing(4)})`,
-    transition: theme.transitions.create("width"),
-    width: "100%",
-    [theme.breakpoints.up("sm")]: {
-      width: "12ch",
-      "&:focus": {
-        width: "20ch",
-      },
-    },
-  },
-}));
+// TO DO:
+// Nav will need to change based on state, light/dark mode toggles, colors etc
+// But also if user is logged in/out
+// if not signed in: Only render create poem icon, d/l toggle, and login/signup options
 
 function Navbar() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -89,15 +54,15 @@ function Navbar() {
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           {/* TO DO: Logo here instead */}
+          {/* Logo at md+ */}
           <Typography
-            variant="h6"
+            variant="poemTile"
             noWrap
             component="a"
             href="/"
             sx={{
               mr: 2,
               display: { xs: "none", md: "flex" },
-              fontFamily: "monospace",
               fontWeight: 700,
               letterSpacing: ".3rem",
               color: "inherit",
@@ -107,7 +72,8 @@ function Navbar() {
             Monostich
           </Typography>
 
-          <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
+          {/* Hamburger left-side at md- */}
+          <Box sx={{ flexGrow: 0, display: { xs: "flex", md: "none" } }}>
             <IconButton
               size="large"
               aria-label="account of current user"
@@ -141,19 +107,18 @@ function Navbar() {
                   <Typography textAlign="center">{page}</Typography>
                 </MenuItem>
               ))}
-              <Notifications sx={{ fontSize: "25px" }} />
             </Menu>
           </Box>
+
           <Typography
-            variant="h5"
+            variant="poemTile"
             noWrap
             component="a"
             href=""
             sx={{
-              mr: 2,
               display: { xs: "flex", md: "none" },
               flexGrow: 1,
-              fontFamily: "monospace",
+              justifyContent: "center",
               fontWeight: 700,
               letterSpacing: ".3rem",
               color: "inherit",
@@ -162,28 +127,56 @@ function Navbar() {
           >
             Monostich
           </Typography>
-          <Search>
-            <SearchIconWrapper>
-              <SearchIcon />
-            </SearchIconWrapper>
-            <StyledInputBase
-              placeholder="Search…"
-              inputProps={{ "aria-label": "search" }}
-            />
-          </Search>
-          <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-            {pages.map((page) => (
-              <Button
-                key={page}
-                onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: "white", display: "block" }}
+          <Box sx={{ flexGrow: 0, display: { xs: "flex", md: "none" } }}>
+            <IconButton
+              size="large"
+              aria-label="account of current user"
+              aria-controls="menu-appbar"
+              aria-haspopup="true"
+              onClick={handleOpenNavMenu}
+              color="inherit"
+            >
+              <CreateIcon />
+            </IconButton>
+          </Box>
+          <Box
+            sx={{
+              justifyContent: "flex-end",
+              flexGrow: 1,
+              display: { xs: "none", md: "flex" },
+            }}
+          >
+            <Box
+              sx={{ p: 1, flexGrow: 0, display: { xs: "none", md: "flex" } }}
+            >
+              <IconButton
+                size="large"
+                aria-label="create new poem"
+                aria-controls="menu-appbar"
+                aria-haspopup="true"
+                onClick={handleOpenNavMenu}
+                color="inherit"
               >
-                {page}
-              </Button>
-            ))}
+                <CreateIcon />
+              </IconButton>
+            </Box>
+            <Box
+              sx={{ p: 1, flexGrow: 0, display: { xs: "none", md: "flex" } }}
+            >
+              <IconButton
+                size="large"
+                aria-label="notifications page"
+                aria-controls="menu-appbar"
+                aria-haspopup="false"
+                onClick={handleOpenNavMenu}
+                color="inherit"
+              >
+                <NotificationsIcon />
+              </IconButton>
+            </Box>
           </Box>
 
-          <Box sx={{ flexGrow: 0 }}>
+          <Box sx={{ p: 1, flexGrow: 0, display: { xs: "none", md: "flex" } }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                 <Avatar alt={userName} src={profilePicture} />

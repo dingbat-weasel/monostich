@@ -74,6 +74,13 @@ export const themeSettings = (mode) => {
           }),
     },
     typography: {
+      poemTile: {
+        fontFamily: ["EB Garamond", "serif"].join(","),
+        fontSize: 14,
+      },
+      // globalVariant: {
+      //   fontSize: "1rem",
+      // },
       fontFamily: ["Roboto", "sans-serif"].join(","),
       fontSize: 12,
       h1: {
