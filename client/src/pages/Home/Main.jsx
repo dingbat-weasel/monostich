@@ -7,6 +7,12 @@ import Box from "@mui/material/Box";
 
 import PoemCard from "../../components/PoemCard";
 
+// TO DO:
+// Poem cards need to be mapped to tabs from data
+// All link functionality
+// Search bar and functionality
+// Need clear loggedIn version and loggedOut version (No following tab?)
+
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
 
@@ -75,12 +81,21 @@ export default function Main() {
         </Tabs>
       </Box>
       <TabPanel value={value} index={0}>
+        {/* Example for now, needs to be dynamically rendered */}
+        <PoemCard poem={poem} />
+        <PoemCard poem={poem} />
+        <PoemCard poem={poem} />
+        <PoemCard poem={poem} />
+        <PoemCard poem={poem} />
+        <PoemCard poem={poem} />
         <PoemCard poem={poem} />
         <PoemCard poem={poem} />
         <PoemCard poem={poem} />
       </TabPanel>
       <TabPanel value={value} index={1}>
-        Item Two
+        <PoemCard poem={poem} />
+        <PoemCard poem={poem} />
+        <PoemCard poem={poem} />
       </TabPanel>
     </Box>
   );
