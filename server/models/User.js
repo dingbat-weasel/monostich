@@ -64,6 +64,16 @@ userSchema.pre("save", function (next) {
   }
 });
 
+UserSchema.methods.isCorrectPassword = function (password, callback) {
+  bcrypt.compare(password, this.password, function (error, isMatch) {
+    if (error) {
+      return callback(error);
+    } else {
+      callback(null, isMatch);
+    }
+  });
+};
+
 // To Do: BCRYPT PASSWORD
 // pre-save on schema that hashes function
 // This is from activity, needs look-over to make sure its good
