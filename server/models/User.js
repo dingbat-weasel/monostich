@@ -1,5 +1,5 @@
 const { Schema, model } = require("mongoose");
-// const bcrypt = require("bcrypt");
+const bcrypt = require("bcrypt");
 
 const userSchema = new Schema({
   username: {
@@ -23,6 +23,8 @@ const userSchema = new Schema({
     required: true,
     minlength: 5,
   },
+
+
   // TO DO?:  mongoose supports storing arrays and arrays of strings, arrays of other schemas. What is the optimal way to store our poems in the db? https://mongoosejs.com/docs/schematypes.html#arrays
   // Poems will be saved as an array of strings ["", "", ...], before we were stringify that array to save it as one string then parsing later to use. This maintains the distinct tiles which is needed for styling during client side rendering. Do we still need to stringify and parse? Just some thoughts -isaac
   poems: [
@@ -39,6 +41,42 @@ const userSchema = new Schema({
     },
   ],
 });
+
+
+userSchema.pre("save", function (next) {
+  const user = this;
+
+  if (this.isModified("password") || this.isNew) {
+    bcrypt.genSalt(10, function (saltError, salt) {
+      if (saltError) {
+        return next(saltError);
+      } else {
+        bcrypt.hash(user.password, salt, function (hashError, hash) {
+          if (hashError) {
+            return next(hashError);
+          }
+
+          user.password = hash;
+          next();
+        });
+      }
+    });
+  } else {
+    return next();
+  }
+});
+
+UserSchema.methods.isCorrectPassword = function (password, callback) {
+  bcrypt.compare(password, this.password, function (error, isMatch) {
+    if (error) {
+      return callback(error);
+    } else {
+      callback(null, isMatch);
+    }
+  });
+};
+
+
 
 // To Do: BCRYPT PASSWORD
 // pre-save on schema that hashes function
