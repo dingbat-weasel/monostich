@@ -4,7 +4,8 @@ import PoemCard from "../../components/PoemCard";
 
 // TO DO:
 // Logic for rendering TOP poems (most likes?)
-//
+// Create a separate poemCard component that fits better here,
+// Smaller and cleaner, title poem and author?
 
 const poem = {
   poemTitle: "Here is my title",
