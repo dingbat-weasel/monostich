@@ -26,12 +26,12 @@ const Home = () => {
         {/* Page */}
         <Grid container mx={{ xs: 2, md: 6, lg: 10 }}>
           {/* Main Container */}
-          <Grid item xs={12} md={8}>
+          <Grid item xs={12} lg={8}>
             <Main />
           </Grid>
 
           {/* Sidebar Container */}
-          <Grid item md={4} sx={{ display: { xs: "none", md: "grid" } }}>
+          <Grid item xs={0} lg={4}>
             <Sidebar />
           </Grid>
         </Grid>

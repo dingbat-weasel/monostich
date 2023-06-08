@@ -21,6 +21,7 @@ import { themeSettings } from "./assets/theme.js";
 
 // import pages and components here
 import Home from "./pages/Home/Home.jsx";
+import Profile from "./pages/Profile/Profile.jsx";
 import Signin from "./pages/Signin/Signin.jsx";
 import Signup from "./pages/Signup/Signup.jsx";
 // ...
@@ -63,6 +64,7 @@ function App() {
         <CssBaseline />
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/profile" element={<Profile />} />
           <Route path="/signin" element={<Signin />} />
           <Route path="/signup" element={<Signup />} />
         </Routes>
