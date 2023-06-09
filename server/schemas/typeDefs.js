@@ -23,10 +23,10 @@ const typeDefs = gql`
     createdAt: String
   }
 
-    type Like {
-      _id: ID
-      likedBy: User
-    }
+  type Like {
+    _id: ID
+    likedBy: User
+  }
 
   type Comment {
     # module 24 in MERN, has _id made but not as a schema in the models.
@@ -46,20 +46,16 @@ const typeDefs = gql`
   type Query {
     users: [User]
     user(username: String!): User
-    poems(username:String): [Poem]
+    poems(username: String): [Poem]
     poem(poemId: ID!): poem
   }
 
   #look out for auth here, still needs saves
   type Mutation {
-    addUser(username:String!, email: String!, password: String!): Auth
+    addUser(username: String!, email: String!, password: String!): Auth
     login(email: String!, password: String!): Auth
     addPoem(poemText: String!, poemAuthor: ID!): Poem
-    addComment(
-      poemId: ID!
-      commentText: String!
-      commentAuthor: ID!
-    ): Poem
+    addComment(poemId: ID!, commentText: String!, commentAuthor: ID!): Poem
     removePoem(poemId: ID!): Poem
     removeComment(poemId: ID!, commentId: ID!): Poem
     addLike(poemId: ID!, likedBy: ID!): Poem
