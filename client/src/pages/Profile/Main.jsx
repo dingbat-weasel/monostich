@@ -8,6 +8,10 @@ import Box from "@mui/material/Box";
 import PoemCard from "../../components/PoemCard";
 import { Grid } from "@mui/material";
 
+import { useQuery } from "@apollo/client";
+import { useParams } from "react-router-dom";
+import { QUERY_USER_POEMS } from "../../utils/queries";
+
 // TO DO:
 // Poem cards need to be mapped to tabs from data
 // All link functionality
@@ -60,8 +64,15 @@ const poem = {
   authorImg: "A",
 };
 
-export default function Main({ user }) {
+export default function Main() {
   const [value, setValue] = React.useState(0);
+  const { username } = useParams();
+
+  const { loading, data } = useQuery(QUERY_USER_POEMS, {
+    variables: { username: username },
+  });
+  const poems = data?.user.poems || [];
+  console.log(poems);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -70,12 +81,8 @@ export default function Main({ user }) {
   return (
     <Grid container>
       <Grid item>
-        <Typography
-          variant="h1"
-          display={{ xs: "none", md: "block" }}
-          user={user}
-        >
-          {user.username}
+        <Typography variant="h1" display={{ xs: "none", md: "block" }}>
+          User name
         </Typography>
       </Grid>
       <Grid item xs={12}>
@@ -92,21 +99,9 @@ export default function Main({ user }) {
           </Box>
           <TabPanel value={value} index={0}>
             {/* Example for now, needs to be dynamically rendered */}
-            <PoemCard poem={poem} />
-            <PoemCard poem={poem} />
-            <PoemCard poem={poem} />
-            <PoemCard poem={poem} />
-            <PoemCard poem={poem} />
-            <PoemCard poem={poem} />
-            <PoemCard poem={poem} />
-            <PoemCard poem={poem} />
-            <PoemCard poem={poem} />
+            {poems && poems.map((poem) => <PoemCard poem={poem} />)}
           </TabPanel>
-          <TabPanel value={value} index={1}>
-            <PoemCard poem={poem} />
-            <PoemCard poem={poem} />
-            <PoemCard poem={poem} />
-          </TabPanel>
+          <TabPanel value={value} index={1}></TabPanel>
         </Box>
       </Grid>
     </Grid>

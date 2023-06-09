@@ -1,6 +1,9 @@
 import * as React from "react";
-import { Grid } from "@mui/material";
 import PropTypes from "prop-types";
+import { useQuery } from "@apollo/client";
+import { useParams } from "react-router-dom";
+
+import { Grid } from "@mui/material";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Typography from "@mui/material/Typography";
@@ -11,9 +14,8 @@ import Navbar from "../../components/Navbar";
 import Main from "./Main";
 import Sidebar from "./Sidebar";
 
-import { useQuery } from "@apollo/client";
 import { QUERY_USER } from "../../utils/queries";
-import { QUERY_USER_USERNAME } from "../../utils/queries";
+import { QUERY_USER_POEMS } from "../../utils/queries";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -61,11 +63,22 @@ const poem = {
 };
 
 const Profile = () => {
+  // Use `useParams()` to retrieve value of the route parameter `:profileId`
+  const { username } = useParams();
+
   const [value, setValue] = React.useState(0);
 
-  const { loading, data } = useQuery(QUERY_USER);
-  const user = data?.user || [];
+  const { loading: userLoading, data: userData } = useQuery(QUERY_USER, {
+    variables: { username: username },
+  });
+  const { loading: poemLoading, data: poemData } = useQuery(QUERY_USER_POEMS, {
+    variables: { username: username },
+  });
+
+  const user = userData?.user || [];
+  const poems = poemData?.user.poems || [];
   console.log(user);
+  console.log(poems);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -85,7 +98,7 @@ const Profile = () => {
 
           {/* Main Container */}
           <Grid item xs={12} md={8}>
-            <Main user={user} />
+            <Main user={user} poems={poems} />
           </Grid>
         </Grid>
       </Grid>
