@@ -47,13 +47,13 @@ const typeDefs = gql`
     users: [User]
     user(username: String!): User
     poems(username: String): [Poem]
-    poem(poemId: ID!): poem
+    poem(poemId: ID!): Poem
   }
 
   #look out for auth here, still needs saves
   type Mutation {
-    addUser(username: String!, email: String!, password: String!):
-    login(email: String!, password: String!):
+    addUser(username: String!, email: String!, password: String!): User
+    login(email: String!, password: String!): User
     addPoem(poemText: String!, poemAuthor: ID!): Poem
     addComment(poemId: ID!, commentText: String!, commentAuthor: ID!): Poem
     removePoem(poemId: ID!): Poem
