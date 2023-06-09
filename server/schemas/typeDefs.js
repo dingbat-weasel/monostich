@@ -21,7 +21,8 @@ const typeDefs = gql`
 
   type Poem {
     _id: ID
-    poemText: String
+    poemTitle: String
+    poemText: [String]
     poemAuthor: ID
     createdAt: String
   }
@@ -32,7 +33,6 @@ const typeDefs = gql`
   }
 
   type Comment {
-    # module 24 in MERN, has _id made but not as a schema in the models.
     _id: ID
     commentText: String
     commentAuthor: String

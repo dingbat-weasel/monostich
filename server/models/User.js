@@ -1,9 +1,9 @@
 const { Schema, model } = require("mongoose");
 const bcrypt = require("bcrypt");
-const validator = require("validator");
 
 // Mongoose automatically generates an _id property to the schema with type ObjectId
 // TO DO: Error handling and conversion to render on client side for user on validation error
+// https://levelup.gitconnected.com/handling-errors-in-mongoose-express-for-display-in-react-d966287f573b
 
 const userSchema = new Schema({
   username: {

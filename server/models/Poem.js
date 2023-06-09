@@ -8,9 +8,13 @@ const poemSchema = new Schema(
       default: "untitled",
       maxlength: 30,
       trim: true,
+      match: [
+        /^[\w\-_\s]*$/,
+        "Poems must be alphanumeric, '-', '_', and spaces are okay. If left blank the poem title will default to 'untitled'.",
+      ],
     },
     poemText: {
-      type: String,
+      type: [String],
       required: true,
       minlength: 1,
       maxlength: 280,
@@ -26,6 +30,12 @@ const poemSchema = new Schema(
       // getter that formats date/time with util function
       get: (timestamp) => dateFormat(timestamp),
     },
+    likes: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "User",
+      },
+    ],
     comments: [
       {
         commentText: {
@@ -46,15 +56,12 @@ const poemSchema = new Schema(
         },
       },
     ],
-    likes: [
+    saves: [
       {
         type: Schema.Types.ObjectId,
         ref: "User",
       },
     ],
-
-    // LIKES: Array of Likes, '[likedBy: user_id, ...]'
-    // COMMENTS: text, author, createdAt
   },
   {
     toJSON: {
@@ -66,6 +73,14 @@ const poemSchema = new Schema(
 
 poemSchema.virtual("likeCount").get(function () {
   return this.likes.length;
+});
+
+poemSchema.virtual("commentCount").get(function () {
+  return this.comments.length;
+});
+
+poemSchema.virtual("saveCount").get(function () {
+  return this.saves.length;
 });
 
 const Poem = model("Poem", poemSchema);
