@@ -19,6 +19,7 @@ const resolvers = {
     user: async (parent, { username }) => {
       return User.findOne({ username }).populate("poems");
     },
+    // Do we need to add .populate() for likes, comments, saves?
     poems: async (parent, { username }) => {
       const params = username ? { username } : {};
       return Poem.find(params).sort({ createdAt: -1 });
