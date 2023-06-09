@@ -25,6 +25,9 @@ const typeDefs = gql`
     poemText: [String]
     poemAuthor: ID
     createdAt: String
+    likes: [Like]!
+    comments: [Comment]!
+    saves: [Save]!
   }
 
   type Like {
@@ -35,13 +38,12 @@ const typeDefs = gql`
   type Comment {
     _id: ID
     commentText: String
-    commentAuthor: String
+    commentAuthor: User
     createdAt: String
   }
 
   type Save {
     _id: ID
-    savedPoem: Poem
     savedBy: User
   }
 
