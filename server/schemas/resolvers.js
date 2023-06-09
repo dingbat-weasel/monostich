@@ -15,6 +15,7 @@ const resolvers = {
     users: async () => {
       return User.find().populate("poems");
     },
+    // Should we use username or _id?
     user: async (parent, { username }) => {
       return User.findOne({ username }).populate("poems");
     },
@@ -28,17 +29,12 @@ const resolvers = {
   },
 
   Mutation: {
-    addUser: async (parent, { username, email, password }) => {
-      const user = await User.create({ username, email, password });
-      //token
-      return { user };
-    },
-    login: async (parent, { username, email, password }) => {
+    login: async (parent, { email, password }) => {
       const user = await User.findOne({ email });
 
       if (!user) {
         //throw new AuthenticationError?
-        throw new console.error("no user found with this email");
+        throw new console.error("No user found with this email");
       }
 
       const correctPw = await user.isCorrectPassword(password);
@@ -49,11 +45,16 @@ const resolvers = {
       //const token
       return { user };
     },
-    addPoem: async (parent, { poemText, poemAuthor }) => {
-      const poem = await Poem.create({ poemText, poemAuthor });
+    addUser: async (parent, { username, email, password }) => {
+      const user = await User.create({ username, email, password });
+      //token
+      return { user };
+    },
+    addPoem: async (parent, { poemTitle, poemText, poemAuthor }) => {
+      const poem = await Poem.create({ poemTitle, poemText, poemAuthor });
 
       await User.findOneAndUpdate(
-        { username: poemAuthor },
+        { _id: poemAuthor },
         { $addToSet: { poems: poem._id } }
       );
       return poem;
@@ -85,15 +86,39 @@ const resolvers = {
         {
           _id: poemId,
         },
-        { $addToSet: { savedBy: savedBy } },
+        { $addToSet: { saves: savedBy } },
         {
           new: true,
           runValidators: true,
         }
       );
     },
+    removeUser: async (parent, { userId }) => {
+      return User.findOneAndDelete({ _id: userId });
+    },
     removePoem: async (parent, { poemId }) => {
       return Poem.findOneAndDelete({ _id: poemId });
+    },
+    removeLike: async (parent, { poemId, likeId }) => {
+      return Poem.findOneAndUpdate(
+        { _id: poemId },
+        { $pull: { likes: { _id: likeId } } },
+        { new: true }
+      );
+    },
+    removeComment: async (parent, { poemId, commentId }) => {
+      return Poem.findOneAndUpdate(
+        { _id: poemId },
+        { $pull: { comments: { _id: commentId } } },
+        { new: true }
+      );
+    },
+    removeSave: async (parent, { poemId, saveId }) => {
+      return Poem.findOneAndUpdate(
+        { _id: poemId },
+        { $pull: { saves: { _id: saveId } } },
+        { new: true }
+      );
     },
   },
 };
