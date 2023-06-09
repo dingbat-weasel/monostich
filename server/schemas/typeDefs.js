@@ -19,20 +19,20 @@ const typeDefs = gql`
   type Poem {
     _id: ID
     poemText: String
-    poemAuthor: String
+    poemAuthor: ID
     createdAt: String
   }
 
-  #   type Like {
-  #     _id: ID
-  #     likedBy: User
-  #   }
+  type Like {
+    _id: ID
+    likedBy: User
+  }
 
   type Comment {
+    # module 24 in MERN, has _id made but not as a schema in the models.
     _id: ID
     commentText: String
     commentAuthor: String
-    # How do dates work? At what point is our date converted from date obj to string?
     createdAt: String
   }
 
@@ -45,8 +45,21 @@ const typeDefs = gql`
   # type: Auth {}
   type Query {
     users: [User]
+    user(username: String!): User
+    poems(username: String): [Poem]
+    poem(poemId: ID!): Poem
   }
-  # type: Mutation {}
+
+  #look out for auth here, still needs saves
+  type Mutation {
+    addUser(username: String!, email: String!, password: String!): User
+    login(email: String!, password: String!): User
+    addPoem(poemText: String!, poemAuthor: ID!): Poem
+    addComment(poemId: ID!, commentText: String!, commentAuthor: ID!): Poem
+    removePoem(poemId: ID!): Poem
+    removeComment(poemId: ID!, commentId: ID!): Poem
+    addLike(poemId: ID!, likedBy: ID!): Poem
+  }
 `;
 
 module.exports = typeDefs;
