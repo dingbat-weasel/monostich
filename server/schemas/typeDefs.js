@@ -36,11 +36,11 @@ const typeDefs = gql`
     createdAt: String
   }
 
-  #   type Save {
-  #     _id: ID
-  #     savedPoem: Poem
-  #     savedBy: User
-  #   }
+  type Save {
+    _id: ID
+    savedPoem: Poem
+    savedBy: User
+  }
 
   # type: Auth {}
   type Query {
