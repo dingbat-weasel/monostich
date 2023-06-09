@@ -14,6 +14,9 @@ const typeDefs = gql`
     email: String
     password: String
     poems: [Poem]
+    likedPoems: [Poem]
+    commentedPoems: [Poem]
+    savedPoems: [Poem]
   }
 
   type Poem {
