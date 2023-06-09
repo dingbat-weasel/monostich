@@ -5,6 +5,10 @@ const { User, Poem } = require("../models");
 
 // TO DO: QUERIES AND MUTATIONS
 
+// TO DO:
+// With our DB we want to store likes, comments, saves on both the poem itself and the user associated. So for example during a mutation in which a user is saving a poem we want to: 1) save a {User} on the poem model in [saves] and 2) save a {Poem} on the user model in [savedPoems].
+// These are two separate operations to the db, how do we accomplish both during one mutation and add that to the resolver code?
+
 //poem or poems in '' ?
 const resolvers = {
   Query: {
@@ -54,6 +58,18 @@ const resolvers = {
       );
       return poem;
     },
+    addLike: async (parent, { poemId, likedBy }) => {
+      return Poem.findOneAndUpdate(
+        {
+          _id: poemId,
+        },
+        { $addToSet: { likes: likedBy } },
+        {
+          new: true,
+          runValidators: true,
+        }
+      );
+    },
     addComment: async (parent, { poemId, commentText, commentAuthor }) => {
       return Poem.findOneAndUpdate(
         { _id: poemId },
@@ -64,12 +80,12 @@ const resolvers = {
         }
       );
     },
-    addLike: async (parent, { poemId, likedBy }) => {
+    addSave: async (parent, { poemId, savedBy }) => {
       return Poem.findOneAndUpdate(
         {
           _id: poemId,
         },
-        { $addToSet: { likedBy: likedBy } },
+        { $addToSet: { savedBy: savedBy } },
         {
           new: true,
           runValidators: true,

@@ -2,10 +2,7 @@ const { gql } = require("apollo-server-express");
 
 // To Do: What needs to be required fields on these types? (Which properties get the '!', Is ID always required?)
 
-// TO DO: LIKES and SAVES
 // To DO: AUTH
-// TO DO: QUERIES
-// TO DO: MUTATIONS
 
 const typeDefs = gql`
   type User {
