@@ -19,7 +19,6 @@ const Home = () => {
   return (
     <>
       <Navbar />
-
       <Grid container>
         {/* Top Spacing */}
         <Grid item xs={12} m={4}></Grid>
