@@ -5,12 +5,7 @@
 // with Context
 
 import React from "react";
-// import {
-//   ApolloClient,
-//   InMemoryCache,
-//   ApolloProvider,
-//   createHttpLink,
-// } from "@apollo/client";
+import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
 // Use with JWT Token
 // import { setContext } from "@apollo/client";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
@@ -26,6 +21,13 @@ import Signin from "./pages/Signin/Signin.jsx";
 import Signup from "./pages/Signup/Signup.jsx";
 import SinglePoem from "./pages/SinglePoem/SinglePoem.jsx";
 // ...
+
+const client = new ApolloClient({
+  uri: "/graphql",
+  cache: new InMemoryCache(),
+});
+
+// AUTH STUFF TO UNCOMMENT LATER
 
 // GraphQL API Endpoint
 // const httpLink = createHttpLink({
@@ -59,20 +61,20 @@ function App() {
   const theme = React.useMemo(() => createTheme(themeSettings(mode)), [mode]);
 
   return (
-    // <ApolloProvider client={client}>
-    <Router>
-      <ThemeProvider theme={theme}>
-        <CssBaseline />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/profile" element={<Profile />} />
-          <Route path="/poem" element={<SinglePoem />} />
-          <Route path="/signin" element={<Signin />} />
-          <Route path="/signup" element={<Signup />} />
-        </Routes>
-      </ThemeProvider>
-    </Router>
-    // </ApolloProvider>
+    <ApolloProvider client={client}>
+      <Router>
+        <ThemeProvider theme={theme}>
+          <CssBaseline />
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/profile" element={<Profile />} />
+            <Route path="/poem" element={<SinglePoem />} />
+            <Route path="/signin" element={<Signin />} />
+            <Route path="/signup" element={<Signup />} />
+          </Routes>
+        </ThemeProvider>
+      </Router>
+    </ApolloProvider>
   );
 }
 

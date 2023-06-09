@@ -8,6 +8,9 @@ import Box from "@mui/material/Box";
 import PoemCard from "../../components/PoemCard";
 import { Grid } from "@mui/material";
 
+import { useQuery } from "@apollo/client";
+import { QUERY_USER_POEMS } from "../../utils/queries";
+
 // TO DO:
 // Poem cards need to be mapped to tabs from data
 // All link functionality
@@ -62,6 +65,9 @@ const poem = {
 
 export default function Main() {
   const [value, setValue] = React.useState(0);
+
+  const { loading, data } = useQuery(QUERY_USER_POEMS);
+  const poems = data?.user.poems || [];
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
