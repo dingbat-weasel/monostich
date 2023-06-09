@@ -24,6 +24,7 @@ import Home from "./pages/Home/Home.jsx";
 import Profile from "./pages/Profile/Profile.jsx";
 import Signin from "./pages/Signin/Signin.jsx";
 import Signup from "./pages/Signup/Signup.jsx";
+import SinglePoem from "./pages/SinglePoem/SinglePoem.jsx";
 // ...
 
 // GraphQL API Endpoint
@@ -65,6 +66,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/profile" element={<Profile />} />
+          <Route path="/poem" element={<SinglePoem />} />
           <Route path="/signin" element={<Signin />} />
           <Route path="/signup" element={<Signup />} />
         </Routes>

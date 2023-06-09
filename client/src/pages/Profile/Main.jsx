@@ -69,10 +69,10 @@ export default function Main() {
 
   return (
     <Grid container>
-      <Grid item xs={12}>
-        <Box>
-          <Typography variant="h1">User Name</Typography>
-        </Box>
+      <Grid item>
+        <Typography variant="h1" display={{ xs: "none", md: "block" }}>
+          User Name
+        </Typography>
       </Grid>
       <Grid item xs={12}>
         <Box sx={{ width: "100%" }}>

@@ -25,6 +25,9 @@ const Sidebar = () => {
             }}
           ></Avatar>
         </Box>
+        <Typography variant="h1" display={{ xs: "block", md: "none" }}>
+          User Name
+        </Typography>
       </Grid>
 
       <Grid item xs={12}>
