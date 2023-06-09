@@ -9,7 +9,8 @@ import PoemCard from "../../components/PoemCard";
 import { Grid } from "@mui/material";
 
 import { useQuery } from "@apollo/client";
-import { QUERY_USER_POEMS } from "../../utils/queries";
+import { QUERY_POEMS_BY_SINGLE_USER } from "../../utils/queries";
+import { QUERY_USER_USERNAME } from "../../utils/queries";
 
 // TO DO:
 // Poem cards need to be mapped to tabs from data
@@ -66,8 +67,9 @@ const poem = {
 export default function Main() {
   const [value, setValue] = React.useState(0);
 
-  const { loading, data } = useQuery(QUERY_USER_POEMS);
-  const poems = data?.user.poems || [];
+  const { loading, data } = useQuery(QUERY_USER_USERNAME);
+  const user = data?.user || [];
+  console.log(user);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -76,8 +78,12 @@ export default function Main() {
   return (
     <Grid container>
       <Grid item>
-        <Typography variant="h1" display={{ xs: "none", md: "block" }}>
-          User Name
+        <Typography
+          variant="h1"
+          display={{ xs: "none", md: "block" }}
+          user={user}
+        >
+          {user.username}
         </Typography>
       </Grid>
       <Grid item xs={12}>
