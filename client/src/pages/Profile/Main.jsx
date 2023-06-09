@@ -6,12 +6,13 @@ import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 
 import PoemCard from "../../components/PoemCard";
+import { Grid } from "@mui/material";
 
 // TO DO:
 // Poem cards need to be mapped to tabs from data
 // All link functionality
 // Search bar and functionality
-// Need clear loggedIn version and loggedOut version (No following tab?)
+// Need clear loggedIn version and loggedOut version (Saved only if loggedIn)
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -20,12 +21,12 @@ function TabPanel(props) {
     <div
       role="tabpanel"
       hidden={value !== index}
-      id={`simple-tabpanel-${index}`}
-      aria-labelledby={`simple-tab-${index}`}
+      id={`tabpanel-${index}`}
+      aria-labelledby={`tab-${index}`}
       {...other}
     >
       {value === index && (
-        <Box sx={{ p: 3 }}>
+        <Box sx={{ p: 2 }}>
           <Typography>{children}</Typography>
         </Box>
       )}
@@ -41,8 +42,8 @@ TabPanel.propTypes = {
 
 function a11yProps(index) {
   return {
-    id: `simple-tab-${index}`,
-    "aria-controls": `simple-tabpanel-${index}`,
+    id: `Tab-${index}`,
+    "aria-controls": `tabpanel-${index}`,
   };
 }
 
@@ -59,8 +60,6 @@ const poem = {
   authorImg: "A",
 };
 
-const user = [];
-
 export default function Main() {
   const [value, setValue] = React.useState(0);
 
@@ -69,30 +68,43 @@ export default function Main() {
   };
 
   return (
-    <Box sx={{ width: "100%" }}>
-      <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
-        <Tabs value={value} onChange={handleChange} aria-label="basic tabs">
-          <Tab label="Explore" {...a11yProps(0)} />
-          <Tab label="Following" {...a11yProps(1)} />
-        </Tabs>
-      </Box>
-      <TabPanel value={value} index={0}>
-        {/* Example for now, needs to be dynamically rendered */}
-        <PoemCard poem={poem} />
-        <PoemCard poem={poem} />
-        <PoemCard poem={poem} />
-        <PoemCard poem={poem} />
-        <PoemCard poem={poem} />
-        <PoemCard poem={poem} />
-        <PoemCard poem={poem} />
-        <PoemCard poem={poem} />
-        <PoemCard poem={poem} />
-      </TabPanel>
-      <TabPanel value={value} index={1}>
-        <PoemCard poem={poem} />
-        <PoemCard poem={poem} />
-        <PoemCard poem={poem} />
-      </TabPanel>
-    </Box>
+    <Grid container>
+      <Grid item xs={12}>
+        <Box>
+          <Typography variant="h1">User Name</Typography>
+        </Box>
+      </Grid>
+      <Grid item xs={12}>
+        <Box sx={{ width: "100%" }}>
+          <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
+            <Tabs
+              value={value}
+              onChange={handleChange}
+              aria-label="Profile Tabs"
+            >
+              <Tab label="Home" {...a11yProps(0)} />
+              <Tab label="Saved" {...a11yProps(1)} />
+            </Tabs>
+          </Box>
+          <TabPanel value={value} index={0}>
+            {/* Example for now, needs to be dynamically rendered */}
+            <PoemCard poem={poem} />
+            <PoemCard poem={poem} />
+            <PoemCard poem={poem} />
+            <PoemCard poem={poem} />
+            <PoemCard poem={poem} />
+            <PoemCard poem={poem} />
+            <PoemCard poem={poem} />
+            <PoemCard poem={poem} />
+            <PoemCard poem={poem} />
+          </TabPanel>
+          <TabPanel value={value} index={1}>
+            <PoemCard poem={poem} />
+            <PoemCard poem={poem} />
+            <PoemCard poem={poem} />
+          </TabPanel>
+        </Box>
+      </Grid>
+    </Grid>
   );
 }

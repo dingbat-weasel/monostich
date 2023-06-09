@@ -14,7 +14,7 @@ import PoemCard from "../../components/PoemCard";
 
 const Sidebar = () => {
   return (
-    <Grid container rowSpacing={2}>
+    <Grid container rowSpacing={2} px={2}>
       {/* User Section */}
       <Grid item xs={12}>
         <Box display={"flex"} justifyContent={"center"}>
