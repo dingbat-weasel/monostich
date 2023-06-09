@@ -57,13 +57,17 @@ const typeDefs = gql`
 
   #look out for auth here, still needs saves
   type Mutation {
-    addUser(username: String!, email: String!, password: String!): User
     login(email: String!, password: String!): User
+    addUser(username: String!, email: String!, password: String!): User
     addPoem(poemText: String!, poemAuthor: ID!): Poem
-    addComment(poemId: ID!, commentText: String!, commentAuthor: ID!): Poem
-    removePoem(poemId: ID!): Poem
-    removeComment(poemId: ID!, commentId: ID!): Poem
     addLike(poemId: ID!, likedBy: ID!): Poem
+    addComment(poemId: ID!, commentText: String!, commentAuthor: ID!): Poem
+    addSave(poemId: ID!, savedBy: ID!): Poem
+    removeUser(userId: ID!): User
+    removePoem(poemId: ID!): Poem
+    removeLike(poemId: ID!, likeId: ID!, likedBy: ID!): Poem
+    removeComment(poemId: ID!, commentId: ID!, commentAuthor: ID!): Poem
+    removeSave(poemId: ID!, saveId: ID!, savedBy: ID!): Poem
   }
 `;
 
