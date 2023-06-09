@@ -8,10 +8,6 @@ import Box from "@mui/material/Box";
 import PoemCard from "../../components/PoemCard";
 import { Grid } from "@mui/material";
 
-import { useQuery } from "@apollo/client";
-import { QUERY_POEMS_BY_SINGLE_USER } from "../../utils/queries";
-import { QUERY_USER_USERNAME } from "../../utils/queries";
-
 // TO DO:
 // Poem cards need to be mapped to tabs from data
 // All link functionality
@@ -64,12 +60,8 @@ const poem = {
   authorImg: "A",
 };
 
-export default function Main() {
+export default function Main({ user }) {
   const [value, setValue] = React.useState(0);
-
-  const { loading, data } = useQuery(QUERY_USER_USERNAME);
-  const user = data?.user || [];
-  console.log(user);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);

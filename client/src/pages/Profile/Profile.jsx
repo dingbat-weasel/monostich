@@ -11,6 +11,10 @@ import Navbar from "../../components/Navbar";
 import Main from "./Main";
 import Sidebar from "./Sidebar";
 
+import { useQuery } from "@apollo/client";
+import { QUERY_USER } from "../../utils/queries";
+import { QUERY_USER_USERNAME } from "../../utils/queries";
+
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
 
@@ -59,6 +63,10 @@ const poem = {
 const Profile = () => {
   const [value, setValue] = React.useState(0);
 
+  const { loading, data } = useQuery(QUERY_USER);
+  const user = data?.user || [];
+  console.log(user);
+
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
@@ -72,12 +80,12 @@ const Profile = () => {
         <Grid container mx={{ xs: 2, md: 6, lg: 10 }}>
           {/* Sidebar Container */}
           <Grid item xs={12} md={4}>
-            <Sidebar />
+            <Sidebar user={user} />
           </Grid>
 
           {/* Main Container */}
           <Grid item xs={12} md={8}>
-            <Main />
+            <Main user={user} />
           </Grid>
         </Grid>
       </Grid>

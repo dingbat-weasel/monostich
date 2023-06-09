@@ -8,9 +8,11 @@ export const QUERY_USER_USERNAME = gql`
   }
 `;
 
-export const QUERY_POEMS_BY_SINGLE_USER = gql`
-  query userPoemData($username: String!) {
-    user(username: $username) {
+export const QUERY_USER = gql`
+  query userPoemData {
+    user(username: "isaac") {
+      _id
+      username
       poems {
         _id
         poemTitle
