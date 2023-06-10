@@ -63,7 +63,8 @@ function App() {
           <CssBaseline />
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/profile" element={<Profile />} />
+            {/* <Route path="/profile" element={<Profile />} /> */}
+            <Route path="/profile/:username" element={<Profile />} />
             <Route path="/poem" element={<SinglePoem />} />
             <Route path="/signin" element={<Signin />} />
             <Route path="/signup" element={<Signup />} />

@@ -45,6 +45,7 @@ export default function PoemCard({ poem }) {
         }
       />
       <CardContent>
+        {/* Render array correctly with tile styling */}
         <Container>{poem.poemText}</Container>
       </CardContent>
       <CardActions

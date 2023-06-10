@@ -1,16 +1,17 @@
 import * as React from "react";
 import PropTypes from "prop-types";
-import Tabs from "@mui/material/Tabs";
-import Tab from "@mui/material/Tab";
-import Typography from "@mui/material/Typography";
-import Box from "@mui/material/Box";
-
-import PoemCard from "../../components/PoemCard";
-import { Grid } from "@mui/material";
-
 import { useQuery } from "@apollo/client";
-import { QUERY_POEMS_BY_SINGLE_USER } from "../../utils/queries";
-import { QUERY_USER_USERNAME } from "../../utils/queries";
+import { useParams } from "react-router-dom";
+
+// Materials
+import { Grid, Box, Tab, Tabs, Typography } from "@mui/material";
+
+// Components
+import PoemCard from "../../components/PoemCard";
+
+// Queries
+import { QUERY_USER_POEMS } from "../../utils/queries";
+import { QUERY_USER } from "../../utils/queries";
 
 // TO DO:
 // Poem cards need to be mapped to tabs from data
@@ -18,6 +19,7 @@ import { QUERY_USER_USERNAME } from "../../utils/queries";
 // Search bar and functionality
 // Need clear loggedIn version and loggedOut version (Saved only if loggedIn)
 
+// Tab Functionality
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
 
@@ -51,41 +53,39 @@ function a11yProps(index) {
   };
 }
 
-//
-const poem = {
-  poemTitle: "Here is my title",
-  poemText: ["Here", "is", "my", "poem", "text", "!"],
-
-  createdAt: "Wed, June 7 2023 at 12:00pm",
-  likeCount: 30,
-  commentCount: 5,
-  saveCount: 4,
-  poemAuthor: "Some user name from user.id",
-  authorImg: "A",
-};
-
+// Main Tabbed Section of Profile
 export default function Main() {
+  // username or id more secure?
+  const { username } = useParams();
+
+  // State
   const [value, setValue] = React.useState(0);
-
-  const { loading, data } = useQuery(QUERY_USER_USERNAME);
-  const user = data?.user || [];
-  console.log(user);
-
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
 
+  // Queries
+  const { loading: userLoading, data: userData } = useQuery(QUERY_USER, {
+    variables: { username: username },
+  });
+
+  const { loading: poemLoading, data: poemData } = useQuery(QUERY_USER_POEMS, {
+    variables: { username: username },
+  });
+
+  // Data
+  const user = userData?.user || [];
+  const poems = poemData?.user.poems || [];
+
   return (
     <Grid container>
+      {/* User Name Heading at MD+*/}
       <Grid item>
-        <Typography
-          variant="h1"
-          display={{ xs: "none", md: "block" }}
-          user={user}
-        >
+        <Typography variant="h1" display={{ xs: "none", md: "block" }}>
           {user.username}
         </Typography>
       </Grid>
+      {/* Tabs */}
       <Grid item xs={12}>
         <Box sx={{ width: "100%" }}>
           <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
@@ -99,21 +99,11 @@ export default function Main() {
             </Tabs>
           </Box>
           <TabPanel value={value} index={0}>
-            {/* Example for now, needs to be dynamically rendered */}
-            <PoemCard poem={poem} />
-            <PoemCard poem={poem} />
-            <PoemCard poem={poem} />
-            <PoemCard poem={poem} />
-            <PoemCard poem={poem} />
-            <PoemCard poem={poem} />
-            <PoemCard poem={poem} />
-            <PoemCard poem={poem} />
-            <PoemCard poem={poem} />
+            {poems &&
+              poems.map((poem) => <PoemCard poem={poem} key={poem._id} />)}
           </TabPanel>
           <TabPanel value={value} index={1}>
-            <PoemCard poem={poem} />
-            <PoemCard poem={poem} />
-            <PoemCard poem={poem} />
+            {/* Map saved poems here */}
           </TabPanel>
         </Box>
       </Grid>
