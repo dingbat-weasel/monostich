@@ -12,7 +12,7 @@ import {
 import React from "react";
 import PoemCard from "../../components/PoemCard";
 
-const Sidebar = ({ user }) => {
+const Sidebar = ({}) => {
   return (
     <Grid container rowSpacing={2} px={2}>
       {/* User Section */}
@@ -25,9 +25,10 @@ const Sidebar = ({ user }) => {
             }}
           ></Avatar>
         </Box>
-        <Typography variant="h1" display={{ xs: "block", md: "none" }}>
-          {user.username}
-        </Typography>
+        <Typography
+          variant="h1"
+          display={{ xs: "block", md: "none" }}
+        ></Typography>
       </Grid>
 
       <Grid item xs={12}>
