@@ -1,7 +1,7 @@
 import React from "react";
 
 // Materials
-import { CardActions, CardHeader, Box } from "@mui/material";
+import { Avatar, CardActions, CardHeader, Box } from "@mui/material";
 
 const AuthorSnippet = (poem) => {
   return (

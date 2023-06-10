@@ -1,19 +1,19 @@
 import * as React from "react";
+
+// Components
+import AuthorSnippet from "./AuthorSnippet";
+
+// Materials
 import Card from "@mui/material/Card";
 import CardHeader from "@mui/material/CardHeader";
-
 import CardContent from "@mui/material/CardContent";
-import CardActions from "@mui/material/CardActions";
-
-import Avatar from "@mui/material/Avatar";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
-
-import FavoriteIcon from "@mui/icons-material/Favorite";
-
-import MoreVertIcon from "@mui/icons-material/MoreVert";
 import { Box, Container } from "@mui/material";
 
+// Icons
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import MoreVertIcon from "@mui/icons-material/MoreVert";
 import ModeCommentIcon from "@mui/icons-material/ModeComment";
 import BookmarkIcon from "@mui/icons-material/Bookmark";
 
@@ -34,6 +34,8 @@ import BookmarkIcon from "@mui/icons-material/Bookmark";
 // Or just move poem card to Home dir and copy it for profile
 
 export default function PoemCard({ poem }) {
+  let includeAuthor = false;
+
   return (
     <Card sx={{ minWidth: 275, my: 4 }}>
       <CardHeader
@@ -48,7 +50,7 @@ export default function PoemCard({ poem }) {
         {/* Render array correctly with tile styling */}
         <Container>{poem.poemText}</Container>
       </CardContent>
-
+      {includeAuthor && <AuthorSnippet />}
       <Box
         idth="100%"
         sx={{ display: "flex", flex: 1, justifyContent: "space-between" }}
