@@ -1,0 +1,39 @@
+import React from "react";
+
+// Materials
+import { CardActions, CardHeader, Box } from "@mui/material";
+
+const AuthorSnippet = (poem) => {
+  return (
+    <CardActions
+      sx={{
+        display: "flex",
+        flexWrap: "wrap",
+        justifyContent: "flex-start",
+      }}
+    >
+      <Box
+        aria-label="poem-author"
+        sx={{
+          display: "flex",
+          flexGrow: 1,
+          flexShrink: 1,
+          justifyContent: "flex-end",
+        }}
+      >
+        <CardHeader
+          avatar={
+            // TO DO: Set up to render author avatar
+            <Avatar
+              aria-label="user-photo"
+              src={"poem.poemAuthor.profileImg"}
+            ></Avatar>
+          }
+          title={poem.poemAuthor}
+        />
+      </Box>
+    </CardActions>
+  );
+};
+
+export default AuthorSnippet;

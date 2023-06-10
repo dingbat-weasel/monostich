@@ -48,49 +48,28 @@ export default function PoemCard({ poem }) {
         {/* Render array correctly with tile styling */}
         <Container>{poem.poemText}</Container>
       </CardContent>
-      <CardActions
-        sx={{
-          display: "flex",
-          flexWrap: "wrap",
-          justifyContent: "flex-start",
-        }}
-      >
-        <Box
-          aria-label="poem-author"
-          sx={{
-            display: "flex",
-            flexGrow: 1,
-            flexShrink: 1,
-            justifyContent: "flex-end",
-          }}
-        >
-          <CardHeader
-            avatar={
-              <Avatar aria-label="user-photo" src={poem.authorImg}></Avatar>
-            }
-            title={poem.poemAuthor}
-          />
-        </Box>
-      </CardActions>
-      <Box sx={{ display: "flex", justifyContent: "end" }}>
-        <Typography pr={1}>{poem.createdAt}</Typography>
-      </Box>
+
       <Box
         idth="100%"
-        sx={{ display: "flex", flex: 1, justifyContent: "flex-start" }}
+        sx={{ display: "flex", flex: 1, justifyContent: "space-between" }}
       >
-        <IconButton aria-label="like" sx={{ p: 2 }}>
-          <FavoriteIcon />
-        </IconButton>
-        <Typography p={2}>{poem.likeCount}</Typography>
-        <IconButton aria-label="comment" sx={{ p: 2 }}>
-          <ModeCommentIcon />
-        </IconButton>
-        <Typography p={2}>{poem.commentCount}</Typography>
-        <IconButton aria-label="add-to-saved" sx={{ p: 2 }}>
-          <BookmarkIcon />
-        </IconButton>
-        <Typography p={2}>{poem.saveCount}</Typography>
+        <Box sx={{ display: "flex", flex: 1 }}>
+          <IconButton aria-label="like" sx={{ p: 2 }}>
+            <FavoriteIcon />
+          </IconButton>
+          <Typography p={2}>{poem.likeCount}</Typography>
+          <IconButton aria-label="comment" sx={{ p: 2 }}>
+            <ModeCommentIcon />
+          </IconButton>
+          <Typography p={2}>{poem.commentCount}</Typography>
+          <IconButton aria-label="add-to-saved" sx={{ p: 2 }}>
+            <BookmarkIcon />
+          </IconButton>
+          <Typography p={2}>{poem.saveCount}</Typography>
+        </Box>
+        <Box sx={{ display: "flex", alignItems: "center" }}>
+          <Typography pr={2}>{poem.createdAt}</Typography>
+        </Box>
       </Box>
     </Card>
   );
