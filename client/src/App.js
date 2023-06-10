@@ -53,7 +53,7 @@ const client = new ApolloClient({
 
 function App() {
   // TO DO: Attach this mode to global state and give toggle widget to user (light/dark)
-  const mode = "light";
+  const mode = "dark";
   const theme = React.useMemo(() => createTheme(themeSettings(mode)), [mode]);
 
   return (

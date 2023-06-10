@@ -60,40 +60,56 @@ const resolvers = {
       );
       return poem;
     },
+    // this needs work
     addLike: async (parent, { poemId, likedBy }) => {
-      return Poem.findOneAndUpdate(
-        {
-          _id: poemId,
-        },
-        { $addToSet: { likes: likedBy } },
-        {
-          new: true,
-          runValidators: true,
-        }
+      const user = await User.findOneAndUpdate(
+        { _id: likedBy },
+        { $addToSet: { likedPoems: poemId } },
+        { new: true }
       );
-    },
-    addComment: async (parent, { poemId, commentText, commentAuthor }) => {
-      return Poem.findOneAndUpdate(
+
+      const poem = await Poem.findOneAndUpdate(
         { _id: poemId },
-        { $addToSet: { comments: { commentText, commentAuthor } } },
-        {
-          new: true,
-          runValidators: true,
-        }
+        { $addToSet: { likes: { likedBy } } },
+        { new: true, runValidators: true }
       );
+
+      return user, poem;
     },
+
+    // this is looking pretty good, may need tweaking
+    addComment: async (parent, { poemId, commentText, commentAuthor }) => {
+      const user = await User.findOneAndUpdate(
+        { _id: commentAuthor },
+        { $push: { commentedPoems: poemId } },
+        { new: true }
+      );
+
+      const poem = Poem.findOneAndUpdate(
+        { _id: poemId },
+        { $push: { comments: { commentText, commentAuthor } } },
+        { new: true, runValidators: true }
+      );
+
+      return user, poem;
+    },
+    // this needs work
     addSave: async (parent, { poemId, savedBy }) => {
-      return Poem.findOneAndUpdate(
-        {
-          _id: poemId,
-        },
-        { $addToSet: { saves: savedBy } },
-        {
-          new: true,
-          runValidators: true,
-        }
+      const user = await User.findOneAndUpdate(
+        { _id: savedBy },
+        { $addToSet: { savedPoems: poemId } },
+        { new: true }
       );
+
+      const poem = await Poem.findOneAndUpdate(
+        { _id: poemId },
+        { $addToSet: { saves: { savedBy } } },
+        { new: true, runValidators: true }
+      );
+
+      return user, poem;
     },
+    // everything below here needs work, tracking on user model needs to be included
     removeUser: async (parent, { userId }) => {
       return User.findOneAndDelete({ _id: userId });
     },

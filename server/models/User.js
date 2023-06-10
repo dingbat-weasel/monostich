@@ -14,7 +14,7 @@ const userSchema = new Schema({
     maxlength: [36, "Usernames must be less than 36 characters."],
     trim: true,
     match: [
-      /^[a-zA-Z0-9_]*$"/,
+      /[a-zA-Z0-9_]*/,
       "Usernames may only include letters, numbers, and underscore.",
     ],
   },
