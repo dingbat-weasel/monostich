@@ -4,7 +4,8 @@ import { useQuery } from "@apollo/client";
 import { useParams } from "react-router-dom";
 
 // Materials
-import { Grid, Box, Tab, Tabs, Typography } from "@mui/material";
+import { Grid, Box, Tab, Tabs, Typography, useMediaQuery } from "@mui/material";
+import { useTheme } from "@mui/material/styles";
 
 // Components
 import PoemCard from "../../components/PoemCard";
@@ -12,6 +13,7 @@ import PoemCard from "../../components/PoemCard";
 // Queries
 import { QUERY_USER_POEMS } from "../../utils/queries";
 import { QUERY_USER } from "../../utils/queries";
+import AboutUser from "./AboutUser";
 
 // TO DO:
 // Poem cards need to be mapped to tabs from data
@@ -46,13 +48,6 @@ TabPanel.propTypes = {
   value: PropTypes.number.isRequired,
 };
 
-function a11yProps(index) {
-  return {
-    id: `Tab-${index}`,
-    "aria-controls": `tabpanel-${index}`,
-  };
-}
-
 // Main Tabbed Section of Profile
 export default function Main() {
   // username or id more secure?
@@ -63,6 +58,10 @@ export default function Main() {
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
+  // This is temporary value !!!!!!!!!!!!
+  let isAuthenticatedUser = true;
+  const theme = useTheme();
+  const smallViewport = useMediaQuery(theme.breakpoints.down("md"));
 
   // Queries
   const { loading: userLoading, data: userData } = useQuery(QUERY_USER, {
@@ -94,8 +93,9 @@ export default function Main() {
               onChange={handleChange}
               aria-label="Profile Tabs"
             >
-              <Tab label="Home" {...a11yProps(0)} />
-              <Tab label="Saved" {...a11yProps(1)} />
+              <Tab label="Home" />
+              {isAuthenticatedUser && <Tab label="Saved" />}
+              {smallViewport && <Tab label="About" />}
             </Tabs>
           </Box>
           <TabPanel value={value} index={0}>
@@ -104,6 +104,9 @@ export default function Main() {
           </TabPanel>
           <TabPanel value={value} index={1}>
             {/* Map saved poems here */}
+          </TabPanel>
+          <TabPanel value={value} index={2}>
+            <AboutUser />
           </TabPanel>
         </Box>
       </Grid>
