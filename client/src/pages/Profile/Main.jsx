@@ -8,12 +8,15 @@ import { Grid, Box, Tab, Tabs, Typography, useMediaQuery } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 
 // Components
+import AboutUser from "./AboutUser";
 import PoemCard from "../../components/PoemCard";
 
 // Queries
-import { QUERY_USER_POEMS } from "../../utils/queries";
-import { QUERY_USER } from "../../utils/queries";
-import AboutUser from "./AboutUser";
+import {
+  QUERY_USER,
+  QUERY_USER_POEMS,
+  QUERY_USER_SAVES,
+} from "../../utils/queries";
 
 // TO DO:
 // Poem cards need to be mapped to tabs from data
@@ -72,9 +75,17 @@ export default function Main() {
     variables: { username: username },
   });
 
+  const { loading: savesLoading, data: savesData } = useQuery(
+    QUERY_USER_SAVES,
+    {
+      variables: { username: username },
+    }
+  );
+
   // Data
   const user = userData?.user || [];
   const poems = poemData?.user.poems || [];
+  const saves = savesData?.user.savedPoems || [];
 
   return (
     <Grid container>
@@ -104,6 +115,10 @@ export default function Main() {
           </TabPanel>
           <TabPanel value={value} index={1}>
             {/* Map saved poems here */}
+            {saves.length > 0 &&
+              saves.map((savedPoem) => (
+                <PoemCard poem={savedPoem} key={savedPoem._id} />
+              ))}
           </TabPanel>
           <TabPanel value={value} index={2}>
             <AboutUser />

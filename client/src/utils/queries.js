@@ -44,3 +44,41 @@ export const QUERY_USER_POEMS = gql`
     }
   }
 `;
+
+export const QUERY_USER_SAVES = gql`
+  query getUserSavedPoems($username: String!) {
+    user(username: $username) {
+      _id
+      savedPoems {
+        _id
+        poemTitle
+        poemText
+        poemAuthor
+        createdAt
+        likes {
+          _id
+          likedBy {
+            _id
+            username
+          }
+        }
+        comments {
+          _id
+          commentText
+          commentAuthor {
+            _id
+            username
+          }
+          createdAt
+        }
+        saves {
+          _id
+          savedBy {
+            _id
+            username
+          }
+        }
+      }
+    }
+  }
+`;
