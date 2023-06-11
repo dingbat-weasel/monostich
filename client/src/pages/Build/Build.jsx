@@ -10,7 +10,6 @@ import Tile from "../../components/Tile";
 
 // Data
 import { tileArr, keyedTiles, tileMap } from "../../data/tileSet";
-import DragMove from "./DragMove";
 
 // Functions
 const randomizeTilePosition = (tileEl) => {
@@ -37,23 +36,11 @@ const getRandomSubArr = (arr, size) => {
 
 // Variables
 const renderTiles = true;
-const subArrSize = 50;
+const subArrSize = 55;
 const marginVar = 50;
 const keyedTileSubArr = getRandomSubArr(keyedTiles, subArrSize);
 
 const Build = () => {
-  // const [translate, setTranslate] = useState({
-  //   x: 0,
-  //   y: 0,
-  // });
-
-  // const handleDragMove = (e) => {
-  //   setTranslate({
-  //     x: translate.x + e.movementX,
-  //     y: translate.y + e.movementY,
-  //   });
-  // };
-
   return (
     <>
       <Navbar />
@@ -63,7 +50,16 @@ const Build = () => {
         {/* Page */}
         <Grid container mx={{ xs: 2, md: 6, lg: 10 }} columnSpacing={2}>
           {/* Main Container */}
-          <Grid item xs={12} lg={8}>
+          <Grid
+            item
+            xs={12}
+            lg={8}
+            sx={{
+              overflow: "hidden",
+              border: "2px solid gray",
+              borderRadius: 5,
+            }}
+          >
             <Grid item>
               <Container
                 className="stage"
@@ -82,12 +78,12 @@ const Build = () => {
             </Grid>
 
             <Grid item>
-              <Paper
+              <Container
                 sx={{
                   display: "flex",
                   width: "100%",
                   height: "70vh",
-                  overflow: "hidden",
+
                   alignItems: "center",
                   padding: "2rem",
                 }}
@@ -108,31 +104,8 @@ const Build = () => {
                   {keyedTileSubArr.map(([key, tileStr]) => {
                     return <Tile key={key} tileStr={tileStr} />;
                   })}
-                  {/* <Draggable>
-                    <Box
-                      // tileStr={"test"}
-                      className={"tile"}
-                      style={{
-                        flexGrow: 0,
-                        flexShrink: 1,
-                        flexBasis: "max-content",
-                        height: "max-content",
-
-                        color: "black",
-                        backgroundColor: "rgb(240, 240, 240)",
-                        borderWidth: "1px 3px 3px 1px",
-                        borderStyle: "solid",
-                        borderColor: "black",
-
-                        padding: "5px",
-                        cursor: "pointer",
-                      }}
-                    >
-                      TestDrag
-                    </Box>
-                  </Draggable> */}
                 </Container>
-              </Paper>
+              </Container>
             </Grid>
           </Grid>
 
