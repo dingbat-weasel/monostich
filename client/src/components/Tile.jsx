@@ -4,6 +4,9 @@ import Draggable, { DraggableCore } from "react-draggable";
 import { Box } from "@mui/material";
 
 const Tile = ({ tileStr }) => {
+  // This fixes a bug causing unwanted warning output to console
+  const nodeRef = useRef(null);
+
   const tileStyle = {
     position: "absolute",
 
@@ -25,8 +28,8 @@ const Tile = ({ tileStr }) => {
     cursor: "pointer",
   };
   return (
-    <Draggable>
-      <Box className="tile" style={tileStyle}>
+    <Draggable nodeRef={nodeRef}>
+      <Box className="tile" style={tileStyle} ref={nodeRef}>
         {tileStr}
       </Box>
     </Draggable>
