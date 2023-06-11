@@ -1,7 +1,9 @@
 import React, { useRef } from "react";
+import Draggable, { DraggableCore } from "react-draggable";
+
 import { Box } from "@mui/material";
 
-const Tile = ({ tileStr, translate }) => {
+const Tile = ({ tileStr }) => {
   const tileStyle = {
     position: "absolute",
 
@@ -23,9 +25,11 @@ const Tile = ({ tileStr, translate }) => {
     cursor: "pointer",
   };
   return (
-    <Box className="tile" style={tileStyle}>
-      {tileStr}
-    </Box>
+    <Draggable>
+      <Box className="tile" style={tileStyle}>
+        {tileStr}
+      </Box>
+    </Draggable>
   );
 };
 

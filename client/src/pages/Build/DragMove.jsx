@@ -1,57 +1,71 @@
-import React from "react";
-import { useState } from "react";
-
-const random = (min, max) => Math.floor(Math.random() * (max - min)) + min;
+import React, { useEffect, useState } from "react";
+import PropTypes from "prop-types";
 
 export default function DragMove(props) {
-  const [styles, setStyles] = useState({
-    left: Math.floor(Math.random() * 100) + "%",
-    top: Math.floor(Math.random() * 100) + "%",
-  });
-  const [diffPos, setDiffPos] = useState({ diffX: 0, diffY: 0 });
+  const {
+    onPointerDown,
+    onPointerUp,
+    onPointerMove,
+    onDragMove,
+    children,
+    style,
+    className,
+  } = props;
+
   const [isDragging, setIsDragging] = useState(false);
 
-  const dragStart = (e) => {
-    const boundingRect = e.currentTarget.getBoundingClientRect();
-
-    setDiffPos({
-      diffX: e.screenX - boundingRect.left,
-      diffY: e.screenY - boundingRect.top,
-    });
-
+  const handlePointerDown = (e) => {
     setIsDragging(true);
 
-    return true;
+    onPointerDown(e);
   };
 
-  let mousePos = { x: undefined, y: undefined };
-  window.addEventListener("mousemove", (event) => {
-    mousePos = { x: event.clientX, y: event.clientY };
-  });
-
-  const dragging = (e) => {
-    const left = e.screenX - diffPos.diffX;
-    const top = e.screenY - diffPos.diffY;
-
-    setStyles({ left: left, top: top });
-  };
-
-  const dragEnd = () => {
+  const handlePointerUp = (e) => {
     setIsDragging(false);
+
+    onPointerUp(e);
   };
+
+  const handlePointerMove = (e) => {
+    if (isDragging) onDragMove(e);
+
+    onPointerMove(e);
+  };
+
+  useEffect(() => {
+    window.addEventListener("pointerup", handlePointerUp);
+
+    return () => {
+      window.removeEventListener("pointerup", handlePointerUp);
+    };
+  }, []);
 
   return (
     <div
-      className="draggable"
-      style={{
-        ...styles,
-        position: "absolute",
-      }}
-      onDragStart={(e) => dragStart(e)}
-      onDragEnd={(e) => dragging(e)}
-      draggable={true}
+      onPointerDown={handlePointerDown}
+      onPointerMove={handlePointerMove}
+      style={style}
+      className={className}
     >
-      {props.children}
+      {children}
     </div>
   );
 }
+
+const { func, element, shape, bool, string } = PropTypes;
+
+DragMove.propTypes = {
+  onDragMove: func.isRequired,
+  onPointerDown: func,
+  onPointerUp: func,
+  onPointerMove: func,
+  children: element,
+  style: shape({}),
+  className: string,
+};
+
+DragMove.defaultProps = {
+  onPointerDown: () => {},
+  onPointerUp: () => {},
+  onPointerMove: () => {},
+};

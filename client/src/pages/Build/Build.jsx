@@ -61,22 +61,24 @@ const Build = () => {
         {/* Top Spacing */}
         <Grid item xs={12} m={4}></Grid>
         {/* Page */}
-        <Grid container mx={{ xs: 2, md: 6, lg: 10 }}>
+        <Grid container mx={{ xs: 2, md: 6, lg: 10 }} columnSpacing={2}>
           {/* Main Container */}
           <Grid item xs={12} lg={8}>
             <Grid item>
-              <Paper
+              <Container
                 className="stage"
                 sx={{
                   display: "flex",
                   flexDirection: "row",
+                  width: "100%",
+                  height: "100%",
 
                   backgroundColor: "lightblue",
 
                   marginTop: "2rem",
                   marginBottom: "2rem",
                 }}
-              ></Paper>
+              ></Container>
             </Grid>
 
             <Grid item>
@@ -95,7 +97,7 @@ const Build = () => {
                   sx={{
                     position: "relative",
                     display: "flex",
-                    overflow: "hidden",
+
                     flexWrap: "wrap",
                     width: "100%",
                     height: "100%",
@@ -104,14 +106,9 @@ const Build = () => {
                   }}
                 >
                   {keyedTileSubArr.map(([key, tileStr]) => {
-                    return (
-                      <DragMove key={key}>
-                        <Tile tileStr={tileStr} />
-                      </DragMove>
-                    );
+                    return <Tile key={key} tileStr={tileStr} />;
                   })}
-
-                  {/* <DragMove>
+                  {/* <Draggable>
                     <Box
                       // tileStr={"test"}
                       className={"tile"}
@@ -133,7 +130,7 @@ const Build = () => {
                     >
                       TestDrag
                     </Box>
-                  </DragMove> */}
+                  </Draggable> */}
                 </Container>
               </Paper>
             </Grid>
