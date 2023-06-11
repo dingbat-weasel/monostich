@@ -36,7 +36,7 @@ const getRandomSubArr = (arr, size) => {
 
 // Variables
 const renderTiles = true;
-const subArrSize = 100;
+const subArrSize = 75;
 const marginVar = 50;
 const keyedTileSubArr = getRandomSubArr(keyedTiles, subArrSize);
 
@@ -52,7 +52,7 @@ const Build = () => {
           {/* Main Container */}
           <Grid item xs={12} lg={8}>
             <Grid item>
-              <Container
+              <Paper
                 className="stage"
                 sx={{
                   display: "flex",
@@ -63,28 +63,38 @@ const Build = () => {
                   marginTop: "2rem",
                   marginBottom: "2rem",
                 }}
-              ></Container>
+              ></Paper>
             </Grid>
 
             <Grid item>
-              <Container
-                className="sandbox"
+              <Paper
                 sx={{
-                  position: "relative",
                   display: "flex",
-                  flexWrap: "wrap",
-                  width: "90%",
+                  width: "100%",
                   height: "70vh",
-
-                  backgroundColor: "gray",
-
-                  padding: "1rem",
+                  overflow: "hidden",
+                  alignItems: "center",
+                  padding: "2rem",
                 }}
               >
-                {keyedTileSubArr.map(([key, tileStr]) => {
-                  return <Tile key={key} tileStr={tileStr} />;
-                })}
-              </Container>
+                <Container
+                  className="sandbox"
+                  sx={{
+                    position: "relative",
+
+                    display: "flex",
+                    flexWrap: "wrap",
+                    width: "100%",
+                    height: "100%",
+
+                    padding: "3rem",
+                  }}
+                >
+                  {keyedTileSubArr.map(([key, tileStr]) => {
+                    return <Tile key={key} tileStr={tileStr} />;
+                  })}
+                </Container>
+              </Paper>
             </Grid>
           </Grid>
 
