@@ -1,7 +1,9 @@
 // const { AuthenticationError } = require("apollo-server-express");
 const { User, Poem } = require("../models");
+// const {GraphQLUpload} = require('graphql-upload/GraphQLUpload.mjs'); // keeping commented while not working
+// import {GraphQLUpload} from "/graphql-upload/GraphQLUpload"
 // TO DO: AUTHENTICATION STUFF
-// const {signToken} = require('../utils/auth');
+const {signToken} = require('../utils/auth');
 
 // TO DO: QUERIES AND MUTATIONS
 
@@ -29,42 +31,42 @@ const resolvers = {
     },
   },
 
-  Upload: GraphQLUpload,
+  // Upload: GraphQLUpload,
   Mutation: {
     login: async (parent, { email, password }) => {
       const user = await User.findOne({ email });
 
       if (!user) {
-        //throw new AuthenticationError?
-        throw new console.error("No user found with this email");
+        throw new AuthenticationError('No user found with this email')
+        // throw new console.error("No user found with this email");
       }
 
       const correctPw = await user.isCorrectPassword(password);
       if (!correctPw) {
-        //throw new authen?
-        throw new console.error("incorrect credentials");
+        throw new AuthenticationError('Incorrect credentials')
+        // throw new console.error("incorrect credentials");
       }
-      //const token
-      return { user };
+      const token = signToken(profile);
+      return {token, user };
     },
     addUser: async (parent, { username, email, password }) => {
       const user = await User.create({ username, email, password });
-      //token
-      return { user };
+      const token = signToken(user)
+      return { token,user };
     },
     // not sure if image:file is correct?
-    updateImage: async (parent,{userId, file}) => {
-      const {createReadStream, filename} = await file;
-      const stream = createReadStream();
-      const user = await User.findOneAndUpdate(
-        {
-          _id: userId
-        },
-        {
-          image: file
-        }
-      )
-    },
+    // updateImage: async (parent,{userId, file}) => {
+    //   const {createReadStream, filename} = await file;
+    //   const stream = createReadStream();
+    //   const user = await User.findOneAndUpdate(
+    //     {
+    //       _id: userId
+    //     },
+    //     {
+    //       image: file
+    //     }
+    //   )
+    // },
     addPoem: async (parent, { poemTitle, poemText, poemAuthor }) => {
       const poem = await Poem.create({ poemTitle, poemText, poemAuthor });
 
