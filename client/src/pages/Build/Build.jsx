@@ -36,7 +36,8 @@ const getRandomSubArr = (arr, size) => {
 
 // Variables
 const renderTiles = true;
-const subArrSize = 50;
+const subArrSize = 100;
+const marginVar = 50;
 const keyedTileSubArr = getRandomSubArr(keyedTiles, subArrSize);
 
 const Build = () => {
@@ -68,10 +69,15 @@ const Build = () => {
             <Grid item>
               <Container
                 className="sandbox"
-                style={{
+                sx={{
+                  position: "relative",
                   display: "flex",
                   flexWrap: "wrap",
-                  backgroundColor: "antiquewhite",
+                  width: "90%",
+                  height: "70vh",
+
+                  backgroundColor: "gray",
+
                   padding: "1rem",
                 }}
               >

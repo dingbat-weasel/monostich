@@ -1,7 +1,14 @@
 import React from "react";
+import { Box } from "@mui/material";
 
 const Tile = ({ tileStr }) => {
+  const randNum = Math.floor(Math.random() * 1000);
+
   const tileStyle = {
+    position: "absolute",
+    left: Math.floor(Math.random() * 100) + "%",
+    top: Math.floor(Math.random() * 100) + "%",
+
     flexGrow: 0,
     flexShrink: 1,
     flexBasis: "max-content",
@@ -17,9 +24,9 @@ const Tile = ({ tileStr }) => {
     cursor: "pointer",
   };
   return (
-    <div className="tile" style={tileStyle}>
+    <Box className="tile" style={tileStyle}>
       {tileStr}
-    </div>
+    </Box>
   );
 };
 
