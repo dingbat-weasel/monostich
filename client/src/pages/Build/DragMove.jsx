@@ -1,72 +1,52 @@
-import React, { useEffect, useState } from "react";
-import { PropTypes } from "prop-types";
+import React from "react";
+import { useState } from "react";
+
+const random = (min, max) => Math.floor(Math.random() * (max - min)) + min;
 
 export default function DragMove(props) {
-  const {
-    onPointerDown,
-    onPointerUp,
-    onPointerMove,
-    onDragMove,
-    children,
-    style,
-    className,
-  } = props;
-
+  const [styles, setStyles] = useState({
+    left: Math.floor(Math.random() * 75) + "%",
+    top: Math.floor(Math.random() * 75) + "%",
+  });
+  const [diffPos, setDiffPos] = useState({ diffX: 0, diffY: 0 });
   const [isDragging, setIsDragging] = useState(false);
 
-  const handlePointerDown = (e) => {
+  const dragStart = (e) => {
+    const boundingRect = e.currentTarget.getBoundingClientRect();
+
+    setDiffPos({
+      diffX: e.screenX - boundingRect.left,
+      diffY: e.screenY - boundingRect.top,
+    });
+
     setIsDragging(true);
 
-    onPointerDown(e);
+    return true;
   };
 
-  const handlePointerUp = (e) => {
+  const dragging = (e) => {
+    const left = e.screenX - diffPos.diffX;
+    const top = e.screenY - diffPos.diffY;
+
+    setStyles({ left: left, top: top });
+  };
+
+  const dragEnd = () => {
     setIsDragging(false);
-
-    onPointerUp(e);
   };
-
-  const handlePointerMove = (e) => {
-    if (isDragging) onDragMove(e);
-
-    onPointerMove(e);
-  };
-
-  useEffect(() => {
-    // Should we apply event listener to tile parent container?
-    window.addEventListener("pointerup", handlePointerUp);
-
-    return () => {
-      window.removeEventListener("pointerup", handlePointerUp);
-    };
-  }, []);
 
   return (
     <div
-      onPointerDown={handlePointerDown}
-      onPointerMove={handlePointerMove}
-      style={style}
-      className={className}
+      className="draggable"
+      style={{
+        ...styles,
+        position: "absolute",
+      }}
+      onDragStart={(e) => dragStart(e)}
+      onDragEnd={(e) => dragging(e)}
+      draggable={true}
     >
-      {children}
+      {props.children}
     </div>
   );
 }
-
-const { func, element, shape, bool, string } = PropTypes;
-
-DragMove.propTypes = {
-  onDragMove: func.isRequired,
-  onPointerDown: func,
-  onPointerUp: func,
-  onPointerMove: func,
-  children: element,
-  style: shape({}),
-  className: string,
-};
-
-DragMove.defaultProps = {
-  onPointerDown: () => {},
-  onPointerUp: () => {},
-  onPointerMove: () => {},
-};

@@ -1,9 +1,10 @@
 import React, { useRef } from "react";
 import { Box } from "@mui/material";
 
-const Tile = ({ tileStr }) => {
-  const tileStyle = useRef({
+const Tile = ({ tileStr, translate }) => {
+  const tileStyle = {
     position: "absolute",
+
     left: Math.floor(Math.random() * 100) + "%",
     top: Math.floor(Math.random() * 100) + "%",
 
@@ -20,9 +21,9 @@ const Tile = ({ tileStr }) => {
 
     padding: "5px",
     cursor: "pointer",
-  });
+  };
   return (
-    <Box className="tile" style={tileStyle.current}>
+    <Box className="tile" style={tileStyle}>
       {tileStr}
     </Box>
   );
