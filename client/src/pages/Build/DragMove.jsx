@@ -5,8 +5,8 @@ const random = (min, max) => Math.floor(Math.random() * (max - min)) + min;
 
 export default function DragMove(props) {
   const [styles, setStyles] = useState({
-    left: Math.floor(Math.random() * 75) + "%",
-    top: Math.floor(Math.random() * 75) + "%",
+    left: Math.floor(Math.random() * 100) + "%",
+    top: Math.floor(Math.random() * 100) + "%",
   });
   const [diffPos, setDiffPos] = useState({ diffX: 0, diffY: 0 });
   const [isDragging, setIsDragging] = useState(false);
@@ -23,6 +23,11 @@ export default function DragMove(props) {
 
     return true;
   };
+
+  let mousePos = { x: undefined, y: undefined };
+  window.addEventListener("mousemove", (event) => {
+    mousePos = { x: event.clientX, y: event.clientY };
+  });
 
   const dragging = (e) => {
     const left = e.screenX - diffPos.diffX;

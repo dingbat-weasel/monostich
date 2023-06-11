@@ -37,7 +37,7 @@ const getRandomSubArr = (arr, size) => {
 
 // Variables
 const renderTiles = true;
-const subArrSize = 5;
+const subArrSize = 50;
 const marginVar = 50;
 const keyedTileSubArr = getRandomSubArr(keyedTiles, subArrSize);
 
@@ -93,6 +93,7 @@ const Build = () => {
                 <Container
                   id="sandbox"
                   sx={{
+                    position: "relative",
                     display: "flex",
                     overflow: "hidden",
                     flexWrap: "wrap",
