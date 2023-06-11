@@ -29,6 +29,7 @@ const resolvers = {
     },
   },
 
+  Upload: GraphQLUpload,
   Mutation: {
     login: async (parent, { email, password }) => {
       const user = await User.findOne({ email });
@@ -51,6 +52,19 @@ const resolvers = {
       //token
       return { user };
     },
+    // not sure if image:file is correct?
+    updateImage: async (parent,{userId, file}) => {
+      const {createReadStream, filename} = await file;
+      const stream = createReadStream();
+      const user = await User.findOneAndUpdate(
+        {
+          _id: userId
+        },
+        {
+          image: file
+        }
+      )
+    },
     addPoem: async (parent, { poemTitle, poemText, poemAuthor }) => {
       const poem = await Poem.create({ poemTitle, poemText, poemAuthor });
 
@@ -59,6 +73,9 @@ const resolvers = {
         { $addToSet: { poems: poem._id } }
       );
       return poem;
+    },
+    updateAbout: async (parent, {userId, aboutStr}) => {
+      const user = await User.findOneAndUpdate({_id: userId},{about: aboutStr})
     },
     addLike: async (parent, { poemId, likedBy }) => {
       return Poem.findOneAndUpdate(
