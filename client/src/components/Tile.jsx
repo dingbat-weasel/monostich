@@ -1,6 +1,6 @@
 import React from "react";
 
-const tile = (str) => {
+const Tile = ({ str }) => {
   const tileStyle = {
     flexGrow: 0,
     flexShrink: 1,
@@ -8,7 +8,7 @@ const tile = (str) => {
     height: "max-content",
 
     color: "black",
-    backgroundColor: rgb(240, 240, 240),
+    backgroundColor: "rgb(240, 240, 240)",
     borderWidth: "1px 3px 3px 1px",
     borderStyle: "solid",
     borderColor: "black",
@@ -16,7 +16,11 @@ const tile = (str) => {
     padding: "5px",
     cursor: "pointer",
   };
-  return <div className="tile"></div>;
+  return (
+    <div className="tile" style={tileStyle}>
+      {str}
+    </div>
+  );
 };
 
-export default tile;
+export default Tile;

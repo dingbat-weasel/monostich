@@ -6,9 +6,12 @@ import { Container, Grid, Box, Paper } from "@mui/material";
 // Components
 import Navbar from "../../components/Navbar";
 import Sidebar from "./Sidebar";
+import Tile from "../../components/Tile";
 
 // Data
 import { tileArr, keyedTiles, tileMap } from "../../data/tileSet";
+
+const subArrSize = 50;
 
 const randomizeTilePosition = (tileEl) => {
   const marginVar = 50;
@@ -33,6 +36,9 @@ const getRandomSubArr = (arr, size) => {
 };
 
 const Build = () => {
+  const keyedTileSubArr = getRandomSubArr(keyedTiles, subArrSize);
+  console.log(keyedTileSubArr);
+
   return (
     <>
       <Navbar />
@@ -67,7 +73,9 @@ const Build = () => {
                   backgroundColor: "antiquewhite",
                   padding: "1rem",
                 }}
-              ></Container>
+              >
+                <Tile str={"test"} />
+              </Container>
             </Grid>
           </Grid>
 
