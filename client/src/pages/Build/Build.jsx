@@ -11,8 +11,7 @@ import Tile from "../../components/Tile";
 // Data
 import { tileArr, keyedTiles, tileMap } from "../../data/tileSet";
 
-const subArrSize = 50;
-
+// Functions
 const randomizeTilePosition = (tileEl) => {
   const marginVar = 50;
   tileEl.style.marginTop = Math.floor(Math.random() * marginVar) + "px";
@@ -35,10 +34,12 @@ const getRandomSubArr = (arr, size) => {
   return shuffled.slice(0, size);
 };
 
-const Build = () => {
-  const keyedTileSubArr = getRandomSubArr(keyedTiles, subArrSize);
-  console.log(keyedTileSubArr);
+// Variables
+const renderTiles = true;
+const subArrSize = 50;
+const keyedTileSubArr = getRandomSubArr(keyedTiles, subArrSize);
 
+const Build = () => {
   return (
     <>
       <Navbar />
@@ -74,7 +75,9 @@ const Build = () => {
                   padding: "1rem",
                 }}
               >
-                <Tile str={"test"} />
+                {keyedTileSubArr.map(([key, tileStr]) => {
+                  return <Tile key={key} tileStr={tileStr} />;
+                })}
               </Container>
             </Grid>
           </Grid>

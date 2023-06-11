@@ -1,6 +1,6 @@
 import React from "react";
 
-const Tile = ({ str }) => {
+const Tile = ({ tileStr }) => {
   const tileStyle = {
     flexGrow: 0,
     flexShrink: 1,
@@ -18,7 +18,7 @@ const Tile = ({ str }) => {
   };
   return (
     <div className="tile" style={tileStyle}>
-      {str}
+      {tileStr}
     </div>
   );
 };
