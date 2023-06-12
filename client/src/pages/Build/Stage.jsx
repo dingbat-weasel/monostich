@@ -40,7 +40,7 @@ const Stage = (props) => {
           backgroundColor: "lightyellow",
         }}
       >
-        {props.stagedTiles.map(({ key, str, staged }) => {
+        {props.staged.map(({ key, str, staged }) => {
           return (
             <Tile
               key={key}

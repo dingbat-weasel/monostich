@@ -5,7 +5,7 @@ import Tile from "../../components/Tile";
 import { useDrop } from "react-dnd";
 import { ItemTypes } from "../../utils/items";
 
-const Sandbox = (props) => {
+const Sandbox = ({ tiles, addToStaged }) => {
   //   const [{ isOver }, drop] = useDrop({
   //     accept: ItemTypes.TILE,
   //     drop: (item, monitor) => {
@@ -41,14 +41,16 @@ const Sandbox = (props) => {
             padding: "3rem",
           }}
         >
-          {props.unstagedTiles.map(({ key, str, staged, top, left }) => {
+          {tiles.map(({ key, str, staged, top, left }) => {
             return (
               <Tile
                 key={key}
                 id={key}
                 str={str}
+                addToStaged={addToStaged}
                 tileStyle={{
                   position: "absolute",
+                  visibility: staged ? "hidden" : "visible",
 
                   top: top,
                   left: left,
