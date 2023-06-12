@@ -50,7 +50,7 @@ const Stage = (props) => {
                     cursor: "pointer",
                   }}
                   onClick={(e) => {
-                    props.removeFromStaged(i);
+                    props.removeFromStaged(i, id);
                   }}
                 >
                   {str}

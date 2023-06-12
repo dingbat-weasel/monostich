@@ -10,6 +10,7 @@ import { useDrag } from "react-dnd";
 
 const Sandbox = ({ tiles, addToStaged }) => {
   const nodeRef = useRef(null);
+  const visibilityRef = useRef(null);
 
   let isDragging = false;
   function onDrag(e) {
@@ -55,7 +56,6 @@ const Sandbox = ({ tiles, addToStaged }) => {
                     style={{
                       position: "absolute",
                       visibility: staged ? "hidden" : "visible",
-
                       top: top,
                       left: left,
                       flexGrow: 0,
@@ -80,9 +80,7 @@ const Sandbox = ({ tiles, addToStaged }) => {
                         addToStaged({
                           id: key,
                           str: str,
-                          staged: true,
                         });
-                        e.target.style.visibility = "hidden";
                       }
                     }}
                   >

@@ -73,24 +73,41 @@ const Build = () => {
     newStagedArr = [...stagedArr];
     setStaged(newStagedArr);
 
-    // let newTilesArr = [];
-    // tilesArr.map((t) => (t.key === id ? { ...t, staged: true } : t));
-    // newTilesArr = [...tilesArr];
-    // setTiles(newTilesArr);
-
     console.log(staged);
+
+    // Update tiles state with new staged value
+    let newTilesArr = [];
+    const indexInTiles = tilesArr.findIndex((tile) => tile.key === id);
+    tilesArr[indexInTiles].staged = true;
+    console.log(indexInTiles);
+    console.log(tilesArr);
+    newTilesArr = [...tilesArr];
+    console.log(newTilesArr);
+    setTiles(newTilesArr);
+
     return staged;
   };
 
-  const removeFromStaged = function (i) {
+  const removeFromStaged = function (i, id) {
     // Remove the tile {id, str} from staged using stagedArr and updating state
     // stagedArr = staged;
+    console.log(id);
     let newStagedArr = [];
     stagedArr.splice(i, 1);
     newStagedArr = [...stagedArr];
     setStaged(newStagedArr);
 
     // Make original tile visible
+    // Update tiles state with new staged value
+    let newTilesArr = [];
+
+    const indexInTiles = tilesArr.findIndex((tile) => tile.key === id);
+    tilesArr[indexInTiles].staged = false;
+    console.log(indexInTiles);
+    console.log(tilesArr);
+    newTilesArr = [...tilesArr];
+    console.log(newTilesArr);
+    setTiles(newTilesArr);
   };
 
   return (
