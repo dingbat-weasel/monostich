@@ -37,6 +37,8 @@ const marginVar = 50;
 const keyedTileSubArr = getRandomSubArr(keyedTiles, subArrSize);
 
 const Build = () => {
+  // Set Staged State to keep track of tiles entering stage
+
   return (
     <>
       <Navbar />
@@ -113,7 +115,7 @@ const Build = () => {
                   size={"large"}
                   sx={{ borderRadius: 5, height: "3rem", margin: "1rem" }}
                   onClick={() => {
-                    console.log("clicked submit");
+                    console.log("clicked");
                   }}
                 >
                   Submit
@@ -145,7 +147,7 @@ const Build = () => {
                     padding: "3rem",
                   }}
                 >
-                  {keyedTileSubArr.map(([key, tileStr]) => {
+                  {/* {keyedTileSubArr.map(([key, tileStr]) => {
                     return (
                       <Tile
                         key={key}
@@ -172,7 +174,25 @@ const Build = () => {
                         }}
                       />
                     );
-                  })}
+                  })} */}
+                  <Tile
+                    tileStr={"test"}
+                    tileStyle={{
+                      flexGrow: 0,
+                      flexShrink: 1,
+                      flexBasis: "max-content",
+                      height: "max-content",
+
+                      color: "black",
+                      backgroundColor: "rgb(240, 240, 240)",
+                      borderWidth: "1px 3px 3px 1px",
+                      borderStyle: "solid",
+                      borderColor: "black",
+
+                      padding: "5px",
+                      cursor: "pointer",
+                    }}
+                  />
                 </Container>
               </Container>
             </Grid>

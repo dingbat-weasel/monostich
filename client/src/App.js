@@ -15,6 +15,10 @@ import {
 import { setContext } from "@apollo/client/link/context";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
+// Drag-and-Drop
+import { DndProvider } from "react-dnd";
+import { HTML5Backend } from "react-dnd-html5-backend";
+
 import { CssBaseline, ThemeProvider } from "@mui/material";
 import { createTheme } from "@mui/material/styles";
 import { themeSettings } from "./assets/theme.js";
@@ -60,18 +64,22 @@ function App() {
   return (
     <ApolloProvider client={client}>
       <Router>
-        <ThemeProvider theme={theme}>
-          <CssBaseline />
-          <Routes>
-            <Route path="/" element={<Home />} />
-            {/* <Route path="/profile" element={<Profile />} /> */}
-            <Route path="/profile/:username" element={<Profile />} />
-            <Route path="/build" element={<Build />} />
-            <Route path="/poem" element={<SinglePoem />} />
-            <Route path="/signin" element={<Signin />} />
-            <Route path="/signup" element={<Signup />} />
-          </Routes>
-        </ThemeProvider>
+        <DndProvider backend={HTML5Backend}>
+          <ThemeProvider theme={theme}>
+            <CssBaseline />
+            <Routes>
+              <Route path="/" element={<Home />} />
+              {/* <Route path="/profile" element={<Profile />} /> */}
+              <Route path="/profile/:username" element={<Profile />} />
+
+              <Route path="/build" element={<Build />} />
+
+              <Route path="/poem" element={<SinglePoem />} />
+              <Route path="/signin" element={<Signin />} />
+              <Route path="/signup" element={<Signup />} />
+            </Routes>
+          </ThemeProvider>
+        </DndProvider>
       </Router>
     </ApolloProvider>
   );
