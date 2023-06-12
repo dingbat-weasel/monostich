@@ -15,10 +15,10 @@ import Container from "@mui/material/Container";
 import { useMutation } from "@apollo/client";
 import { ADD_USER } from "../../utils/mutations";
 import Auth from "../../utils/auth";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 
 export default function Signup() {
-let navigate = useNavigate();
+// let navigate = useNavigate();
 const [formState, setFormState] = useState({
   username: '',
   email: '',
@@ -47,7 +47,7 @@ const [formState, setFormState] = useState({
         variables: {...formState},
       })
       Auth.login(data.addUser.token);
-      console.log("after auth")
+      // console.log("after auth")
     } catch (err) {
       console.error(err)
     }
