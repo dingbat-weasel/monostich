@@ -1,16 +1,10 @@
-import React, { useState, useRef } from "react";
+import React, { useRef } from "react";
 import { Container, Box } from "@mui/material";
-import Tile from "../../components/Tile";
 
-import { useDrop } from "react-dnd";
-import { ItemTypes } from "../../utils/items";
-
-import Draggable, { DraggableCore } from "react-draggable";
-import { useDrag } from "react-dnd";
+import Draggable from "react-draggable";
 
 const Sandbox = ({ tiles, addToStaged }) => {
   const nodeRef = useRef(null);
-  const visibilityRef = useRef(null);
 
   let isDragging = false;
   function onDrag(e) {

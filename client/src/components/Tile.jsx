@@ -1,11 +1,10 @@
-import React, { useRef, useState } from "react";
-import Draggable, { DraggableCore } from "react-draggable";
+import React from "react";
 
 // Utilities
 
 import { Box } from "@mui/material";
 
-const Tile = (props) => {
+const Tile = ({ props }) => {
   return (
     <div>
       <Box className="tile" style={props.tileStyle}>

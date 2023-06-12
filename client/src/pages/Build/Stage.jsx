@@ -1,10 +1,5 @@
 import React from "react";
 
-// Utilities
-
-// Components
-import Tile from "../../components/Tile";
-
 // Materials
 import { Container, Box } from "@mui/material";
 

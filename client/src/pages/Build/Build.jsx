@@ -1,18 +1,17 @@
 import React, { useState } from "react";
 
 // Materials
-import { Container, Grid, Box, Paper, Button } from "@mui/material";
+import { Grid, Button } from "@mui/material";
 
 // Components
 import Sidebar from "./Sidebar";
 import Stage from "./Stage";
 import Navbar from "../../components/Navbar";
-import Tile from "../../components/Tile";
 
 // Utilities
 
 // Data
-import { tileArr, keyedTiles, tileObj } from "../../data/tileSet";
+import { tileObj } from "../../data/tileSet";
 import Sandbox from "./Sandbox";
 
 // Functions
@@ -30,10 +29,6 @@ const getRandomSubArr = (arr, size) => {
   return shuffled.slice(0, size);
 };
 
-// const setStartingPos = () => {
-// Random start position and non overlapping as default pos in draggable comp
-// }
-
 // Variables
 const renderTiles = true;
 const subArrSize = 5;
@@ -42,14 +37,6 @@ const marginVar = 50;
 // Arr of tiles
 // [{key: "", str: ""}]
 const tileObjSubArr = getRandomSubArr(tileObj, subArrSize);
-
-// Notes for morning
-// Need to setup functionality for moving tile from staged->unstaged, just a reverse of what we have so far
-// understand what you did while sleep deprived, read your code and understand
-// check it works with larger number of tiles
-// bring back normal dragging within the component... remember our friend <dragging>, how do we get the two to work together
-// setup functionality for reading the array of strings from the staging area
-// create submit button function that posts mutation to db
 
 const Build = () => {
   const [tiles, setTiles] = useState(
@@ -103,8 +90,9 @@ const Build = () => {
 
   const submitPoem = function () {
     const stagedPoem = staged;
-    const arrOfStr = stagedPoem.map((a) => a.str);
-    console.log(arrOfStr);
+    const poem = stagedPoem.map((a) => a.str);
+    // Save poem to db
+    console.log(poem);
   };
 
   return (
