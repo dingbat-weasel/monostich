@@ -15,7 +15,8 @@ const Tile = (props) => {
     type: ItemTypes.TILE,
     item: {
       id: props.id,
-      tileStr: props.tileStr,
+      tileStr: props.str,
+      staged: props.staged,
     },
     collect: (monitor) => ({
       isDragging: !!monitor.isDragging(),
@@ -26,7 +27,7 @@ const Tile = (props) => {
     <div ref={drag}>
       {/* <Draggable nodeRef={nodeRef}> */}
       <Box className="tile" style={props.tileStyle} ref={nodeRef}>
-        {props.tileStr}
+        {props.str}
       </Box>
       {/* </Draggable> */}
     </div>

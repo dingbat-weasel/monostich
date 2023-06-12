@@ -662,4 +662,7 @@ export const keyedTiles = [
   ["k2Ora3TxeTgaPqfQE7hAw", "you"],
 ];
 
-export const tileMap = new Map(keyedTiles.map((el) => [el[0], el[1]]));
+export const tileObj = keyedTiles.map((tile) => ({
+  key: tile[0],
+  str: tile[1],
+}));

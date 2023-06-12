@@ -10,39 +10,40 @@ import Tile from "../../components/Tile";
 // Materials
 import { Container } from "@mui/material";
 
-const Stage = ({ toStagedDragHandler, staged }) => {
+const Stage = (props) => {
   const [{ isOver }, drop] = useDrop({
     accept: ItemTypes.TILE,
-    drop: (item, monitor) => toStagedDragHandler(item),
+    drop: (item, monitor) => props.moveTile(item),
     collect: (monitor) => ({
       isOver: !!monitor.isOver(),
     }),
   });
 
   return (
-    <div ref={drop}>
-      <Container
-        className="stage"
-        sx={{
-          display: "flex",
-          justifyContent: "flex-start",
-          alignItems: "center",
-          flexWrap: "wrap",
-          width: "100%",
-          minHeight: "3rem",
-          height: "auto",
+    // <div ref={drop}>
+    <Container
+      className="stage"
+      sx={{
+        display: "flex",
+        justifyContent: "flex-start",
+        alignItems: "center",
+        flexWrap: "wrap",
+        width: "100%",
+        minHeight: "3rem",
+        height: "auto",
 
-          border: isOver ? "3px solid lightgreen" : "2px solid gray",
-          borderRadius: 5,
+        border: isOver ? "3px solid lightgreen" : "2px solid gray",
+        borderRadius: 5,
 
-          backgroundColor: "lightyellow",
-        }}
-      >
-        {staged &&
+        backgroundColor: "lightyellow",
+      }}
+    >
+      {/* {staged &&
           staged.map(({ key, tileStr }) => {
             return (
               <Tile
                 key={key}
+                id={key}
                 tileStr={tileStr}
                 tileStyle={{
                   flexGrow: 0,
@@ -61,9 +62,9 @@ const Stage = ({ toStagedDragHandler, staged }) => {
                 }}
               />
             );
-          })}
-      </Container>
-    </div>
+          })} */}
+    </Container>
+    // </div>
   );
 };
 

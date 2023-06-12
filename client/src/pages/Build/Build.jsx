@@ -12,7 +12,7 @@ import Tile from "../../components/Tile";
 // Utilities
 
 // Data
-import { tileArr, keyedTiles, tileMap } from "../../data/tileSet";
+import { tileArr, keyedTiles, tileObj } from "../../data/tileSet";
 import Sandbox from "./Sandbox";
 
 // Functions
@@ -36,22 +36,38 @@ const getRandomSubArr = (arr, size) => {
 
 // Variables
 const renderTiles = true;
-const subArrSize = 55;
+const subArrSize = 5;
 const marginVar = 50;
-const keyedTileSubArr = getRandomSubArr(keyedTiles, subArrSize);
+
+// Arr of tiles
+// [{key: "", str: ""}]
+const tileObjSubArr = getRandomSubArr(tileObj, subArrSize);
 
 const Build = () => {
-  // Set Staged State to keep track of tiles entering stage
-  const [sandboxed, setSandboxed] = useState();
-  const [staged, setStaged] = useState();
-  const sandboxedArr = sandboxed || [];
-  const stageArr = staged || [];
+  const [tiles, setTiles] = useState(
+    tileObjSubArr.map((tiles) => ({ ...tiles, staged: false }))
+  );
+  const tilesArr = tiles;
 
-  const toStagedDragHandler = (item) => {
-    stageArr.push(item);
-    setStaged(stageArr);
+  const setStagedArr = function () {
+    const stagedArr = tilesArr.filter((tile) => tile.staged === true);
+    return stagedArr;
+  };
+  const setUnstagedArr = function () {
+    const unstagedArr = tilesArr.filter((tile) => tile.staged === false);
+    return unstagedArr;
+  };
 
-    return staged;
+  const moveTile = function (item) {
+    // item is {id: props.id, tileStr: props.str, staged: props.staged}
+    // Find index of item in tilesArr
+    const objIndex = tilesArr.findIndex((obj) => obj.key === item.key);
+    // Update tilesArr with new staged value
+    tilesArr[objIndex].staged = !item.staged;
+    // Update State with new tile staged status
+    setTiles(tilesArr);
+    setStagedArr();
+    setUnstagedArr();
   };
 
   return (
@@ -81,10 +97,7 @@ const Build = () => {
               alignItems={"center"}
             >
               <Grid item xs={10}>
-                <Stage
-                  toStagedDragHandler={toStagedDragHandler}
-                  staged={staged}
-                />
+                <Stage moveTile={moveTile} />
               </Grid>
               <Grid
                 item
@@ -107,7 +120,7 @@ const Build = () => {
             </Grid>
 
             <Grid item>
-              <Sandbox />
+              <Sandbox tiles={tiles} moveTile={moveTile} />
             </Grid>
           </Grid>
 

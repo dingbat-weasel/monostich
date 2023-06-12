@@ -2,7 +2,7 @@ import React from "react";
 import { Container } from "@mui/material";
 import Tile from "../../components/Tile";
 
-const Sandbox = () => {
+const Sandbox = (props) => {
   return (
     <div>
       <Container
@@ -28,35 +28,37 @@ const Sandbox = () => {
             padding: "3rem",
           }}
         >
-          {/* {keyedTileSubArr.map(([key, tileStr]) => {
-      return (
-        <Tile
-          key={key}
-          tileStr={tileStr}
-          tileStyle={{
-            position: "absolute",
+          {props.tiles.map(({ key, str, staged }) => {
+            return (
+              <Tile
+                key={key}
+                id={key}
+                str={str}
+                tileStyle={{
+                  position: "absolute",
 
-            left: Math.floor(Math.random() * 100) + "%",
-            top: Math.floor(Math.random() * 100) + "%",
+                  left: Math.floor(Math.random() * 100) + "%",
+                  top: Math.floor(Math.random() * 100) + "%",
 
-            flexGrow: 0,
-            flexShrink: 1,
-            flexBasis: "max-content",
-            height: "max-content",
+                  flexGrow: 0,
+                  flexShrink: 1,
+                  flexBasis: "max-content",
+                  height: "max-content",
 
-            color: "black",
-            backgroundColor: "rgb(240, 240, 240)",
-            borderWidth: "1px 3px 3px 1px",
-            borderStyle: "solid",
-            borderColor: "black",
+                  color: "black",
+                  backgroundColor: "rgb(240, 240, 240)",
+                  borderWidth: "1px 3px 3px 1px",
+                  borderStyle: "solid",
+                  borderColor: "black",
 
-            padding: "5px",
-            cursor: "pointer",
-          }}
-        />
-      );
-    })} */}
-          <Tile
+                  padding: "5px",
+                  cursor: "pointer",
+                }}
+              />
+            );
+          })}
+
+          {/* <Tile
             tileStr={"test"}
             tileStyle={{
               flexGrow: 0,
@@ -73,7 +75,7 @@ const Sandbox = () => {
               padding: "5px",
               cursor: "pointer",
             }}
-          />
+          /> */}
         </Container>
       </Container>
     </div>
