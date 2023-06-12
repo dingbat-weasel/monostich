@@ -29,9 +29,9 @@ const Stage = (props) => {
         }}
       >
         {props.staged.length > 0 &&
-          props.staged.map(({ id, str }) => {
+          props.staged.map(({ id, str }, i) => {
             return (
-              <div key={props.str} id={id}>
+              <div key={i} id={id}>
                 <Box
                   className="tile"
                   style={{
@@ -48,6 +48,9 @@ const Stage = (props) => {
 
                     padding: "5px",
                     cursor: "pointer",
+                  }}
+                  onClick={(e) => {
+                    props.removeFromStaged(i);
                   }}
                 >
                   {str}

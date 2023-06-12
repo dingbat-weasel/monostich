@@ -72,8 +72,25 @@ const Build = () => {
     stagedArr.push({ id, str });
     newStagedArr = [...stagedArr];
     setStaged(newStagedArr);
+
+    // let newTilesArr = [];
+    // tilesArr.map((t) => (t.key === id ? { ...t, staged: true } : t));
+    // newTilesArr = [...tilesArr];
+    // setTiles(newTilesArr);
+
     console.log(staged);
     return staged;
+  };
+
+  const removeFromStaged = function (i) {
+    // Remove the tile {id, str} from staged using stagedArr and updating state
+    // stagedArr = staged;
+    let newStagedArr = [];
+    stagedArr.splice(i, 1);
+    newStagedArr = [...stagedArr];
+    setStaged(newStagedArr);
+
+    // Make original tile visible
   };
 
   return (
@@ -103,7 +120,7 @@ const Build = () => {
               alignItems={"center"}
             >
               <Grid item xs={10}>
-                <Stage staged={staged} />
+                <Stage staged={staged} removeFromStaged={removeFromStaged} />
               </Grid>
               <Grid
                 item

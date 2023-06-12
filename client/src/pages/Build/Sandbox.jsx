@@ -73,14 +73,16 @@ const Sandbox = ({ tiles, addToStaged }) => {
                       cursor: "pointer",
                     }}
                     ref={nodeRef}
-                    onClick={() => {
+                    onClick={(e) => {
                       if (isDragging === true) {
                         return;
                       } else {
                         addToStaged({
                           id: key,
                           str: str,
+                          staged: true,
                         });
+                        e.target.style.visibility = "hidden";
                       }
                     }}
                   >
