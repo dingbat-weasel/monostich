@@ -6,18 +6,18 @@ import { useDrop } from "react-dnd";
 import { ItemTypes } from "../../utils/items";
 
 const Sandbox = (props) => {
-  const [{ isOver }, drop] = useDrop({
-    accept: ItemTypes.TILE,
-    drop: (item, monitor) => {
-      props.onSandboxDrop(item);
-    },
-    collect: (monitor) => ({
-      isOver: !!monitor.isOver(),
-    }),
-  });
+  //   const [{ isOver }, drop] = useDrop({
+  //     accept: ItemTypes.TILE,
+  //     drop: (item, monitor) => {
+  //       props.onSandboxDrop(item);
+  //     },
+  //     collect: (monitor) => ({
+  //       isOver: !!monitor.isOver(),
+  //     }),
+  //   });
 
   return (
-    <div ref={drop}>
+    <div>
       <Container
         sx={{
           display: "flex",

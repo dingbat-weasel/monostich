@@ -11,18 +11,18 @@ import Tile from "../../components/Tile";
 import { Container } from "@mui/material";
 
 const Stage = (props) => {
-  const [{ isOver }, drop] = useDrop({
-    accept: ItemTypes.TILE,
-    drop: (item, monitor) => {
-      props.onStageDrop(item);
-    },
-    collect: (monitor) => ({
-      isOver: !!monitor.isOver(),
-    }),
-  });
+  //   const [{ isOver }, drop] = useDrop({
+  //     accept: ItemTypes.TILE,
+  //     drop: (item, monitor) => {
+  //       props.onStageDrop(item);
+  //     },
+  //     collect: (monitor) => ({
+  //       isOver: !!monitor.isOver(),
+  //     }),
+  //   });
 
   return (
-    <div ref={drop}>
+    <div>
       <Container
         className="stage"
         sx={{
@@ -34,7 +34,7 @@ const Stage = (props) => {
           minHeight: "3rem",
           height: "auto",
 
-          border: isOver ? "3px solid lightgreen" : "2px solid gray",
+          border: "2px solid gray",
           borderRadius: 5,
 
           backgroundColor: "lightyellow",
