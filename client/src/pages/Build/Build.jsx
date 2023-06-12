@@ -82,6 +82,38 @@ const Build = () => {
     return tiles;
   };
 
+  const onStageDrop = function (item) {
+    // Find index of item in tilesArr
+    const objIndex = tilesArr.findIndex((tile) => tile.key === item.id);
+    // Update tilesArr with new staged value
+    tilesArr[objIndex].staged = true;
+    // Update State with new tile staged status
+    setTiles(tilesArr);
+    const stagedArr = tilesArr.filter((tile) => tile.staged === true);
+    const unstagedArr = tilesArr.filter((tile) => tile.staged === false);
+
+    setStagedTiles(stagedArr);
+    setUnstagedTiles(unstagedArr);
+
+    return tiles;
+  };
+
+  const onSandboxDrop = function (item) {
+    // Find index of item in tilesArr
+    const objIndex = tilesArr.findIndex((tile) => tile.key === item.id);
+    // Update tilesArr with new staged value
+    tilesArr[objIndex].staged = false;
+    // Update State with new tile staged status
+    setTiles(tilesArr);
+    const stagedArr = tilesArr.filter((tile) => tile.staged === true);
+    const unstagedArr = tilesArr.filter((tile) => tile.staged === false);
+
+    setStagedTiles(stagedArr);
+    setUnstagedTiles(unstagedArr);
+
+    return tiles;
+  };
+
   return (
     <>
       <Navbar />
@@ -109,7 +141,7 @@ const Build = () => {
               alignItems={"center"}
             >
               <Grid item xs={10}>
-                <Stage moveTile={moveTile} stagedTiles={stagedTiles} />
+                <Stage stagedTiles={stagedTiles} onStageDrop={onStageDrop} />
               </Grid>
               <Grid
                 item
@@ -132,7 +164,10 @@ const Build = () => {
             </Grid>
 
             <Grid item>
-              <Sandbox unstagedTiles={unstagedTiles} moveTile={moveTile} />
+              <Sandbox
+                unstagedTiles={unstagedTiles}
+                onSandboxDrop={onSandboxDrop}
+              />
             </Grid>
           </Grid>
 

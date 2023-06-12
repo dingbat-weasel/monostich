@@ -13,7 +13,9 @@ import { Container } from "@mui/material";
 const Stage = (props) => {
   const [{ isOver }, drop] = useDrop({
     accept: ItemTypes.TILE,
-    drop: (item, monitor) => props.moveTile(item),
+    drop: (item, monitor) => {
+      props.onStageDrop(item);
+    },
     collect: (monitor) => ({
       isOver: !!monitor.isOver(),
     }),
