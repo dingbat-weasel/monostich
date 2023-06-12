@@ -4,12 +4,16 @@ import React, { useState } from "react";
 import { Container, Grid, Box, Paper, Button } from "@mui/material";
 
 // Components
-import Navbar from "../../components/Navbar";
 import Sidebar from "./Sidebar";
+import Stage from "./Stage";
+import Navbar from "../../components/Navbar";
 import Tile from "../../components/Tile";
+
+// Utilities
 
 // Data
 import { tileArr, keyedTiles, tileMap } from "../../data/tileSet";
+import Sandbox from "./Sandbox";
 
 // Functions
 const getRandomSubArr = (arr, size) => {
@@ -38,6 +42,17 @@ const keyedTileSubArr = getRandomSubArr(keyedTiles, subArrSize);
 
 const Build = () => {
   // Set Staged State to keep track of tiles entering stage
+  const [sandboxed, setSandboxed] = useState();
+  const [staged, setStaged] = useState();
+  const sandboxedArr = sandboxed || [];
+  const stageArr = staged || [];
+
+  const toStagedDragHandler = (item) => {
+    stageArr.push(item);
+    setStaged(stageArr);
+
+    return staged;
+  };
 
   return (
     <>
@@ -66,42 +81,10 @@ const Build = () => {
               alignItems={"center"}
             >
               <Grid item xs={10}>
-                <Container
-                  className="stage"
-                  sx={{
-                    display: "flex",
-                    justifyContent: "flex-start",
-                    alignItems: "center",
-                    flexWrap: "wrap",
-                    width: "100%",
-                    minHeight: "3rem",
-                    height: "auto",
-
-                    border: "2px solid gray",
-                    borderRadius: 5,
-
-                    backgroundColor: "lightyellow",
-                  }}
-                >
-                  <Tile
-                    tileStr={"test"}
-                    tileStyle={{
-                      flexGrow: 0,
-                      flexShrink: 1,
-                      flexBasis: "max-content",
-                      height: "max-content",
-
-                      color: "black",
-                      backgroundColor: "rgb(240, 240, 240)",
-                      borderWidth: "1px 3px 3px 1px",
-                      borderStyle: "solid",
-                      borderColor: "black",
-
-                      padding: "5px",
-                      cursor: "pointer",
-                    }}
-                  />
-                </Container>
+                <Stage
+                  toStagedDragHandler={toStagedDragHandler}
+                  staged={staged}
+                />
               </Grid>
               <Grid
                 item
@@ -124,77 +107,7 @@ const Build = () => {
             </Grid>
 
             <Grid item>
-              <Container
-                sx={{
-                  display: "flex",
-                  width: "100%",
-                  height: "70vh",
-
-                  alignItems: "center",
-                  padding: "2rem",
-                }}
-              >
-                <Container
-                  id="sandbox"
-                  sx={{
-                    position: "relative",
-                    display: "flex",
-
-                    flexWrap: "wrap",
-                    width: "100%",
-                    height: "100%",
-
-                    padding: "3rem",
-                  }}
-                >
-                  {/* {keyedTileSubArr.map(([key, tileStr]) => {
-                    return (
-                      <Tile
-                        key={key}
-                        tileStr={tileStr}
-                        tileStyle={{
-                          position: "absolute",
-
-                          left: Math.floor(Math.random() * 100) + "%",
-                          top: Math.floor(Math.random() * 100) + "%",
-
-                          flexGrow: 0,
-                          flexShrink: 1,
-                          flexBasis: "max-content",
-                          height: "max-content",
-
-                          color: "black",
-                          backgroundColor: "rgb(240, 240, 240)",
-                          borderWidth: "1px 3px 3px 1px",
-                          borderStyle: "solid",
-                          borderColor: "black",
-
-                          padding: "5px",
-                          cursor: "pointer",
-                        }}
-                      />
-                    );
-                  })} */}
-                  <Tile
-                    tileStr={"test"}
-                    tileStyle={{
-                      flexGrow: 0,
-                      flexShrink: 1,
-                      flexBasis: "max-content",
-                      height: "max-content",
-
-                      color: "black",
-                      backgroundColor: "rgb(240, 240, 240)",
-                      borderWidth: "1px 3px 3px 1px",
-                      borderStyle: "solid",
-                      borderColor: "black",
-
-                      padding: "5px",
-                      cursor: "pointer",
-                    }}
-                  />
-                </Container>
-              </Container>
+              <Sandbox />
             </Grid>
           </Grid>
 
