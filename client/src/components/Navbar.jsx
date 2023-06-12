@@ -17,6 +17,8 @@ import InputBase from "@mui/material/InputBase";
 import CreateIcon from "@mui/icons-material/Create";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 
+import{ Link} from 'react-router-dom'
+
 const pages = ["Profile", "Notifications", "Dark/Light Toggle", "Logout"];
 const navItemsAtLargeScreen = ["Create Poem", "Notifications"];
 const settings = ["Profile", "Dark/Light Toggle", "Logout"];
@@ -47,6 +49,18 @@ function Navbar() {
 
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
+  };
+
+  const HamburgerMenuLink = ({ text, href, handleClose }) => {
+    const handleLinkClick = () => {
+      handleClose && handleClose();
+    };
+  
+    return (
+      <MenuItem component={Link} to={href} onClick={handleLinkClick}>
+        <Typography align="center" variant="body1">{text}</Typography>
+      </MenuItem>
+    );
   };
 
   return (
@@ -198,8 +212,11 @@ function Navbar() {
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
+              {/* <HamburgerMenuLink text="Profile" href={`/profile/`} handleClose={handleCloseUserMenu}/>
+              <HamburgerMenuLink text="Dark/Light Toggle" href={`#`} handleClose={handleCloseUserMenu}/>
+              <HamburgerMenuLink text="Log out" href={`/signup`} handleClose={handleCloseUserMenu}/> */}
               {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
+                <MenuItem key={setting} component={Link} to={`/${setting}`} onClick={handleCloseUserMenu}>
                   <Typography textAlign="center">{setting}</Typography>
                 </MenuItem>
               ))}

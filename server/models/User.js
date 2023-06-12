@@ -84,14 +84,13 @@ userSchema.pre("save", function (next) {
   }
 });
 
-userSchema.methods.isCorrectPassword = function (password, callback) {
-  bcrypt.compare(password, this.password, function (error, isMatch) {
-    if (error) {
-      return callback(error);
-    } else {
-      callback(null, isMatch);
-    }
-  });
+userSchema.methods.isCorrectPassword = async function (password) {
+    // if (error) {
+    //   return callback(error);
+    // } else {
+    //   callback(null, isMatch);
+    // }
+    return bcrypt.compare(password,this.password)
 };
 
 const User = model("User", userSchema);

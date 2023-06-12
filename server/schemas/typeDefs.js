@@ -2,8 +2,6 @@ const { gql } = require("apollo-server-express");
 
 // To Do: What needs to be required fields on these types? (Which properties get the '!', Is ID always required?)
 
-// To DO: AUTH
-
 const typeDefs = gql`
   scalar Upload
 

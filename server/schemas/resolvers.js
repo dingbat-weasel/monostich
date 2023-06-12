@@ -1,4 +1,4 @@
-// const { AuthenticationError } = require("apollo-server-express");
+const { AuthenticationError } = require("apollo-server-express");
 const { User, Poem } = require("../models");
 // const {GraphQLUpload} = require('graphql-upload/GraphQLUpload.mjs'); // keeping commented while not working
 // import {GraphQLUpload} from "/graphql-upload/GraphQLUpload"
@@ -42,11 +42,12 @@ const resolvers = {
       }
 
       const correctPw = await user.isCorrectPassword(password);
+      console.log(correctPw)
       if (!correctPw) {
         throw new AuthenticationError('Incorrect credentials')
         // throw new console.error("incorrect credentials");
       }
-      const token = signToken(profile);
+      const token = signToken(user);
       return {token, user };
     },
     addUser: async (parent, { username, email, password }) => {
