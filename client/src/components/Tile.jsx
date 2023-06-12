@@ -25,11 +25,11 @@ const Tile = (props) => {
 
   return (
     <div ref={drag}>
-      {/* <Draggable nodeRef={nodeRef}> */}
-      <Box className="tile" style={props.tileStyle} ref={nodeRef}>
-        {props.str}
-      </Box>
-      {/* </Draggable> */}
+      <Draggable nodeRef={nodeRef}>
+        <Box className="tile" style={props.tileStyle} ref={nodeRef}>
+          {props.str}
+        </Box>
+      </Draggable>
     </div>
   );
 };

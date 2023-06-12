@@ -28,7 +28,7 @@ const Sandbox = (props) => {
             padding: "3rem",
           }}
         >
-          {props.unstagedTiles.map(({ key, str, staged }) => {
+          {props.unstagedTiles.map(({ key, str, staged, top, left }) => {
             return (
               <Tile
                 key={key}
@@ -37,9 +37,8 @@ const Sandbox = (props) => {
                 tileStyle={{
                   position: "absolute",
 
-                  left: Math.floor(Math.random() * 100) + "%",
-                  top: Math.floor(Math.random() * 100) + "%",
-
+                  top: top,
+                  left: left,
                   flexGrow: 0,
                   flexShrink: 1,
                   flexBasis: "max-content",

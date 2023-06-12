@@ -43,9 +43,22 @@ const marginVar = 50;
 // [{key: "", str: ""}]
 const tileObjSubArr = getRandomSubArr(tileObj, subArrSize);
 
+// Notes for morning
+// Need to setup functionality for moving tile from staged->unstaged, just a reverse of what we have so far
+// understand what you did while sleep deprived, read your code and understand
+// check it works with larger number of tiles
+// bring back normal dragging within the component... remember our friend <dragging>, how do we get the two to work together
+// setup functionality for reading the array of strings from the staging area
+// create submit button function that posts mutation to db
+
 const Build = () => {
   const [tiles, setTiles] = useState(
-    tileObjSubArr.map((tiles) => ({ ...tiles, staged: false }))
+    tileObjSubArr.map((tiles) => ({
+      ...tiles,
+      staged: false,
+      top: Math.floor(Math.random() * 100) + "%",
+      left: Math.floor(Math.random() * 100) + "%",
+    }))
   );
   const [stagedTiles, setStagedTiles] = useState([]);
   const [unstagedTiles, setUnstagedTiles] = useState(tiles);
