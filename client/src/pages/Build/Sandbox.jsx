@@ -8,11 +8,9 @@ const Sandbox = ({ tiles, addToStaged }) => {
 
   let isDragging = false;
   function onDrag(e) {
-    console.log("onDrag");
     isDragging = true;
   }
   function onStop(e) {
-    console.log("onStop");
     setTimeout(() => (isDragging = false), 0);
   }
 

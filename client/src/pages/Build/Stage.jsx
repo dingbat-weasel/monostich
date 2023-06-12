@@ -4,6 +4,7 @@ import React from "react";
 import { Container, Box } from "@mui/material";
 
 const Stage = (props) => {
+  const marginVar = 10;
   return (
     <div>
       <Container
@@ -16,7 +17,7 @@ const Stage = (props) => {
           width: "100%",
           minHeight: "3rem",
           height: "auto",
-
+          padding: "1rem",
           border: "2px solid gray",
           borderRadius: 5,
 
@@ -40,8 +41,12 @@ const Stage = (props) => {
                     borderWidth: "1px 3px 3px 1px",
                     borderStyle: "solid",
                     borderColor: "black",
-
+                    marginTop: Math.floor(Math.random() * marginVar) + "px",
+                    marginBottom: Math.floor(Math.random() * marginVar) + "px",
+                    marginLeft: Math.floor(Math.random() * marginVar) + "px",
+                    marginRight: Math.floor(Math.random() * marginVar) + "px",
                     padding: "5px",
+
                     cursor: "pointer",
                   }}
                   onClick={(e) => {

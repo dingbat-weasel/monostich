@@ -30,9 +30,7 @@ const getRandomSubArr = (arr, size) => {
 };
 
 // Variables
-const renderTiles = true;
-const subArrSize = 5;
-const marginVar = 50;
+const subArrSize = 55;
 
 // Arr of tiles
 // [{key: "", str: ""}]
@@ -63,17 +61,16 @@ const Build = () => {
     const indexInTiles = tilesArr.findIndex((tile) => tile.key === id);
     tilesArr[indexInTiles].staged = true;
     newTilesArr = [...tilesArr];
-    console.log(newTilesArr);
+
     setTiles(newTilesArr);
 
-    console.log(staged);
     return staged;
   };
 
   const removeFromStaged = function (i, id) {
     // Remove the tile {id, str} from staged using stagedArr and updating state
     // stagedArr = staged;
-    console.log(id);
+
     let newStagedArr = [];
     stagedArr.splice(i, 1);
     newStagedArr = [...stagedArr];
@@ -84,7 +81,7 @@ const Build = () => {
     const indexInTiles = tilesArr.findIndex((tile) => tile.key === id);
     tilesArr[indexInTiles].staged = false;
     newTilesArr = [...tilesArr];
-    console.log(newTilesArr);
+
     setTiles(newTilesArr);
   };
 
@@ -100,14 +97,13 @@ const Build = () => {
       <Navbar />
       <Grid container>
         {/* Top Spacing */}
-        <Grid item xs={12} m={4}></Grid>
+        <Grid item xs={12}></Grid>
         {/* Page */}
         <Grid container mx={{ xs: 2, md: 6, lg: 10 }}>
           {/* Main Container */}
           <Grid
             item
             xs={12}
-            lg={8}
             sx={{
               overflow: "hidden",
               border: "2px solid gray",
@@ -147,11 +143,6 @@ const Build = () => {
             <Grid item>
               <Sandbox tiles={tiles} addToStaged={addToStaged} />
             </Grid>
-          </Grid>
-
-          {/* Sidebar Container */}
-          <Grid item xs={0} lg={4}>
-            <Sidebar />
           </Grid>
         </Grid>
       </Grid>
