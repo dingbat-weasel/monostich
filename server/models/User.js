@@ -14,7 +14,7 @@ const userSchema = new Schema({
     maxlength: [36, "Usernames must be less than 36 characters."],
     trim: true,
     match: [
-      /[a-zA-Z0-9_]*/,
+      /^[a-zA-Z0-9_]*/,
       "Usernames may only include letters, numbers, and underscore.",
     ],
   },
@@ -29,6 +29,11 @@ const userSchema = new Schema({
     required: [true, "Enter a password."],
     minlength: [8, "Password should be at least eight characters."],
     maxlength: 256,
+  },
+  about: {
+    type: String,
+    required: false,
+    trim: true,
   },
   poems: [
     {
@@ -79,14 +84,13 @@ userSchema.pre("save", function (next) {
   }
 });
 
-userSchema.methods.isCorrectPassword = function (password, callback) {
-  bcrypt.compare(password, this.password, function (error, isMatch) {
-    if (error) {
-      return callback(error);
-    } else {
-      callback(null, isMatch);
-    }
-  });
+userSchema.methods.isCorrectPassword = async function (password) {
+    // if (error) {
+    //   return callback(error);
+    // } else {
+    //   callback(null, isMatch);
+    // }
+    return bcrypt.compare(password,this.password)
 };
 
 const User = model("User", userSchema);
