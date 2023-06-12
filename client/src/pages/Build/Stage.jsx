@@ -1,26 +1,14 @@
 import React from "react";
-import { useDrop } from "react-dnd";
 
 // Utilities
-import { ItemTypes } from "../../utils/items";
 
 // Components
 import Tile from "../../components/Tile";
 
 // Materials
-import { Container } from "@mui/material";
+import { Container, Box } from "@mui/material";
 
 const Stage = (props) => {
-  //   const [{ isOver }, drop] = useDrop({
-  //     accept: ItemTypes.TILE,
-  //     drop: (item, monitor) => {
-  //       props.onStageDrop(item);
-  //     },
-  //     collect: (monitor) => ({
-  //       isOver: !!monitor.isOver(),
-  //     }),
-  //   });
-
   return (
     <div>
       <Container
@@ -40,29 +28,33 @@ const Stage = (props) => {
           backgroundColor: "lightyellow",
         }}
       >
-        {/* {props.staged.map(({ id, str }) => {
-          return (
-            <Tile
-              id={id}
-              str={str}
-              tileStyle={{
-                flexGrow: 0,
-                flexShrink: 1,
-                flexBasis: "max-content",
-                height: "max-content",
+        {props.staged.length > 0 &&
+          props.staged.map(({ id, str }) => {
+            return (
+              <div key={props.str} id={id}>
+                <Box
+                  className="tile"
+                  style={{
+                    flexGrow: 0,
+                    flexShrink: 1,
+                    flexBasis: "max-content",
+                    height: "max-content",
 
-                color: "black",
-                backgroundColor: "rgb(240, 240, 240)",
-                borderWidth: "1px 3px 3px 1px",
-                borderStyle: "solid",
-                borderColor: "black",
+                    color: "black",
+                    backgroundColor: "rgb(240, 240, 240)",
+                    borderWidth: "1px 3px 3px 1px",
+                    borderStyle: "solid",
+                    borderColor: "black",
 
-                padding: "5px",
-                cursor: "pointer",
-              }}
-            />
-          );
-        })} */}
+                    padding: "5px",
+                    cursor: "pointer",
+                  }}
+                >
+                  {str}
+                </Box>
+              </div>
+            );
+          })}
       </Container>
     </div>
   );

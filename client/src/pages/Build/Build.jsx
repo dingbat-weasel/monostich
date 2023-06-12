@@ -64,11 +64,14 @@ const Build = () => {
   // const [unstaged, setUnstaged] = useState(tiles);
   const tilesArr = tiles;
   const stagedArr = staged;
+
   // const unstagedArr = unstaged;
 
   const addToStaged = function ({ id, str }) {
+    let newStagedArr = [];
     stagedArr.push({ id, str });
-    setStaged(stagedArr);
+    newStagedArr = [...stagedArr];
+    setStaged(newStagedArr);
     console.log(staged);
     return staged;
   };
