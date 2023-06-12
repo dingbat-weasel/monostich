@@ -28,7 +28,7 @@ const Sandbox = (props) => {
             padding: "3rem",
           }}
         >
-          {props.tiles.map(({ key, str, staged }) => {
+          {props.unstagedTiles.map(({ key, str, staged }) => {
             return (
               <Tile
                 key={key}
@@ -57,25 +57,6 @@ const Sandbox = (props) => {
               />
             );
           })}
-
-          {/* <Tile
-            tileStr={"test"}
-            tileStyle={{
-              flexGrow: 0,
-              flexShrink: 1,
-              flexBasis: "max-content",
-              height: "max-content",
-
-              color: "black",
-              backgroundColor: "rgb(240, 240, 240)",
-              borderWidth: "1px 3px 3px 1px",
-              borderStyle: "solid",
-              borderColor: "black",
-
-              padding: "5px",
-              cursor: "pointer",
-            }}
-          /> */}
         </Container>
       </Container>
     </div>

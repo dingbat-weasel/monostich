@@ -47,27 +47,26 @@ const Build = () => {
   const [tiles, setTiles] = useState(
     tileObjSubArr.map((tiles) => ({ ...tiles, staged: false }))
   );
-  const tilesArr = tiles;
+  const [stagedTiles, setStagedTiles] = useState([]);
+  const [unstagedTiles, setUnstagedTiles] = useState(tiles);
 
-  const setStagedArr = function () {
-    const stagedArr = tilesArr.filter((tile) => tile.staged === true);
-    return stagedArr;
-  };
-  const setUnstagedArr = function () {
-    const unstagedArr = tilesArr.filter((tile) => tile.staged === false);
-    return unstagedArr;
-  };
+  const tilesArr = tiles;
 
   const moveTile = function (item) {
     // item is {id: props.id, tileStr: props.str, staged: props.staged}
     // Find index of item in tilesArr
-    const objIndex = tilesArr.findIndex((obj) => obj.key === item.key);
+    const objIndex = tilesArr.findIndex((tile) => tile.key === item.id);
     // Update tilesArr with new staged value
     tilesArr[objIndex].staged = !item.staged;
     // Update State with new tile staged status
     setTiles(tilesArr);
-    setStagedArr();
-    setUnstagedArr();
+    const stagedArr = tilesArr.filter((tile) => tile.staged === true);
+    const unstagedArr = tilesArr.filter((tile) => tile.staged === false);
+
+    setStagedTiles(stagedArr);
+    setUnstagedTiles(unstagedArr);
+
+    return tiles;
   };
 
   return (
@@ -97,7 +96,7 @@ const Build = () => {
               alignItems={"center"}
             >
               <Grid item xs={10}>
-                <Stage moveTile={moveTile} />
+                <Stage moveTile={moveTile} stagedTiles={stagedTiles} />
               </Grid>
               <Grid
                 item
@@ -120,7 +119,7 @@ const Build = () => {
             </Grid>
 
             <Grid item>
-              <Sandbox tiles={tiles} moveTile={moveTile} />
+              <Sandbox unstagedTiles={unstagedTiles} moveTile={moveTile} />
             </Grid>
           </Grid>
 

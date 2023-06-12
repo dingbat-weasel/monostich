@@ -20,51 +20,50 @@ const Stage = (props) => {
   });
 
   return (
-    // <div ref={drop}>
-    <Container
-      className="stage"
-      sx={{
-        display: "flex",
-        justifyContent: "flex-start",
-        alignItems: "center",
-        flexWrap: "wrap",
-        width: "100%",
-        minHeight: "3rem",
-        height: "auto",
+    <div ref={drop}>
+      <Container
+        className="stage"
+        sx={{
+          display: "flex",
+          justifyContent: "flex-start",
+          alignItems: "center",
+          flexWrap: "wrap",
+          width: "100%",
+          minHeight: "3rem",
+          height: "auto",
 
-        border: isOver ? "3px solid lightgreen" : "2px solid gray",
-        borderRadius: 5,
+          border: isOver ? "3px solid lightgreen" : "2px solid gray",
+          borderRadius: 5,
 
-        backgroundColor: "lightyellow",
-      }}
-    >
-      {/* {staged &&
-          staged.map(({ key, tileStr }) => {
-            return (
-              <Tile
-                key={key}
-                id={key}
-                tileStr={tileStr}
-                tileStyle={{
-                  flexGrow: 0,
-                  flexShrink: 1,
-                  flexBasis: "max-content",
-                  height: "max-content",
+          backgroundColor: "lightyellow",
+        }}
+      >
+        {props.stagedTiles.map(({ key, str, staged }) => {
+          return (
+            <Tile
+              key={key}
+              id={key}
+              str={str}
+              tileStyle={{
+                flexGrow: 0,
+                flexShrink: 1,
+                flexBasis: "max-content",
+                height: "max-content",
 
-                  color: "black",
-                  backgroundColor: "rgb(240, 240, 240)",
-                  borderWidth: "1px 3px 3px 1px",
-                  borderStyle: "solid",
-                  borderColor: "black",
+                color: "black",
+                backgroundColor: "rgb(240, 240, 240)",
+                borderWidth: "1px 3px 3px 1px",
+                borderStyle: "solid",
+                borderColor: "black",
 
-                  padding: "5px",
-                  cursor: "pointer",
-                }}
-              />
-            );
-          })} */}
-    </Container>
-    // </div>
+                padding: "5px",
+                cursor: "pointer",
+              }}
+            />
+          );
+        })}
+      </Container>
+    </div>
   );
 };
 
