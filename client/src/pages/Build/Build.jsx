@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 // Materials
-import { Container, Grid, Box, Paper } from "@mui/material";
+import { Container, Grid, Box, Paper, Button } from "@mui/material";
 
 // Components
 import Navbar from "../../components/Navbar";
@@ -12,14 +12,6 @@ import Tile from "../../components/Tile";
 import { tileArr, keyedTiles, tileMap } from "../../data/tileSet";
 
 // Functions
-const randomizeTilePosition = (tileEl) => {
-  const marginVar = 50;
-  tileEl.style.marginTop = Math.floor(Math.random() * marginVar) + "px";
-  tileEl.style.marginRight = Math.floor(Math.random() * marginVar) + "px";
-  tileEl.style.marginLeft = Math.floor(Math.random() * marginVar) + "px";
-  tileEl.style.marginBottom = Math.floor(Math.random() * marginVar) + "px";
-};
-
 const getRandomSubArr = (arr, size) => {
   let shuffled = arr.slice(0),
     i = arr.length,
@@ -33,6 +25,10 @@ const getRandomSubArr = (arr, size) => {
   }
   return shuffled.slice(0, size);
 };
+
+// const setStartingPos = () => {
+// Random start position and non overlapping as default pos in draggable comp
+// }
 
 // Variables
 const renderTiles = true;
@@ -48,7 +44,7 @@ const Build = () => {
         {/* Top Spacing */}
         <Grid item xs={12} m={4}></Grid>
         {/* Page */}
-        <Grid container mx={{ xs: 2, md: 6, lg: 10 }} columnSpacing={2}>
+        <Grid container mx={{ xs: 2, md: 6, lg: 10 }}>
           {/* Main Container */}
           <Grid
             item
@@ -60,21 +56,69 @@ const Build = () => {
               borderRadius: 5,
             }}
           >
-            <Grid item>
-              <Container
-                className="stage"
-                sx={{
-                  display: "flex",
-                  flexDirection: "row",
-                  width: "100%",
-                  height: "100%",
+            <Grid
+              container
+              p={2}
+              display={"flex"}
+              justifyContent={"space-between"}
+              alignItems={"center"}
+            >
+              <Grid item xs={10}>
+                <Container
+                  className="stage"
+                  sx={{
+                    display: "flex",
+                    justifyContent: "flex-start",
+                    alignItems: "center",
+                    flexWrap: "wrap",
+                    width: "100%",
+                    minHeight: "3rem",
+                    height: "auto",
 
-                  backgroundColor: "lightblue",
+                    border: "2px solid gray",
+                    borderRadius: 5,
 
-                  marginTop: "2rem",
-                  marginBottom: "2rem",
-                }}
-              ></Container>
+                    backgroundColor: "lightyellow",
+                  }}
+                >
+                  <Tile
+                    tileStr={"test"}
+                    tileStyle={{
+                      flexGrow: 0,
+                      flexShrink: 1,
+                      flexBasis: "max-content",
+                      height: "max-content",
+
+                      color: "black",
+                      backgroundColor: "rgb(240, 240, 240)",
+                      borderWidth: "1px 3px 3px 1px",
+                      borderStyle: "solid",
+                      borderColor: "black",
+
+                      padding: "5px",
+                      cursor: "pointer",
+                    }}
+                  />
+                </Container>
+              </Grid>
+              <Grid
+                item
+                xs={2}
+                display={"flex"}
+                justifyContent={"center"}
+                alignItems={"center"}
+              >
+                <Button
+                  variant={"contained"}
+                  size={"large"}
+                  sx={{ borderRadius: 5, height: "3rem", margin: "1rem" }}
+                  onClick={() => {
+                    console.log("clicked submit");
+                  }}
+                >
+                  Submit
+                </Button>
+              </Grid>
             </Grid>
 
             <Grid item>
@@ -102,7 +146,32 @@ const Build = () => {
                   }}
                 >
                   {keyedTileSubArr.map(([key, tileStr]) => {
-                    return <Tile key={key} tileStr={tileStr} />;
+                    return (
+                      <Tile
+                        key={key}
+                        tileStr={tileStr}
+                        tileStyle={{
+                          position: "absolute",
+
+                          left: Math.floor(Math.random() * 100) + "%",
+                          top: Math.floor(Math.random() * 100) + "%",
+
+                          flexGrow: 0,
+                          flexShrink: 1,
+                          flexBasis: "max-content",
+                          height: "max-content",
+
+                          color: "black",
+                          backgroundColor: "rgb(240, 240, 240)",
+                          borderWidth: "1px 3px 3px 1px",
+                          borderStyle: "solid",
+                          borderColor: "black",
+
+                          padding: "5px",
+                          cursor: "pointer",
+                        }}
+                      />
+                    );
                   })}
                 </Container>
               </Container>
