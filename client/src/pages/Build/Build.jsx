@@ -66,44 +66,12 @@ const Build = () => {
   const stagedArr = staged;
   // const unstagedArr = unstaged;
 
-  const addToStaged = function (tile) {
-    // const newStagedArr = stagedArr.push(tile);
-    // setStaged(newStagedArr);
-    console.log("Clicked");
-    // return staged;
+  const addToStaged = function ({ id, str }) {
+    stagedArr.push({ id, str });
+    setStaged(stagedArr);
+    console.log(staged);
+    return staged;
   };
-
-  // const onStageDrop = function (item) {
-  //   // Find index of item in tilesArr
-  //   const objIndex = tilesArr.findIndex((tile) => tile.key === item.id);
-  //   // Update tilesArr with new staged value
-  //   tilesArr[objIndex].staged = true;
-  //   // Update State with new tile staged status
-  //   setTiles(tilesArr);
-  //   const stagedArr = tilesArr.filter((tile) => tile.staged === true);
-  //   const unstagedArr = tilesArr.filter((tile) => tile.staged === false);
-
-  //   setStagedTiles(stagedArr);
-  //   setUnstagedTiles(unstagedArr);
-
-  //   return tiles;
-  // };
-
-  // const onSandboxDrop = function (item) {
-  //   // Find index of item in tilesArr
-  //   const objIndex = tilesArr.findIndex((tile) => tile.key === item.id);
-  //   // Update tilesArr with new staged value
-  //   tilesArr[objIndex].staged = false;
-  //   // Update State with new tile staged status
-  //   setTiles(tilesArr);
-  //   const stagedArr = tilesArr.filter((tile) => tile.staged === true);
-  //   const unstagedArr = tilesArr.filter((tile) => tile.staged === false);
-
-  //   setStagedTiles(stagedArr);
-  //   setUnstagedTiles(unstagedArr);
-
-  //   return tiles;
-  // };
 
   return (
     <>

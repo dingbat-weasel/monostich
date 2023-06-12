@@ -1,20 +1,25 @@
-import React from "react";
-import { Container } from "@mui/material";
+import React, { useState, useRef } from "react";
+import { Container, Box } from "@mui/material";
 import Tile from "../../components/Tile";
 
 import { useDrop } from "react-dnd";
 import { ItemTypes } from "../../utils/items";
 
+import Draggable, { DraggableCore } from "react-draggable";
+import { useDrag } from "react-dnd";
+
 const Sandbox = ({ tiles, addToStaged }) => {
-  //   const [{ isOver }, drop] = useDrop({
-  //     accept: ItemTypes.TILE,
-  //     drop: (item, monitor) => {
-  //       props.onSandboxDrop(item);
-  //     },
-  //     collect: (monitor) => ({
-  //       isOver: !!monitor.isOver(),
-  //     }),
-  //   });
+  const nodeRef = useRef(null);
+
+  let isDragging = false;
+  function onDrag(e) {
+    console.log("onDrag");
+    isDragging = true;
+  }
+  function onStop(e) {
+    console.log("onStop");
+    setTimeout(() => (isDragging = false), 0);
+  }
 
   return (
     <div>
@@ -43,32 +48,46 @@ const Sandbox = ({ tiles, addToStaged }) => {
         >
           {tiles.map(({ key, str, staged, top, left }) => {
             return (
-              <Tile
-                key={key}
-                id={key}
-                str={str}
-                addToStaged={addToStaged}
-                tileStyle={{
-                  position: "absolute",
-                  visibility: staged ? "hidden" : "visible",
+              <div key={key} id={key}>
+                <Draggable nodeRef={nodeRef} onDrag={onDrag} onStop={onStop}>
+                  <Box
+                    className="tile"
+                    style={{
+                      position: "absolute",
+                      visibility: staged ? "hidden" : "visible",
 
-                  top: top,
-                  left: left,
-                  flexGrow: 0,
-                  flexShrink: 1,
-                  flexBasis: "max-content",
-                  height: "max-content",
+                      top: top,
+                      left: left,
+                      flexGrow: 0,
+                      flexShrink: 1,
+                      flexBasis: "max-content",
+                      height: "max-content",
 
-                  color: "black",
-                  backgroundColor: "rgb(240, 240, 240)",
-                  borderWidth: "1px 3px 3px 1px",
-                  borderStyle: "solid",
-                  borderColor: "black",
+                      color: "black",
+                      backgroundColor: "rgb(240, 240, 240)",
+                      borderWidth: "1px 3px 3px 1px",
+                      borderStyle: "solid",
+                      borderColor: "black",
 
-                  padding: "5px",
-                  cursor: "pointer",
-                }}
-              />
+                      padding: "5px",
+                      cursor: "pointer",
+                    }}
+                    ref={nodeRef}
+                    onClick={() => {
+                      if (isDragging === true) {
+                        return;
+                      } else {
+                        addToStaged({
+                          id: key,
+                          str: str,
+                        });
+                      }
+                    }}
+                  >
+                    {str}
+                  </Box>
+                </Draggable>
+              </div>
             );
           })}
         </Container>

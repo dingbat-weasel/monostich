@@ -40,11 +40,10 @@ const Stage = (props) => {
           backgroundColor: "lightyellow",
         }}
       >
-        {props.staged.map(({ key, str, staged }) => {
+        {/* {props.staged.map(({ id, str }) => {
           return (
             <Tile
-              key={key}
-              id={key}
+              id={id}
               str={str}
               tileStyle={{
                 flexGrow: 0,
@@ -63,7 +62,7 @@ const Stage = (props) => {
               }}
             />
           );
-        })}
+        })} */}
       </Container>
     </div>
   );
