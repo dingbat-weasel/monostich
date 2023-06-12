@@ -61,11 +61,9 @@ const Build = () => {
     }))
   );
   const [staged, setStaged] = useState([]);
-  // const [unstaged, setUnstaged] = useState(tiles);
+
   const tilesArr = tiles;
   const stagedArr = staged;
-
-  // const unstagedArr = unstaged;
 
   const addToStaged = function ({ id, str }) {
     let newStagedArr = [];
@@ -73,18 +71,15 @@ const Build = () => {
     newStagedArr = [...stagedArr];
     setStaged(newStagedArr);
 
-    console.log(staged);
-
     // Update tiles state with new staged value
     let newTilesArr = [];
     const indexInTiles = tilesArr.findIndex((tile) => tile.key === id);
     tilesArr[indexInTiles].staged = true;
-    console.log(indexInTiles);
-    console.log(tilesArr);
     newTilesArr = [...tilesArr];
     console.log(newTilesArr);
     setTiles(newTilesArr);
 
+    console.log(staged);
     return staged;
   };
 
@@ -97,17 +92,19 @@ const Build = () => {
     newStagedArr = [...stagedArr];
     setStaged(newStagedArr);
 
-    // Make original tile visible
     // Update tiles state with new staged value
     let newTilesArr = [];
-
     const indexInTiles = tilesArr.findIndex((tile) => tile.key === id);
     tilesArr[indexInTiles].staged = false;
-    console.log(indexInTiles);
-    console.log(tilesArr);
     newTilesArr = [...tilesArr];
     console.log(newTilesArr);
     setTiles(newTilesArr);
+  };
+
+  const submitPoem = function () {
+    const stagedPoem = staged;
+    const arrOfStr = stagedPoem.map((a) => a.str);
+    console.log(arrOfStr);
   };
 
   return (
@@ -151,7 +148,7 @@ const Build = () => {
                   size={"large"}
                   sx={{ borderRadius: 5, height: "3rem", margin: "1rem" }}
                   onClick={() => {
-                    console.log("clicked");
+                    submitPoem();
                   }}
                 >
                   Submit
