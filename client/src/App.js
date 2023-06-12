@@ -22,6 +22,7 @@ import { themeSettings } from "./assets/theme.js";
 // import pages and components here
 import Home from "./pages/Home/Home.jsx";
 import Profile from "./pages/Profile/Profile.jsx";
+import Build from "./pages/Build/Build.jsx";
 import Signin from "./pages/Signin/Signin.jsx";
 import Signup from "./pages/Signup/Signup.jsx";
 import SinglePoem from "./pages/SinglePoem/SinglePoem.jsx";
@@ -65,6 +66,9 @@ function App() {
             <Route path="/" element={<Home />} />
             {/* <Route path="/profile" element={<Profile />} /> */}
             <Route path="/profile/:username" element={<Profile />} />
+
+            <Route path="/build" element={<Build />} />
+
             <Route path="/poem" element={<SinglePoem />} />
             <Route path="/signin" element={<Signin />} />
             <Route path="/signup" element={<Signup />} />

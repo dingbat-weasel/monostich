@@ -1,10 +1,12 @@
 import * as React from "react";
 
-import { Grid } from "@mui/material";
-
+// Components
 import Navbar from "../../components/Navbar";
 import Main from "./Main";
 import Sidebar from "./Sidebar";
+
+// Materials
+import { Grid } from "@mui/material";
 
 const Profile = () => {
   return (
