@@ -65,15 +65,33 @@ export const QUERY_ALL_POEMS = gql`
   query getAllPoems {
     allPoems {
       _id
+      poemText
+      poemAuthor
+      createdAt
+      likes {
+        _id
+        likedBy {
+          username
+        }
+      }
       comments {
         _id
+        commentAuthor {
+          username
+        }
+        commentText
+        createdAt
       }
-      createdAt
-      poemAuthor
-      poemText
+      saves {
+        _id
+        savedBy {
+          username
+        }
+      }
     }
   }
 `;
+
 export const QUERY_USER_SAVES = gql`
   query getUserSavedPoems($username: String!) {
     user(username: $username) {
