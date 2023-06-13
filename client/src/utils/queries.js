@@ -31,7 +31,7 @@ export const QUERY_USER_POEMS = gql`
       poems {
         _id
         createdAt
-
+        poemAuthor
         poemText
         likes {
           _id

@@ -18,7 +18,7 @@ import {
   QUERY_USER_SAVES,
 } from "../../utils/queries";
 
-import Auth from '../../utils/auth'
+import Auth from "../../utils/auth";
 // TO DO:
 // Poem cards need to be mapped to tabs from data
 // All link functionality
@@ -88,6 +88,8 @@ export default function Main() {
   const poems = poemData?.user.poems || [];
   const saves = savesData?.user.savedPoems || [];
 
+  console.log(poems);
+
   const usernameTile = [user.username];
 
   return (
@@ -119,6 +121,7 @@ export default function Main() {
                   <PoemCard
                     poem={poem}
                     includeAuthor={false}
+                    author={poem.poemAuthor}
                     marginVar={25}
                     key={poem._id}
                   />

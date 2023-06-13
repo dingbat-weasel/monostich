@@ -179,7 +179,14 @@ function Navbar() {
                   to={`/signin`}
                   onClick={handleCloseUserMenu}
                 >
-                  <Typography textAlign="center">Sign in</Typography>
+                  <Typography textAlign="center">Sign In</Typography>
+                </MenuItem>
+                <MenuItem
+                  component={Link}
+                  to={`/signup`}
+                  onClick={handleCloseUserMenu}
+                >
+                  <Typography textAlign="center">Sign Up</Typography>
                 </MenuItem>
               </Menu>
             )}
