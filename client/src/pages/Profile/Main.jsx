@@ -88,7 +88,7 @@ export default function Main() {
   const poems = poemData?.user.poems || [];
   const saves = savesData?.user.savedPoems || [];
 
-  console.log(poems);
+  // console.log(poems);
 
   const usernameTile = [user.username];
 

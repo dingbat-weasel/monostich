@@ -34,7 +34,7 @@ export default function Sidebar() {
 
   // Data
   const user = userData?.user || [];
-  console.log(user);
+  // console.log(user);
   const usernameTile = [`${user.username}'s`, "Profile"];
 
   return (

@@ -39,7 +39,7 @@ export default function AboutUser(user) {
 
   const [aboutInput, setAboutInput] = useState(about);
   let aboutInputShadow = aboutInput;
-  console.log(loggedInUser);
+  // console.log(loggedInUser);
 
   // Mutation
 

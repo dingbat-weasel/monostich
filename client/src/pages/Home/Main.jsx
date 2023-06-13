@@ -51,7 +51,7 @@ export default function Main() {
   const [value, setValue] = React.useState(0);
   const { loading: poemLoading, data: poemData } = useQuery(QUERY_ALL_POEMS);
   const poems = poemData?.allPoems || [];
-  console.log(poems);
+  // console.log(poems);
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };

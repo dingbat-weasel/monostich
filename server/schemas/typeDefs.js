@@ -75,7 +75,7 @@ const typeDefs = gql`
     removeFollow(username: String!, followedUsername: String!): User
     # updateImage(userId: ID!, image: Upload!): User
     removeUser(username: String!): User
-    removePoem(poemId: ID!): Poem
+    removePoem(poemId: ID!, poemAuthor: String!): User
     removeLike(poemId: ID!, likeId: ID!, likedBy: String!): Poem
     removeComment(poemId: ID!, commentId: ID!, commentAuthor: String!): Poem
     removeSave(poemId: ID!, saveId: ID!, savedBy: String!): Poem
