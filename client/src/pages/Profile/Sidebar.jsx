@@ -32,10 +32,6 @@ export default function Sidebar() {
     variables: { username: username },
   });
 
-  const { loading: poemLoading, data: poemData } = useQuery(QUERY_USER_POEMS, {
-    variables: { username: username },
-  });
-
   // Data
   const user = userData?.user || [];
   console.log(user);
