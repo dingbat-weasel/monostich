@@ -228,7 +228,7 @@ function Navbar() {
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
-              <MenuItem component={Link} to={`/profile/nemo`} onClick={handleCloseUserMenu}>
+              <MenuItem component={Link} to={`/profile/${userName}`} onClick={handleCloseUserMenu}>
                 <Typography textAlign="center">Profile</Typography>
               </MenuItem>
               <MenuItem component={Link} to={`#toggle`} onClick={handleCloseUserMenu}>
