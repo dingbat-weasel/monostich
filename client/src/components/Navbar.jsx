@@ -16,6 +16,8 @@ import { Create, Notifications } from "@mui/icons-material";
 import InputBase from "@mui/material/InputBase";
 import CreateIcon from "@mui/icons-material/Create";
 import NotificationsIcon from "@mui/icons-material/Notifications";
+import { createTheme } from "@mui/material/styles";
+import { themeSettings } from "../assets/theme";
 
 import { Link } from "react-router-dom";
 
@@ -35,6 +37,7 @@ const navItemsAtLargeScreen = ["Create Poem", "Notifications"];
 function Navbar() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
+
   const userName = Auth.getUser()?.data.username || [];
 
   //   TO DO: profile pic functionality for navbar

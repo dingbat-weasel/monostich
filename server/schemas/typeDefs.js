@@ -3,7 +3,7 @@ const { gql } = require("apollo-server-express");
 // To Do: What needs to be required fields on these types? (Which properties get the '!', Is ID always required?)
 
 const typeDefs = gql`
-  scalar Upload
+  # scalar Upload
 
   type User {
     _id: ID
@@ -16,6 +16,8 @@ const typeDefs = gql`
     likedPoems: [Poem]
     commentedPoems: [Poem]
     savedPoems: [Poem]
+    following: [User]
+    followedBy: [User]
   }
 
   type Poem {
@@ -64,16 +66,19 @@ const typeDefs = gql`
     login(email: String!, password: String!): Auth
     addUser(username: String!, email: String!, password: String!): Auth
     addPoem(poemText: [String]!, poemAuthor: String!): Poem
-    addLike(poemId: ID!, likedBy: ID!): Poem
-    addComment(poemId: ID!, commentText: String!, commentAuthor: ID!): Poem
-    addSave(poemId: ID!, savedBy: ID!): Poem
-    updateAbout(userId: ID!, aboutStr: String!): User
+    addLike(poemId: ID!, likedBy: String!): Poem
+    addComment(poemId: ID!, commentText: String!, commentAuthor: String!): Poem
+    addSave(poemId: ID!, savedBy: String!): Poem
+    updateAbout(username: String!, aboutStr: String!): User
+    # return the following user's list of people they follow 
+    addFollow(username: String!, followedUsername: String!): User
+    removeFollow(username: String!, followedUsername: String!): User
     # updateImage(userId: ID!, image: Upload!): User
-    removeUser(userId: ID!): User
+    removeUser(username: String!): User
     removePoem(poemId: ID!): Poem
-    removeLike(poemId: ID!, likeId: ID!, likedBy: ID!): Poem
-    removeComment(poemId: ID!, commentId: ID!, commentAuthor: ID!): Poem
-    removeSave(poemId: ID!, saveId: ID!, savedBy: ID!): Poem
+    removeLike(poemId: ID!, likeId: ID!, likedBy: String!): Poem
+    removeComment(poemId: ID!, commentId: ID!, commentAuthor: String!): Poem
+    removeSave(poemId: ID!, saveId: ID!, savedBy: String!): Poem
   }
 `;
 
