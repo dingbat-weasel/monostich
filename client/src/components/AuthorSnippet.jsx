@@ -3,7 +3,7 @@ import React from "react";
 // Materials
 import { Avatar, CardActions, CardHeader, Box } from "@mui/material";
 
-const AuthorSnippet = (poem) => {
+const AuthorSnippet = ({ poemAuthor }) => {
   return (
     <CardActions
       sx={{
@@ -22,14 +22,14 @@ const AuthorSnippet = (poem) => {
         }}
       >
         <CardHeader
-          avatar={
-            // TO DO: Set up to render author avatar
-            <Avatar
-              aria-label="user-photo"
-              src={"poem.poemAuthor.profileImg"}
-            ></Avatar>
-          }
-          title={poem.poemAuthor}
+          // avatar={
+          //   // TO DO: Set up to render author avatar
+          //   <Avatar
+          //     aria-label="user-photo"
+          //     src={"poem.poemAuthor.profileImg"}
+          //   ></Avatar>
+          // }
+          title={poemAuthor}
         />
       </Box>
     </CardActions>

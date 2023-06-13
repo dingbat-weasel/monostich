@@ -36,14 +36,14 @@ export default function Sidebar() {
     <Grid container rowSpacing={2} px={2}>
       {/* User Section */}
       <Grid item xs={12}>
-        <Box display={"flex"} justifyContent={"center"}>
+        {/* <Box display={"flex"} justifyContent={"center"}>
           <Avatar
             sx={{
               width: 200,
               height: 200,
             }}
           ></Avatar>
-        </Box>
+        </Box> */}
         <Typography variant="h1" display={{ xs: "block", md: "none" }}>
           {user.username}
         </Typography>
