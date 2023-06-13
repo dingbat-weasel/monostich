@@ -68,13 +68,23 @@ export default function Main() {
       <TabPanel value={value} index={0}>
         {poems &&
           poems.map((poem) => (
-            <PoemCard poem={poem} includeAuthor={true} key={poem._id} />
+            <PoemCard
+              poem={poem}
+              includeAuthor={true}
+              marginVar={15}
+              key={poem._id}
+            />
           ))}
       </TabPanel>
       <TabPanel value={value} index={1}>
         {poems &&
           poems.map((poem) => (
-            <PoemCard poem={poem} includeAuthor={true} key={poem._id} />
+            <PoemCard
+              poem={poem}
+              includeAuthor={true}
+              marginVar={15}
+              key={poem._id}
+            />
           ))}
       </TabPanel>
     </Box>
