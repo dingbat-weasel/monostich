@@ -101,10 +101,10 @@ export default function Signin() {
             autoComplete="current-password"
             onChange={handleChange}
           />
-          <FormControlLabel
+          {/* <FormControlLabel
             control={<Checkbox value="remember" color="primary" />}
             label="Remember me"
-          />
+          /> */}
           <Button
             type="submit"
             fullWidth
@@ -116,9 +116,9 @@ export default function Signin() {
           
           <Grid container>
             <Grid item xs>
-              <Link href="#" variant="body2">
+              {/* <Link href="#" variant="body2">
                 Forgot password?
-              </Link>
+              </Link> */}
             </Grid>
             <Grid item>
               <Link href="/signup" variant="body2">

@@ -30,6 +30,15 @@ export const ADD_POEM = gql`
     _id
     poemText
     poemAuthor
+
   }
 }
+`;
+
+export const ADD_FOLLOW = gql`
+  mutation addFollow($username: String!, $followedUsername: String!) {
+    addFollow(username: $username, followedUsername: $followedUsername) {
+      username
+    }
+  }
 `;
