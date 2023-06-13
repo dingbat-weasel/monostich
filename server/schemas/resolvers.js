@@ -26,6 +26,9 @@ const resolvers = {
       const params = username ? { username } : {};
       return Poem.find(params).sort({ createdAt: -1 });
     },
+    allPoems: async () => {
+      return Poem.find().sort({createdAt: -1});
+    },
     poem: async (parent, { poemId }) => {
       return Poem.findOne({ _id: poemId });
     },
@@ -68,11 +71,11 @@ const resolvers = {
     //     }
     //   )
     // },
-    addPoem: async (parent, { poemTitle, poemText, poemAuthor }) => {
-      const poem = await Poem.create({ poemTitle, poemText, poemAuthor });
+    addPoem: async (parent, { poemText, poemAuthor }) => {
+      const poem = await Poem.create({ poemText, poemAuthor });
 
       await User.findOneAndUpdate(
-        { _id: poemAuthor },
+        { username: poemAuthor },
         { $addToSet: { poems: poem._id } }
       );
       return poem;
