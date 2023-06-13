@@ -17,7 +17,7 @@ import InputBase from "@mui/material/InputBase";
 import CreateIcon from "@mui/icons-material/Create";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 
-import{ Link} from 'react-router-dom'
+import { Link } from "react-router-dom";
 
 import { QUERY_USER } from "../utils/queries";
 import { useQuery } from "@apollo/client";
@@ -35,7 +35,7 @@ const navItemsAtLargeScreen = ["Create Poem", "Notifications"];
 function Navbar() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
-  const userName = Auth.getUser()?.data.username || []
+  const userName = Auth.getUser()?.data.username || [];
 
   //   TO DO: profile pic functionality for navbar
 
@@ -54,12 +54,12 @@ function Navbar() {
 
   const handleLogout = () => {
     // document.location.href = '/signin'
-    if(Auth.loggedIn()){
+    if (Auth.loggedIn()) {
       handleCloseUserMenu();
       Auth.logout();
-      document.location.href = "/signin"
+      document.location.href = "/signin";
     }
-  }
+  };
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
@@ -68,10 +68,12 @@ function Navbar() {
     const handleLinkClick = () => {
       handleClose && handleClose();
     };
-  
+
     return (
       <MenuItem component={Link} to={href} onClick={handleLinkClick}>
-        <Typography align="center" variant="body1">{text}</Typography>
+        <Typography align="center" variant="body1">
+          {text}
+        </Typography>
       </MenuItem>
     );
   };
@@ -204,6 +206,8 @@ function Navbar() {
             </Box> */}
           </Box>
 
+          {/* At MD+ Profile Dropdown */}
+
           <Box sx={{ p: 1, flexGrow: 0, display: { xs: "none", md: "flex" } }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
@@ -211,56 +215,66 @@ function Navbar() {
               </IconButton>
             </Tooltip>
             {Auth.loggedIn() ? (
-            <Menu
-            
-              sx={{ mt: "45px" }}
-              id="menu-appbar"
-              anchorEl={anchorElUser}
-              anchorOrigin={{
-                vertical: "top",
-                horizontal: "right",
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: "top",
-                horizontal: "right",
-              }}
-              open={Boolean(anchorElUser)}
-              onClose={handleCloseUserMenu}
-            >
-              <MenuItem component={Link} to={`/profile/${userName}`} onClick={handleCloseUserMenu}>
-                <Typography textAlign="center">Profile</Typography>
-              </MenuItem>
-              <MenuItem component={Link} to={`#toggle`} onClick={handleCloseUserMenu}>
-                <Typography textAlign="center">Dark/Light Toggle</Typography>
-              </MenuItem>
-              <MenuItem onClick={handleLogout}>
-                <Typography textAlign="center">Logout</Typography>
-              </MenuItem>
-            </Menu>
-            ): (
               <Menu
-            
-              sx={{ mt: "45px" }}
-              id="menu-appbar"
-              anchorEl={anchorElUser}
-              anchorOrigin={{
-                vertical: "top",
-                horizontal: "right",
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: "top",
-                horizontal: "right",
-              }}
-              open={Boolean(anchorElUser)}
-              onClose={handleCloseUserMenu}
-            >
-              <MenuItem component={Link} to={`/signin`} onClick={handleCloseUserMenu}>
-                <Typography textAlign="center">Sign in</Typography>
-              </MenuItem>
-            </Menu>
-            )} 
+                sx={{ mt: "45px" }}
+                id="menu-appbar"
+                anchorEl={anchorElUser}
+                anchorOrigin={{
+                  vertical: "top",
+                  horizontal: "right",
+                }}
+                keepMounted
+                transformOrigin={{
+                  vertical: "top",
+                  horizontal: "right",
+                }}
+                open={Boolean(anchorElUser)}
+                onClose={handleCloseUserMenu}
+              >
+                <MenuItem
+                  component={Link}
+                  to={`/profile/${userName}`}
+                  onClick={handleCloseUserMenu}
+                >
+                  <Typography textAlign="center">Profile</Typography>
+                </MenuItem>
+                <MenuItem
+                  component={Link}
+                  to={`#toggle`}
+                  onClick={handleCloseUserMenu}
+                >
+                  <Typography textAlign="center">Dark/Light Toggle</Typography>
+                </MenuItem>
+                <MenuItem onClick={handleLogout}>
+                  <Typography textAlign="center">Logout</Typography>
+                </MenuItem>
+              </Menu>
+            ) : (
+              <Menu
+                sx={{ mt: "45px" }}
+                id="menu-appbar"
+                anchorEl={anchorElUser}
+                anchorOrigin={{
+                  vertical: "top",
+                  horizontal: "right",
+                }}
+                keepMounted
+                transformOrigin={{
+                  vertical: "top",
+                  horizontal: "right",
+                }}
+                open={Boolean(anchorElUser)}
+                onClose={handleCloseUserMenu}
+              >
+                <MenuItem
+                  component={Link}
+                  to={`/signin`}
+                  onClick={handleCloseUserMenu}
+                >
+                  <Typography textAlign="center">Sign in</Typography>
+                </MenuItem>
+              </Menu>
+            )}
           </Box>
         </Toolbar>
       </Container>
