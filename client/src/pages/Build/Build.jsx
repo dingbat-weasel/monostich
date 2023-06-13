@@ -8,7 +8,7 @@ import { Grid, Button } from "@mui/material";
 import Sidebar from "./Sidebar";
 import Stage from "./Stage";
 import Navbar from "../../components/Navbar";
-
+import Link from "@mui/material";
 // Utilities
 
 // Data
@@ -39,6 +39,8 @@ const subArrSize = 55;
 const tileObjSubArr = getRandomSubArr(tileObj, subArrSize);
 
 const Build = () => {
+  const loggedIn = Auth.loggedIn();
+
   const [tiles, setTiles] = useState(
     tileObjSubArr.map((tiles) => ({
       ...tiles,
@@ -90,25 +92,30 @@ const Build = () => {
   const submitPoem = async function () {
     const stagedPoem = staged;
     const poem = stagedPoem.map((a) => a.str);
+    
     // Save poem to db
     // console.log(poem);
-    if (Auth.loggedIn()) {
+    if (loggedIn) {
       try {
-        console.log(Auth.getUser());
+        // console.log(Auth.getUser());
         const { data } = await addPoem({
           variables: {
-            "poemText": poem,
-            "poemAuthor": Auth.getUser().data.username,
+            poemText: poem,
+            poemAuthor: Auth.getUser().data.username,
           },
         });
-        console.log(data);
-        document.location = `/profile/${Auth.getUser().data.username}`
+        // console.log(data);
+        document.location = `/profile/${Auth.getUser().data.username}`;
       } catch (err) {
         console.error(err);
       }
+    } else {
+      document.location = `/signin`;
     }
   };
-
+  const goSignIn = function () {
+    document.location = '/signin'
+  }
   return (
     <>
       <Navbar />
@@ -144,16 +151,27 @@ const Build = () => {
                 justifyContent={"center"}
                 alignItems={"center"}
               >
-                <Button
-                  variant={"contained"}
-                  size={"large"}
-                  sx={{ borderRadius: 5, height: "3rem", margin: "1rem" }}
-                  onClick={() => {
-                    submitPoem();
-                  }}
-                >
-                  Submit
-                </Button>
+                {loggedIn ? (
+                  <Button
+                    variant={"contained"}
+                    size={"large"}
+                    sx={{ borderRadius: 5, height: "3rem", margin: "1rem" }}
+                    onClick={() => {
+                      submitPoem();
+                    }}
+                  >
+                    Submit
+                  </Button>
+                ) : (
+                  <Button
+                    variant={"contained"}
+                    size={"large"}
+                    sx={{ borderRadius: 5, height: "3rem", margin: "1rem" }}
+                    onClick={()=>{goSignIn()}}
+                  >
+                    Sign In
+                  </Button>
+                )}
               </Grid>
             </Grid>
 
