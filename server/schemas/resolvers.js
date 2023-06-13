@@ -85,6 +85,8 @@ const resolvers = {
         { username: username },
         { about: aboutStr }
       );
+
+      return user;
     },
     // this needs work
     addLike: async (parent, { poemId, likedBy }) => {

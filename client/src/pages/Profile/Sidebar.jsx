@@ -115,7 +115,7 @@ export default function Sidebar() {
         <Button sx={{ flexGrow: 1 }}>Follow</Button>
       </Grid>
 
-      <Grid item display={{ xs: "none", md: "block" }}>
+      <Grid item xs={12} display={{ xs: "none", md: "block" }}>
         <AboutUser />
       </Grid>
     </Grid>

@@ -210,7 +210,7 @@ function Navbar() {
           </Box>
 
           {/* At MD+ Profile Dropdown */}
-
+          {/* Right side of Nav atMD+ */}
           <Box sx={{ p: 1, flexGrow: 0, display: { xs: "none", md: "flex" } }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
