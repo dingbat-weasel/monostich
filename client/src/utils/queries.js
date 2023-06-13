@@ -8,6 +8,14 @@ export const QUERY_USER = gql`
     }
   }
 `;
+export const QUERY_USER_FOLLOW = gql`
+  query getFollow($username: String!) {
+    user(username: $username) {
+      following
+      followedBy
+    }
+  }
+`;
 
 export const QUERY_USER_ABOUT = gql`
   query getUserAbout($username: String!) {
