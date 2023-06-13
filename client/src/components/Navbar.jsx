@@ -106,7 +106,7 @@ function Navbar() {
 
           {/* Hamburger left-side at md- */}
           <Box sx={{ flexGrow: 0, display: { xs: "flex", md: "none" } }}>
-            <IconButton
+            {/* <IconButton
               size="large"
               aria-label="account of current user"
               aria-controls="menu-appbar"
@@ -115,7 +115,77 @@ function Navbar() {
               color="inherit"
             >
               <MenuIcon />
-            </IconButton>
+            </IconButton> */}
+            
+              <Tooltip title="Open settings">
+                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                  <MenuIcon />
+                </IconButton>
+              </Tooltip>
+              {Auth.loggedIn() ? (
+                <Menu
+                  sx={{ mt: "45px" }}
+                  id="menu-appbar"
+                  anchorEl={anchorElUser}
+                  anchorOrigin={{
+                    vertical: "top",
+                    horizontal: "right",
+                  }}
+                  keepMounted
+                  transformOrigin={{
+                    vertical: "top",
+                    horizontal: "right",
+                  }}
+                  open={Boolean(anchorElUser)}
+                  onClose={handleCloseUserMenu}
+                >
+                  <MenuItem
+                    component={Link}
+                    to={`/profile/${userName}`}
+                    onClick={handleCloseUserMenu}
+                  >
+                    <Typography textAlign="center">Profile</Typography>
+                  </MenuItem>
+                  <MenuItem
+                    component={Link}
+                    to={`#toggle`}
+                    onClick={handleCloseUserMenu}
+                  >
+                    <Typography textAlign="center">
+                      Dark/Light Toggle
+                    </Typography>
+                  </MenuItem>
+                  <MenuItem onClick={handleLogout}>
+                    <Typography textAlign="center">Logout</Typography>
+                  </MenuItem>
+                </Menu>
+              ) : (
+                <Menu
+                  sx={{ mt: "45px" }}
+                  id="menu-appbar"
+                  anchorEl={anchorElUser}
+                  anchorOrigin={{
+                    vertical: "top",
+                    horizontal: "right",
+                  }}
+                  keepMounted
+                  transformOrigin={{
+                    vertical: "top",
+                    horizontal: "right",
+                  }}
+                  open={Boolean(anchorElUser)}
+                  onClose={handleCloseUserMenu}
+                >
+                  <MenuItem
+                    component={Link}
+                    to={`/signin`}
+                    onClick={handleCloseUserMenu}
+                  >
+                    <Typography textAlign="center">Sign in</Typography>
+                  </MenuItem>
+                </Menu>
+              )}
+            
             <Menu
               id="menu-appbar"
               anchorEl={anchorElNav}
