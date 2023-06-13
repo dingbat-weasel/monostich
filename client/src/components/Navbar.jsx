@@ -35,7 +35,7 @@ const navItemsAtLargeScreen = ["Create Poem", "Notifications"];
 function Navbar() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
-  const userName = Auth.getUser().data.username
+  const userName = Auth.getUser()?.data.username || []
 
   //   TO DO: profile pic functionality for navbar
 
