@@ -19,9 +19,13 @@ import NotificationsIcon from "@mui/icons-material/Notifications";
 
 import{ Link} from 'react-router-dom'
 
+import { QUERY_USER } from "../utils/queries";
+import { useQuery } from "@apollo/client";
+import Auth from "../utils/auth";
+
 const pages = ["Profile", "Notifications", "Dark/Light Toggle", "Logout"];
 const navItemsAtLargeScreen = ["Create Poem", "Notifications"];
-const settings = ["Profile", "Dark/Light Toggle", "Logout"];
+// const settings = ["Profile", "Dark/Light Toggle", "Logout"];
 
 // TO DO:
 // Nav will need to change based on state, light/dark mode toggles, colors etc
@@ -31,9 +35,10 @@ const settings = ["Profile", "Dark/Light Toggle", "Logout"];
 function Navbar() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
+  const userName = Auth.getUser().data.username
 
   //   TO DO: profile pic functionality for navbar
-  const userName = "x";
+
   const profilePicture = "profile picture src path";
 
   const handleOpenNavMenu = (event) => {
@@ -47,6 +52,14 @@ function Navbar() {
     setAnchorElNav(null);
   };
 
+  const handleLogout = () => {
+    // document.location.href = '/signin'
+    if(Auth.loggedIn()){
+      handleCloseUserMenu();
+      Auth.logout();
+      document.location.href = "/signin"
+    }
+  }
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
@@ -147,9 +160,10 @@ function Navbar() {
               aria-label="account of current user"
               aria-controls="menu-appbar"
               aria-haspopup="true"
-              onClick={handleOpenNavMenu}
+              href="/build"
               color="inherit"
             >
+              {/* <Link to="/build"></Link> */}
               <CreateIcon />
             </IconButton>
           </Box>
@@ -168,13 +182,13 @@ function Navbar() {
                 aria-label="create new poem"
                 aria-controls="menu-appbar"
                 aria-haspopup="true"
-                onClick={handleOpenNavMenu}
+                href="/build"
                 color="inherit"
               >
                 <CreateIcon />
               </IconButton>
             </Box>
-            <Box
+            {/* <Box
               sx={{ p: 1, flexGrow: 0, display: { xs: "none", md: "flex" } }}
             >
               <IconButton
@@ -187,7 +201,7 @@ function Navbar() {
               >
                 <NotificationsIcon />
               </IconButton>
-            </Box>
+            </Box> */}
           </Box>
 
           <Box sx={{ p: 1, flexGrow: 0, display: { xs: "none", md: "flex" } }}>
@@ -196,7 +210,9 @@ function Navbar() {
                 <Avatar alt={userName} src={profilePicture} />
               </IconButton>
             </Tooltip>
+            {Auth.loggedIn() ? (
             <Menu
+            
               sx={{ mt: "45px" }}
               id="menu-appbar"
               anchorEl={anchorElUser}
@@ -212,15 +228,39 @@ function Navbar() {
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
-              {/* <HamburgerMenuLink text="Profile" href={`/profile/`} handleClose={handleCloseUserMenu}/>
-              <HamburgerMenuLink text="Dark/Light Toggle" href={`#`} handleClose={handleCloseUserMenu}/>
-              <HamburgerMenuLink text="Log out" href={`/signup`} handleClose={handleCloseUserMenu}/> */}
-              {settings.map((setting) => (
-                <MenuItem key={setting} component={Link} to={`/${setting}`} onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center">{setting}</Typography>
-                </MenuItem>
-              ))}
+              <MenuItem component={Link} to={`/profile/nemo`} onClick={handleCloseUserMenu}>
+                <Typography textAlign="center">Profile</Typography>
+              </MenuItem>
+              <MenuItem component={Link} to={`#toggle`} onClick={handleCloseUserMenu}>
+                <Typography textAlign="center">Dark/Light Toggle</Typography>
+              </MenuItem>
+              <MenuItem onClick={handleLogout}>
+                <Typography textAlign="center">Logout</Typography>
+              </MenuItem>
             </Menu>
+            ): (
+              <Menu
+            
+              sx={{ mt: "45px" }}
+              id="menu-appbar"
+              anchorEl={anchorElUser}
+              anchorOrigin={{
+                vertical: "top",
+                horizontal: "right",
+              }}
+              keepMounted
+              transformOrigin={{
+                vertical: "top",
+                horizontal: "right",
+              }}
+              open={Boolean(anchorElUser)}
+              onClose={handleCloseUserMenu}
+            >
+              <MenuItem component={Link} to={`/signin`} onClick={handleCloseUserMenu}>
+                <Typography textAlign="center">Sign in</Typography>
+              </MenuItem>
+            </Menu>
+            )} 
           </Box>
         </Toolbar>
       </Container>

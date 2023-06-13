@@ -15,7 +15,7 @@ export const QUERY_USER_POEMS = gql`
       poems {
         _id
         createdAt
-        poemTitle
+
         poemText
         likes {
           _id
@@ -45,6 +45,19 @@ export const QUERY_USER_POEMS = gql`
   }
 `;
 
+export const QUERY_ALL_POEMS = gql`
+  query getAllPoems {
+    allPoems {
+      _id
+      comments {
+        _id
+      }
+      createdAt
+      poemAuthor
+      poemText
+    }
+  }
+`;
 export const QUERY_USER_SAVES = gql`
   query getUserSavedPoems($username: String!) {
     user(username: $username) {
