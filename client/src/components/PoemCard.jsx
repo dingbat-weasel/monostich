@@ -33,24 +33,61 @@ import BookmarkIcon from "@mui/icons-material/Bookmark";
 // Then poemcard can be reused on profiles with minimal changes
 // Or just move poem card to Home dir and copy it for profile
 
-export default function PoemCard({ poem }) {
-  let includeAuthor = false;
+export default function PoemCard({ poem, includeAuthor }) {
+  const marginVar = 15;
 
   return (
-    <Card sx={{ minWidth: 275, my: 4 }}>
-      <CardHeader
-        title={poem.poemTitle}
-        action={
-          <IconButton aria-label="settings">
-            <MoreVertIcon />
-          </IconButton>
-        }
-      />
+    <Card
+      sx={{ minWidth: 275, my: 4, border: "2px solid gray", borderRadius: 5 }}
+    >
       <CardContent>
-        {/* Render array correctly with tile styling */}
-        <Container>{poem.poemText}</Container>
+        <Container
+          sx={{
+            display: "flex",
+            justifyContent: "flex-start",
+            alignItems: "center",
+            flexWrap: "wrap",
+            width: "100%",
+            minHeight: "3rem",
+            height: "auto",
+            padding: "1rem",
+            border: "2px solid gray",
+            borderRadius: 5,
+
+            backgroundColor: "lightyellow",
+          }}
+        >
+          {poem.poemText.map((str) => {
+            return (
+              <div key={str}>
+                <Box
+                  className="tile"
+                  style={{
+                    flexGrow: 0,
+                    flexShrink: 1,
+                    flexBasis: "max-content",
+                    height: "max-content",
+
+                    color: "black",
+                    backgroundColor: "rgb(240, 240, 240)",
+                    borderWidth: "1px 3px 3px 1px",
+                    borderStyle: "solid",
+                    borderColor: "black",
+                    marginTop: Math.floor(Math.random() * marginVar) + "px",
+                    marginBottom: Math.floor(Math.random() * marginVar) + "px",
+                    marginLeft: Math.floor(Math.random() * marginVar) + "px",
+                    marginRight: Math.floor(Math.random() * marginVar) + "px",
+                    padding: "5px",
+                  }}
+                >
+                  {str}
+                </Box>
+              </div>
+            );
+          })}
+        </Container>
       </CardContent>
-      {includeAuthor && <AuthorSnippet />}
+      {includeAuthor && <AuthorSnippet poemAuthor={poem.poemAuthor} />}
       <Box
         idth="100%"
         sx={{ display: "flex", flex: 1, justifyContent: "space-between" }}

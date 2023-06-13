@@ -111,13 +111,19 @@ export default function Main() {
           </Box>
           <TabPanel value={value} index={0}>
             {poems &&
-              poems.map((poem) => <PoemCard poem={poem} key={poem._id} />)}
+              poems.map((poem) => (
+                <PoemCard poem={poem} includeAuthor={false} key={poem._id} />
+              ))}
           </TabPanel>
           <TabPanel value={value} index={1}>
             {/* Map saved poems here */}
             {saves.length > 0 &&
               saves.map((savedPoem) => (
-                <PoemCard poem={savedPoem} key={savedPoem._id} />
+                <PoemCard
+                  poem={savedPoem}
+                  includeAuthor={true}
+                  key={savedPoem._id}
+                />
               ))}
           </TabPanel>
           <TabPanel value={value} index={2}>
