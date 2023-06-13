@@ -9,13 +9,21 @@ export const QUERY_USER = gql`
   }
 `;
 
+export const QUERY_USER_ABOUT = gql`
+  query getUserAbout($username: String!) {
+    user(username: $username) {
+      about
+    }
+  }
+`;
+
 export const QUERY_USER_POEMS = gql`
   query getUserPoems($username: String!) {
     user(username: $username) {
       poems {
         _id
         createdAt
-        poemTitle
+
         poemText
         likes {
           _id
@@ -45,6 +53,19 @@ export const QUERY_USER_POEMS = gql`
   }
 `;
 
+export const QUERY_ALL_POEMS = gql`
+  query getAllPoems {
+    allPoems {
+      _id
+      comments {
+        _id
+      }
+      createdAt
+      poemAuthor
+      poemText
+    }
+  }
+`;
 export const QUERY_USER_SAVES = gql`
   query getUserSavedPoems($username: String!) {
     user(username: $username) {

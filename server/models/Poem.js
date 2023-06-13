@@ -3,16 +3,6 @@ const dateFormat = require("../utils/dateFormat");
 
 const poemSchema = new Schema(
   {
-    poemTitle: {
-      type: String,
-      default: "untitled",
-      maxlength: 30,
-      trim: true,
-      match: [
-        /^[\w\-_\s]*$/,
-        "Poems must be alphanumeric, '-', '_', and spaces are okay. If left blank the poem title will default to 'untitled'.",
-      ],
-    },
     poemText: {
       type: [String],
       required: true,
@@ -20,7 +10,7 @@ const poemSchema = new Schema(
       maxlength: 280,
     },
     poemAuthor: {
-      type: Schema.Types.ObjectId,
+      type: String,
       ref: "User",
       required: true,
     },

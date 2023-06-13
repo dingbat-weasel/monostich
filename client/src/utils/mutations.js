@@ -23,3 +23,13 @@ export const ADD_USER = gql`
     }
   }
 `;
+
+export const ADD_POEM = gql`
+  mutation addPoem($poemText: [String]!, $poemAuthor: String!) {
+  addPoem(poemText: $poemText, poemAuthor: $poemAuthor) {
+    _id
+    poemText
+    poemAuthor
+  }
+}
+`;

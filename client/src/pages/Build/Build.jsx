@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-
+import Auth from "../../utils/auth";
+import { ADD_POEM } from "../../utils/mutations";
 // Materials
 import { Grid, Button } from "@mui/material";
 
@@ -13,6 +14,7 @@ import Navbar from "../../components/Navbar";
 // Data
 import { tileObj } from "../../data/tileSet";
 import Sandbox from "./Sandbox";
+import { useMutation } from "@apollo/client";
 
 // Functions
 const getRandomSubArr = (arr, size) => {
@@ -84,12 +86,27 @@ const Build = () => {
 
     setTiles(newTilesArr);
   };
-
-  const submitPoem = function () {
+  const [addPoem, { error, data }] = useMutation(ADD_POEM);
+  const submitPoem = async function () {
     const stagedPoem = staged;
     const poem = stagedPoem.map((a) => a.str);
     // Save poem to db
-    console.log(poem);
+    // console.log(poem);
+    if (Auth.loggedIn()) {
+      try {
+        console.log(Auth.getUser());
+        const { data } = await addPoem({
+          variables: {
+            "poemText": poem,
+            "poemAuthor": Auth.getUser().data.username,
+          },
+        });
+        console.log(data);
+        document.location = `/profile/${Auth.getUser().data.username}`
+      } catch (err) {
+        console.error(err);
+      }
+    }
   };
 
   return (

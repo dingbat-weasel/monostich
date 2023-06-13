@@ -20,9 +20,8 @@ const typeDefs = gql`
 
   type Poem {
     _id: ID
-    poemTitle: String
     poemText: [String]
-    poemAuthor: ID
+    poemAuthor: String
     createdAt: String
     likes: [Like]!
     comments: [Comment]!
@@ -55,14 +54,16 @@ const typeDefs = gql`
     users: [User]
     user(username: String!): User
     poems(username: String): [Poem]
+    allPoems: [Poem]
     poem(poemId: ID!): Poem
+
   }
 
   #look out for auth here, still needs saves
   type Mutation {
     login(email: String!, password: String!): Auth
     addUser(username: String!, email: String!, password: String!): Auth
-    addPoem(poemTitle: String, poemText: [String]!, poemAuthor: ID!): Poem
+    addPoem(poemText: [String]!, poemAuthor: String!): Poem
     addLike(poemId: ID!, likedBy: ID!): Poem
     addComment(poemId: ID!, commentText: String!, commentAuthor: ID!): Poem
     addSave(poemId: ID!, savedBy: ID!): Poem
