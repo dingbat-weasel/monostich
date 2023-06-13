@@ -3,7 +3,7 @@ const { User, Poem } = require("../models");
 // const {GraphQLUpload} = require('graphql-upload/GraphQLUpload.mjs'); // keeping commented while not working
 // import {GraphQLUpload} from "/graphql-upload/GraphQLUpload"
 // TO DO: AUTHENTICATION STUFF
-const {signToken} = require('../utils/auth');
+const { signToken } = require("../utils/auth");
 
 // TO DO: QUERIES AND MUTATIONS
 
@@ -27,7 +27,7 @@ const resolvers = {
       return Poem.find(params).sort({ createdAt: -1 });
     },
     allPoems: async () => {
-      return Poem.find().sort({createdAt: -1});
+      return Poem.find().sort({ createdAt: -1 });
     },
     poem: async (parent, { poemId }) => {
       return Poem.findOne({ _id: poemId });
@@ -40,23 +40,23 @@ const resolvers = {
       const user = await User.findOne({ email });
 
       if (!user) {
-        throw new AuthenticationError('No user found with this email')
+        throw new AuthenticationError("No user found with this email");
         // throw new console.error("No user found with this email");
       }
 
       const correctPw = await user.isCorrectPassword(password);
-      console.log(correctPw)
+      console.log(correctPw);
       if (!correctPw) {
-        throw new AuthenticationError('Incorrect credentials')
+        throw new AuthenticationError("Incorrect credentials");
         // throw new console.error("incorrect credentials");
       }
       const token = signToken(user);
-      return {token, user };
+      return { token, user };
     },
     addUser: async (parent, { username, email, password }) => {
       const user = await User.create({ username, email, password });
-      const token = signToken(user)
-      return { token,user };
+      const token = signToken(user);
+      return { token, user };
     },
     // not sure if image:file is correct?
     // updateImage: async (parent,{userId, file}) => {
@@ -80,8 +80,13 @@ const resolvers = {
       );
       return poem;
     },
-    updateAbout: async (parent, {userId, aboutStr}) => {
-      const user = await User.findOneAndUpdate({_id: userId},{about: aboutStr})
+    updateAbout: async (parent, { username, aboutStr }) => {
+      const user = await User.findOneAndUpdate(
+        { username: username },
+        { about: aboutStr }
+      );
+
+      return user;
     },
     // this needs work
     addLike: async (parent, { poemId, likedBy }) => {
@@ -132,9 +137,39 @@ const resolvers = {
 
       return user, poem;
     },
+    addFollow: async (parent, { username, followedUsername }) => {
+      try {
+        const follower = await User.findOneAndUpdate(
+          {
+            username: username,
+          },
+          {
+            $addToSet: { following: followedUsername },
+          },
+          { new: true }
+        );
+        try {
+          const followedUser = await User.findOneAndUpdate(
+            {
+              username: followedUsername,
+            },
+            {
+              $addToSet: { followedBy: username },
+            },
+            { new: true }
+          );
+          return { follower };
+        } catch (err) {
+          console.error(err);
+        }
+      } catch (err) {
+        console.error(err);
+      }
+    },
+
     // everything below here needs work, tracking on user model needs to be included
-    removeUser: async (parent, { userId }) => {
-      return User.findOneAndDelete({ _id: userId });
+    removeUser: async (parent, { username }) => {
+      return User.findOneAndDelete({ username: username });
     },
     removePoem: async (parent, { poemId }) => {
       return Poem.findOneAndDelete({ _id: poemId });

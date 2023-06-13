@@ -18,6 +18,7 @@ import {
   QUERY_USER_SAVES,
 } from "../../utils/queries";
 
+import Auth from '../../utils/auth'
 // TO DO:
 // Poem cards need to be mapped to tabs from data
 // All link functionality
@@ -62,7 +63,7 @@ export default function Main() {
     setValue(newValue);
   };
   // This is temporary value !!!!!!!!!!!!
-  let isAuthenticatedUser = true;
+  let isAuthenticatedUser = Auth.loggedIn();
   const theme = useTheme();
   const smallViewport = useMediaQuery(theme.breakpoints.down("md"));
 
@@ -87,12 +88,14 @@ export default function Main() {
   const poems = poemData?.user.poems || [];
   const saves = savesData?.user.savedPoems || [];
 
+  const usernameTile = [user.username];
+
   return (
     <Grid container>
       {/* User Name Heading at MD+*/}
       <Grid item>
         <Typography variant="h1" display={{ xs: "none", md: "block" }}>
-          {user.username}
+          Profile
         </Typography>
       </Grid>
       {/* Tabs */}
@@ -111,9 +114,16 @@ export default function Main() {
           </Box>
           <TabPanel value={value} index={0}>
             {poems &&
-              poems.map((poem) => (
-                <PoemCard poem={poem} includeAuthor={false} key={poem._id} />
-              )).reverse()}
+              poems
+                .map((poem) => (
+                  <PoemCard
+                    poem={poem}
+                    includeAuthor={false}
+                    marginVar={25}
+                    key={poem._id}
+                  />
+                ))
+                .reverse()}
           </TabPanel>
           <TabPanel value={value} index={1}>
             {/* Map saved poems here */}
@@ -122,6 +132,7 @@ export default function Main() {
                 <PoemCard
                   poem={savedPoem}
                   includeAuthor={true}
+                  marginVar={25}
                   key={savedPoem._id}
                 />
               ))}

@@ -59,6 +59,18 @@ const userSchema = new Schema({
       ref: "Poem",
     },
   ],
+  following: [
+    {
+      type: [String],
+      ref: "User"
+    }
+  ],
+  followedBy: [
+    {
+      type: [String],
+      ref: "User"
+    }
+  ]
 });
 
 userSchema.pre("save", function (next) {
