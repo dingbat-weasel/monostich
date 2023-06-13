@@ -1,4 +1,5 @@
 import * as React from "react";
+import { useTheme } from "@mui/material/styles";
 
 // Components
 import AuthorSnippet from "./AuthorSnippet";
@@ -33,8 +34,8 @@ import BookmarkIcon from "@mui/icons-material/Bookmark";
 // Then poemcard can be reused on profiles with minimal changes
 // Or just move poem card to Home dir and copy it for profile
 
-export default function PoemCard({ poem, includeAuthor }) {
-  const marginVar = 15;
+export default function PoemCard({ poem, includeAuthor, marginVar }) {
+  const theme = useTheme();
 
   return (
     <Card
