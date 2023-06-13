@@ -65,18 +65,19 @@ const user = [];
 export default function Main() {
   const [value, setValue] = React.useState(0);
   const {loading: poemLoading, data: poemData} = useQuery(QUERY_ALL_POEMS)
-  const poems = poemData?.allPoems;
+  const poems = poemData?.allPoems || [];
   console.log(poems)
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
 
+  //a11yProps(1) FIX FOR FOLLOWING
   return (
     <Box sx={{ width: "100%" }}>
       <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
         <Tabs value={value} onChange={handleChange} aria-label="basic tabs">
           <Tab label="Explore" {...a11yProps(0)} />
-          <Tab label="Following" {...a11yProps(1)} />
+          {/* <Tab label="Following" {...a11yProps(1)} /> */}
         </Tabs>
       </Box>
       <TabPanel value={value} index={0}>

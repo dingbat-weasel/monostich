@@ -9,6 +9,14 @@ export const QUERY_USER = gql`
   }
 `;
 
+export const QUERY_USER_ABOUT = gql`
+  query getUserAbout($username: String!) {
+    user(username: $username) {
+      about
+    }
+  }
+`;
+
 export const QUERY_USER_POEMS = gql`
   query getUserPoems($username: String!) {
     user(username: $username) {
