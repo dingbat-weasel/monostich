@@ -113,7 +113,7 @@ export default function Main() {
             {poems &&
               poems.map((poem) => (
                 <PoemCard poem={poem} includeAuthor={false} key={poem._id} />
-              ))}
+              )).reverse()}
           </TabPanel>
           <TabPanel value={value} index={1}>
             {/* Map saved poems here */}
