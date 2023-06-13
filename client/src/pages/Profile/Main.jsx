@@ -18,6 +18,7 @@ import {
   QUERY_USER_SAVES,
 } from "../../utils/queries";
 
+import Auth from '../../utils/auth'
 // TO DO:
 // Poem cards need to be mapped to tabs from data
 // All link functionality
@@ -62,7 +63,7 @@ export default function Main() {
     setValue(newValue);
   };
   // This is temporary value !!!!!!!!!!!!
-  let isAuthenticatedUser = true;
+  let isAuthenticatedUser = Auth.loggedIn();
   const theme = useTheme();
   const smallViewport = useMediaQuery(theme.breakpoints.down("md"));
 
