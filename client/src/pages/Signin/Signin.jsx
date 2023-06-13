@@ -37,7 +37,7 @@ export default function Signin() {
     //   password: data.get("password"),
     // });
     try {
-      console.log(formState)
+      // console.log(formState)
       const {data} = await login({
         variables: {...formState},
       });

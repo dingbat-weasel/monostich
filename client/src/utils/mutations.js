@@ -44,9 +44,9 @@ export const UPDATE_ABOUT = gql`
 `;
 
 export const DELETE_POEM = gql`
-  mutation removePoem($poemId: ID!) {
-    removePoem(poemId: $poemId) {
-      poemAuthor
+  mutation removePoem($poemId: ID!, $poemAuthor: String!) {
+    removePoem(poemId: $poemId, poemAuthor: $poemAuthor) {
+      username
     }
   }
 `;
