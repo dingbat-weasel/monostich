@@ -10,6 +10,8 @@ import MenuIcon from "@mui/icons-material/Menu";
 import Container from "@mui/material/Container";
 import Avatar from "@mui/material/Avatar";
 
+import { Button } from "@mui/material";
+
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import { Create, Notifications } from "@mui/icons-material";
@@ -18,6 +20,8 @@ import CreateIcon from "@mui/icons-material/Create";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import { createTheme } from "@mui/material/styles";
 import { themeSettings } from "../assets/theme";
+
+import logoImage from "../assets/logo.png";
 
 import { Link } from "react-router-dom";
 
@@ -60,7 +64,7 @@ function Navbar() {
     if (Auth.loggedIn()) {
       handleCloseUserMenu();
       Auth.logout();
-      document.location.href = "/signin";
+      document.location.href = "/";
     }
   };
   const handleCloseUserMenu = () => {
@@ -102,6 +106,7 @@ function Navbar() {
             }}
           >
             Monostich
+            {/* <Box component="img" src="/client/src/assets/logo.png" height/> */}
           </Typography>
 
           {/* Hamburger left-side at md- */}
@@ -191,7 +196,7 @@ function Navbar() {
               </Menu>
             )}
 
-            <Menu
+            {/* <Menu
               id="menu-appbar"
               anchorEl={anchorElNav}
               anchorOrigin={{
@@ -214,7 +219,7 @@ function Navbar() {
                   <Typography textAlign="center">{page}</Typography>
                 </MenuItem>
               ))}
-            </Menu>
+            </Menu> */}
           </Box>
 
           <Typography
@@ -233,6 +238,9 @@ function Navbar() {
             }}
           >
             Monostich
+            {/* <Button variant="contained">
+              <img src={logoImage} alt="Button Image" />
+            </Button> */}
           </Typography>
           <Box sx={{ flexGrow: 0, display: { xs: "flex", md: "none" } }}>
             <IconButton
@@ -349,7 +357,14 @@ function Navbar() {
                   to={`/signin`}
                   onClick={handleCloseUserMenu}
                 >
-                  <Typography textAlign="center">Sign in</Typography>
+                  <Typography textAlign="center">Sign In</Typography>
+                </MenuItem>
+                <MenuItem
+                  component={Link}
+                  to={`/signup`}
+                  onClick={handleCloseUserMenu}
+                >
+                  <Typography textAlign="center">Sign Up</Typography>
                 </MenuItem>
               </Menu>
             )}
