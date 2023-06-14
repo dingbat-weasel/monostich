@@ -105,8 +105,9 @@ function Navbar() {
               textDecoration: "none",
             }}
           >
-            Monostich
-            {/* <Box component="img" src="/client/src/assets/logo.png" height/> */}
+            <Box px={5}>
+              <img src={logoImage} alt="Button Image" width={"50%"} />
+            </Box>
           </Typography>
 
           {/* Hamburger left-side at md- */}
@@ -223,10 +224,12 @@ function Navbar() {
           </Box>
 
           <Typography
+            display="flex"
+            justifyContent={"center"}
             variant="poemTile"
             noWrap
             component="a"
-            href=""
+            href="/"
             sx={{
               display: { xs: "flex", md: "none" },
               flexGrow: 1,
@@ -237,10 +240,13 @@ function Navbar() {
               textDecoration: "none",
             }}
           >
-            Monostich
+            {/* <Box>
+              <img src={logoImage} alt="Button Image" width={"50%"} />
+            </Box> */}
             {/* <Button variant="contained">
-              <img src={logoImage} alt="Button Image" />
+              <img src={logoImage} alt="Button Image" width={"50%"} />
             </Button> */}
+            Monostich
           </Typography>
           <Box sx={{ flexGrow: 0, display: { xs: "flex", md: "none" } }}>
             <IconButton

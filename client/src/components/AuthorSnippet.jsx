@@ -1,9 +1,11 @@
 import React from "react";
 
 // Materials
-import { Avatar, CardActions, CardHeader, Box } from "@mui/material";
+import { Avatar, CardActions, CardHeader, Box, Button } from "@mui/material";
+import { Link } from "react-router-dom";
 
 const AuthorSnippet = ({ poemAuthor }) => {
+  // const handleUsernameClick = function () {};
   return (
     <CardActions
       sx={{
@@ -21,16 +23,9 @@ const AuthorSnippet = ({ poemAuthor }) => {
           justifyContent: "flex-end",
         }}
       >
-        <CardHeader
-          // avatar={
-          //   // TO DO: Set up to render author avatar
-          //   <Avatar
-          //     aria-label="user-photo"
-          //     src={"poem.poemAuthor.profileImg"}
-          //   ></Avatar>
-          // }
-          title={poemAuthor}
-        />
+        <Button color="primary" size="large" href={`/profile/${poemAuthor}`}>
+          {poemAuthor}
+        </Button>
       </Box>
     </CardActions>
   );
