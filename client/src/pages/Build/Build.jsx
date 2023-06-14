@@ -92,7 +92,7 @@ const Build = () => {
   const submitPoem = async function () {
     const stagedPoem = staged;
     const poem = stagedPoem.map((a) => a.str);
-    
+
     // Save poem to db
     // console.log(poem);
     if (loggedIn) {
@@ -105,17 +105,20 @@ const Build = () => {
           },
         });
         // console.log(data);
-        document.location = `/profile/${Auth.getUser().data.username}`;
+        // document.location = `/profile/${Auth.getUser().data.username}`;
+        window.open(`/profile/${Auth.getUser().data.username}`, "_blank");
       } catch (err) {
         console.error(err);
       }
     } else {
-      document.location = `/signin`;
+      // document.location = `/signin`;
+      window.open("/signin", "_blank");
     }
   };
   const goSignIn = function () {
-    document.location = '/signin'
-  }
+    // document.location = "/signin";
+    window.open("/signin", "_blank");
+  };
   return (
     <>
       <Navbar />
@@ -167,7 +170,9 @@ const Build = () => {
                     variant={"contained"}
                     size={"large"}
                     sx={{ borderRadius: 5, height: "3rem", margin: "1rem" }}
-                    onClick={()=>{goSignIn()}}
+                    onClick={() => {
+                      goSignIn();
+                    }}
                   >
                     Sign In
                   </Button>

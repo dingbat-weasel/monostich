@@ -43,6 +43,14 @@ export const UPDATE_ABOUT = gql`
   }
 `;
 
+export const DELETE_POEM = gql`
+  mutation removePoem($poemId: ID!, $poemAuthor: String!) {
+    removePoem(poemId: $poemId, poemAuthor: $poemAuthor) {
+      username
+    }
+  }
+`;
+
 export const ADD_FOLLOW = gql`
   mutation addFollow($username: String!, $followedUsername: String!) {
     addFollow(username: $username, followedUsername: $followedUsername) {

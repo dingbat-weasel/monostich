@@ -45,7 +45,7 @@ const resolvers = {
       }
 
       const correctPw = await user.isCorrectPassword(password);
-      console.log(correctPw);
+      // console.log(correctPw);
       if (!correctPw) {
         throw new AuthenticationError("Incorrect credentials");
         // throw new console.error("incorrect credentials");
@@ -171,8 +171,13 @@ const resolvers = {
     removeUser: async (parent, { username }) => {
       return User.findOneAndDelete({ username: username });
     },
-    removePoem: async (parent, { poemId }) => {
-      return Poem.findOneAndDelete({ _id: poemId });
+    removePoem: async (parent, { poemId, poemAuthor }) => {
+      const user = await User.findOneAndUpdate(
+        { username: poemAuthor },
+        { $pull: { poems: poemId } }
+      );
+      const poem = await Poem.findOneAndDelete({ _id: poemId });
+      return user;
     },
     removeLike: async (parent, { poemId, likeId }) => {
       return Poem.findOneAndUpdate(

@@ -1,5 +1,8 @@
 import * as React from "react";
 import { useTheme } from "@mui/material/styles";
+import Auth from "../utils/auth";
+import { DELETE_POEM } from "../utils/mutations";
+import { useParams } from "react-router-dom";
 
 // Components
 import AuthorSnippet from "./AuthorSnippet";
@@ -17,6 +20,9 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import ModeCommentIcon from "@mui/icons-material/ModeComment";
 import BookmarkIcon from "@mui/icons-material/Bookmark";
+import DeleteIcon from "@mui/icons-material/Delete";
+import EditIcon from "@mui/icons-material/Edit";
+import { useMutation } from "@apollo/client";
 
 // TO DO:
 // This poemcard needs to be configured to read from data coming in
@@ -34,13 +40,40 @@ import BookmarkIcon from "@mui/icons-material/Bookmark";
 // Then poemcard can be reused on profiles with minimal changes
 // Or just move poem card to Home dir and copy it for profile
 
-export default function PoemCard({ poem, includeAuthor, marginVar }) {
+export default function PoemCard({ poem, includeAuthor, author, marginVar }) {
   const theme = useTheme();
+  const loggedInUser = Auth.getUser()?.data.username || [];
+  const [removePoem, {error,data}] = useMutation(DELETE_POEM);
+  const username = useParams();
+  console.log(poem._id,username)
+  const handleDeleteClick = async function (e) {
+    e.preventDefault();
+    try {
+      await removePoem({
+        variables: {poemId: poem._id, poemAuthor: username.username}
+      });
+      document.location = `/profile/${author}`;
+    } catch (err) {
+      console.error(err);
+    }
+  };
+  // console.log(author, poem._id);
 
   return (
     <Card
       sx={{ minWidth: 275, my: 4, border: "2px solid gray", borderRadius: 5 }}
     >
+      {loggedInUser === author ? (
+        <CardHeader
+          action={
+            <IconButton aria-label="delete-poem" onClick={handleDeleteClick}>
+              <DeleteIcon />
+            </IconButton>
+          }
+        />
+      ) : (
+        <CardHeader />
+      )}
       <CardContent>
         <Container
           sx={{
