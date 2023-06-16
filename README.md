@@ -21,8 +21,3 @@ You can reach us at our githubs:
 - [Twenty-FourSeven](https://github.com/Twenty-FourSeven)
 - [dingbat-weasel](https://github.com/dingbat-weasel)
 
----
-
-## License
-
-MIT License
