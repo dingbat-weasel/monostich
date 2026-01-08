@@ -1,4 +1,8 @@
-export default function SignupPage() {
+'use server';
+
+import { SignupForm } from '@/app/(auth)/signup/SignupForm';
+
+export default async function SignupPage() {
   return (
     <div className='flex flex-col gap-6'>
       <div className='flex flex-col gap-2 text-center'>
@@ -7,10 +11,7 @@ export default function SignupPage() {
           Sign up to start creating poems
         </p>
       </div>
-      {/* Auth form will go here */}
-      <p className='text-sm text-muted-foreground'>
-        Placeholder - auth coming soon
-      </p>
+      <SignupForm />
     </div>
   );
 }

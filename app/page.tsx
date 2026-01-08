@@ -1,7 +1,3 @@
-// === CLAUDE EXAMPLE START ===
-// This demonstrates using Button as a Link
-// app/page.tsx
-
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 
@@ -16,12 +12,10 @@ export default function Home() {
           <Link href='/create'>Start Creating</Link>
         </Button>
 
-        {/* Different variant */}
         <Button variant='outline' asChild>
           <Link href='/browse'>Browse Poems</Link>
         </Button>
 
-        {/* External link */}
         <Button variant='secondary' asChild>
           <a
             href='https://github.com'
@@ -35,4 +29,3 @@ export default function Home() {
     </div>
   );
 }
-// === CLAUDE EXAMPLE END ===
