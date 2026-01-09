@@ -12,25 +12,26 @@ import {
 import { Input } from '@/components/ui/input';
 import Link from 'next/link';
 
-import { signup } from '@/lib/actions/auth';
+import { login } from '@/lib/actions/auth';
 import { useActionState } from 'react';
 import { useSearchParams } from 'next/navigation';
 
 function SubmitButton({ pending }: { pending: boolean }) {
   return (
     <Button type='submit' disabled={pending}>
-      {pending ? 'Signing up...' : 'Sign Up'}
+      {pending ? 'Logging in...' : 'Log In'}
     </Button>
   );
 }
 
-export function SignupForm() {
-  const [state, action, pending] = useActionState(signup, undefined);
+export function LoginForm() {
+  const [state, action, pending] = useActionState(login, undefined);
   const searchParams = useSearchParams();
   const redirectedFrom = searchParams.get('redirectedFrom');
 
   return (
     <form action={action}>
+      {/* Hidden input to preserve redirect destination */}
       {redirectedFrom && (
         <input type='hidden' name='redirectTo' value={redirectedFrom} />
       )}
@@ -40,23 +41,6 @@ export function SignupForm() {
             {state?.error?.formErrors && state.error.formErrors.length > 0 && (
               <FieldError>{state.error.formErrors[0]}</FieldError>
             )}
-            <Field>
-              <FieldLabel htmlFor='username'>Username</FieldLabel>
-              <Input
-                id='username'
-                name='username'
-                type='text'
-                placeholder='Detective_Raphaël_Ambrosius_Costeau'
-                required
-              />
-              {state?.error?.fieldErrors?.username ? (
-                <FieldError>{state.error.fieldErrors.username}</FieldError>
-              ) : (
-                <FieldDescription>
-                  Choose a unique username for your account.
-                </FieldDescription>
-              )}
-            </Field>
             <Field>
               <FieldLabel htmlFor='email'>Email</FieldLabel>
               <Input
@@ -69,7 +53,7 @@ export function SignupForm() {
               {state?.error?.fieldErrors?.email ? (
                 <FieldError>{state.error.fieldErrors.email}</FieldError>
               ) : (
-                <FieldDescription>Enter your email.</FieldDescription>
+                <FieldDescription></FieldDescription>
               )}
             </Field>
             <Field>
@@ -83,9 +67,7 @@ export function SignupForm() {
                   </ul>
                 </FieldError>
               ) : (
-                <FieldDescription>
-                  Must be at least 8 characters long.
-                </FieldDescription>
+                <FieldDescription></FieldDescription>
               )}
 
               <Input
@@ -101,16 +83,16 @@ export function SignupForm() {
             </Field>
             <Field>
               <p className='text-center'>
-                Already have an account?{' '}
+                Don&apos;t have an account yet?{' '}
                 <Link
                   href={
                     redirectedFrom
-                      ? `/login?redirectedFrom=${redirectedFrom}`
-                      : '/login'
+                      ? `/signup?redirectedFrom=${redirectedFrom}`
+                      : '/signup'
                   }
                   className='text-amber-800'
                 >
-                  Login instead.
+                  Sign up instead.
                 </Link>
               </p>
             </Field>

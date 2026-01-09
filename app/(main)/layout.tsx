@@ -22,6 +22,9 @@ export default function MainLayout({
             <Link href='/browse' className='text-sm hover:underline'>
               Browse
             </Link>
+            <Link href='/logout' className='text-sm hover:underline'>
+              Log Out
+            </Link>
           </div>
         </div>
       </nav>

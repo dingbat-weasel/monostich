@@ -35,20 +35,34 @@ export async function updateSession(request: NextRequest) {
   // IMPORTANT: If you remove getClaims() and you use server-side rendering
   // with the Supabase client, your users may be randomly logged out.
 
+  // this refreshes the auth session
   const { data } = await supabase.auth.getClaims();
   const user = data?.claims;
 
-  // if (
-  //   !user &&
-  //   !request.nextUrl.pathname.startsWith('/signup') &&
-  //   !request.nextUrl.pathname.startsWith('/auth')
-  // ) {
-  //   // no user, potentially respond by redirecting the user to the login page
-  //   const url = request.nextUrl.clone();
-  //   url.pathname = '/signup';
-  //   return NextResponse.redirect(url);
-  // }
+  const url = request.nextUrl.clone();
+  const pathname = url.pathname;
 
+  // route type definition
+  const isAuthRoute =
+    pathname.startsWith('/login') || pathname.startsWith('/signup');
+  const isProtectedRoute =
+    pathname.startsWith('/create') || pathname.startsWith('/my_poems');
+  const isPublicRoute = pathname === '/' || pathname.startsWith('/browse');
+
+  // if user is signed in and accessing auth routes, redirect to browse
+  if (user && isAuthRoute) {
+    url.pathname = '/browse';
+    return NextResponse.redirect(url);
+  }
+
+  // if user is NOT signed in, redirect to login
+  if (!user && isProtectedRoute) {
+    url.pathname = '/login';
+    url.searchParams.set('redirectedFrom', pathname);
+    return NextResponse.redirect(url);
+  }
+
+  return supabaseResponse;
   // IMPORTANT: You *must* return the supabaseResponse object as it is. If you're
   // creating a new response object with NextResponse.next() make sure to:
   // 1. Pass the request in it, like so:
@@ -61,6 +75,4 @@ export async function updateSession(request: NextRequest) {
   //    return myNewResponse
   // If this is not done, you may be causing the browser and server to go out
   // of sync and terminate the user's session prematurely!
-
-  return supabaseResponse;
 }

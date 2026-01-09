@@ -29,3 +29,20 @@ export type SignupFormState =
       };
     }
   | undefined;
+
+export const LoginFormSchema = z.object({
+  email: z.email({ error: 'Please enter a valid email.' }),
+  password: z.string().min(1, { error: 'Password is required.' }),
+});
+
+export type LoginFormState =
+  | {
+      error?: {
+        formErrors: string[];
+        fieldErrors: {
+          email?: string[];
+          password?: string[];
+        };
+      };
+    }
+  | undefined;
