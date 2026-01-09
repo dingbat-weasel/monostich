@@ -46,12 +46,12 @@ export async function updateSession(request: NextRequest) {
   const isAuthRoute =
     pathname.startsWith('/login') || pathname.startsWith('/signup');
   const isProtectedRoute =
-    pathname.startsWith('/create') || pathname.startsWith('/my_poems');
-  const isPublicRoute = pathname === '/' || pathname.startsWith('/browse');
+    pathname.startsWith('/create') || pathname.startsWith('/profile');
+  const isPublicRoute = pathname === '/';
 
   // if user is signed in and accessing auth routes, redirect to browse
   if (user && isAuthRoute) {
-    url.pathname = '/browse';
+    url.pathname = '/';
     return NextResponse.redirect(url);
   }
 

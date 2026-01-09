@@ -51,7 +51,7 @@ export async function signup(state: SignupFormState, formData: FormData) {
 
   // success
   const redirectTo = formData.get('redirectTo') as string | null;
-  redirect(redirectTo || '/browse');
+  redirect(redirectTo || '/');
 }
 
 export async function login(state: LoginFormState, formData: FormData) {
@@ -92,7 +92,7 @@ export async function login(state: LoginFormState, formData: FormData) {
 
   // success
   const redirectTo = formData.get('redirectTo') as string | null;
-  redirect(redirectTo || '/browse');
+  redirect(redirectTo || '/');
 
   // else?
 }
