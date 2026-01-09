@@ -3,44 +3,44 @@ import type { Tables } from '@/types/database.types';
 import { useState } from 'react';
 import Tile from './Tile';
 
-type Word = Pick<Tables<'words'>, 'id' | 'text'>;
+type tile = Pick<Tables<'tiles'>, 'id' | 'text'>;
 
 interface PoemCreatorProps {
-  words: Word[];
+  tiles: tile[];
 }
 
-export default function PoemCreator({ words }: PoemCreatorProps) {
-  const [selectedWords, setSelectedWords] = useState<Word[]>([]);
+export default function PoemCreator({ tiles }: PoemCreatorProps) {
+  const [selectedtiles, setSelectedtiles] = useState<tile[]>([]);
 
-  function handleAddWord(word: Word) {
-    setSelectedWords([...selectedWords, word]);
+  function handleAddtile(tile: tile) {
+    setSelectedtiles([...selectedtiles, tile]);
   }
 
-  function handleRemoveWord(word: Word) {
-    // const updatedSelectedWordIds = selectedWordIds.filter()
-    // setSelectedWordIds(selectedWordIds);
+  function handleRemovetile(tile: tile) {
+    // const updatedSelectedtileIds = selectedtileIds.filter()
+    // setSelectedtileIds(selectedtileIds);
   }
 
   return (
     <>
       <p className='text-muted-foreground'>
-        Database connection successful. Found {words?.length} words:
+        Database connection successful. Found {tiles?.length} tiles:
       </p>
       <div className='flex flex-wrap gap-2'></div>
       <div className='grid grid-cols-1 gap-6'>
         <div className='min-h-20 bg-slate-300 border flex flex-wrap gap-2 p-4 rounded-lg'>
           Staging
-          {selectedWords.map((selectedWord) => (
-            <Tile key={selectedWord.id} word={selectedWord} />
+          {selectedtiles.map((selectedtile) => (
+            <Tile key={selectedtile.id} tile={selectedtile} />
           ))}
         </div>
         <div className='flex flex-wrap p-4 gap-2 bg-slate-300 min-h-72 rounded-lg'>
           Fridge
-          {words?.map((word) => (
+          {tiles?.map((tile) => (
             <Tile
-              word={word}
-              key={word.id}
-              onClickHandler={() => handleAddWord(word.id)}
+              tile={tile}
+              key={tile.id}
+              onClickHandler={() => handleAddtile(tile)}
             />
           ))}
         </div>

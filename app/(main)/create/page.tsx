@@ -3,17 +3,17 @@ import PoemCreator from '@/app/(main)/create/PoemCreator';
 
 export default async function CreatePage() {
   const supabase = await createClient();
-  const wordCount = 30;
+  const tileCount = 30;
 
-  const { data: words, error } = await supabase.rpc('get_random_words', {
-    count: wordCount,
+  const { data: tiles, error } = await supabase.rpc('get_random_tiles', {
+    count: tileCount,
   });
 
   if (error) {
     return (
       <div className='flex flex-col gap-6'>
         <h1 className='text-3xl font-bold'>Create a Poem</h1>
-        <p className='text-red-500'>Error loading words: {error.message}</p>
+        <p className='text-red-500'>Error loading tiles: {error.message}</p>
       </div>
     );
   }
@@ -22,7 +22,7 @@ export default async function CreatePage() {
     <div className='flex flex-col gap-6'>
       <h1 className='text-3xl font-bold'>Create a Poem</h1>
 
-      <PoemCreator words={words} />
+      <PoemCreator tiles={tiles} />
     </div>
   );
 }

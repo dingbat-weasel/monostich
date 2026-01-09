@@ -34,41 +34,41 @@ export type Database = {
   }
   public: {
     Tables: {
-      poem_words: {
+      poem_tiles: {
         Row: {
           created_at: string | null
           id: string
           poem_id: string
           position: number
-          word_id: string
+          tile_id: string
         }
         Insert: {
           created_at?: string | null
           id?: string
           poem_id: string
           position: number
-          word_id: string
+          tile_id: string
         }
         Update: {
           created_at?: string | null
           id?: string
           poem_id?: string
           position?: number
-          word_id?: string
+          tile_id?: string
         }
         Relationships: [
           {
-            foreignKeyName: "poem_words_poem_id_fkey"
+            foreignKeyName: "poem_tiles_poem_id_fkey"
             columns: ["poem_id"]
             isOneToOne: false
             referencedRelation: "poems"
             referencedColumns: ["id"]
           },
           {
-            foreignKeyName: "poem_words_word_id_fkey"
-            columns: ["word_id"]
+            foreignKeyName: "poem_tiles_tile_id_fkey"
+            columns: ["tile_id"]
             isOneToOne: false
-            referencedRelation: "words"
+            referencedRelation: "tiles"
             referencedColumns: ["id"]
           },
         ]
@@ -97,7 +97,7 @@ export type Database = {
         }
         Relationships: []
       }
-      words: {
+      tiles: {
         Row: {
           created_at: string | null
           id: string
@@ -120,7 +120,7 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
-      get_random_words: {
+      get_random_tiles: {
         Args: { count: number }
         Returns: {
           created_at: string | null
@@ -129,7 +129,7 @@ export type Database = {
         }[]
         SetofOptions: {
           from: "*"
-          to: "words"
+          to: "tiles"
           isOneToOne: false
           isSetofReturn: true
         }
