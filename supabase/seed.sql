@@ -1,5 +1,4 @@
-
-INSERT INTO words (text) VALUES
+INSERT INTO tiles (text) VALUES
   ('&'), ('&'),
   ('a'), ('a'), ('a'), ('a'), ('a'), ('a'),
   ('about'), ('above'), ('ache'), ('ad'), ('after'), ('all'),

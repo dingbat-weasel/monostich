@@ -1,15 +1,13 @@
-'use server';
-
 import { createClient } from '@/lib/supabase/server';
 import PoemCreator from '@/app/(main)/create/PoemCreator';
 
 export default async function CreatePage() {
   const supabase = await createClient();
+  const wordCount = 30;
 
-  const { data: words, error } = await supabase
-    .from('words')
-    .select('id, text')
-    .limit(20);
+  const { data: words, error } = await supabase.rpc('get_random_words', {
+    count: wordCount,
+  });
 
   if (error) {
     return (

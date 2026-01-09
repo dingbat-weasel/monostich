@@ -120,7 +120,20 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      get_random_words: {
+        Args: { count: number }
+        Returns: {
+          created_at: string | null
+          id: string
+          text: string
+        }[]
+        SetofOptions: {
+          from: "*"
+          to: "words"
+          isOneToOne: false
+          isSetofReturn: true
+        }
+      }
     }
     Enums: {
       [_ in never]: never
