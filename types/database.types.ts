@@ -34,6 +34,45 @@ export type Database = {
   }
   public: {
     Tables: {
+      poem_words: {
+        Row: {
+          created_at: string | null
+          id: string
+          poem_id: string
+          position: number
+          word_id: string
+        }
+        Insert: {
+          created_at?: string | null
+          id?: string
+          poem_id: string
+          position: number
+          word_id: string
+        }
+        Update: {
+          created_at?: string | null
+          id?: string
+          poem_id?: string
+          position?: number
+          word_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "poem_words_poem_id_fkey"
+            columns: ["poem_id"]
+            isOneToOne: false
+            referencedRelation: "poems"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "poem_words_word_id_fkey"
+            columns: ["word_id"]
+            isOneToOne: false
+            referencedRelation: "words"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       poems: {
         Row: {
           created_at: string | null
@@ -41,7 +80,6 @@ export type Database = {
           is_public: boolean | null
           title: string | null
           user_id: string
-          word_ids: string[]
         }
         Insert: {
           created_at?: string | null
@@ -49,7 +87,6 @@ export type Database = {
           is_public?: boolean | null
           title?: string | null
           user_id: string
-          word_ids: string[]
         }
         Update: {
           created_at?: string | null
@@ -57,7 +94,6 @@ export type Database = {
           is_public?: boolean | null
           title?: string | null
           user_id?: string
-          word_ids?: string[]
         }
         Relationships: []
       }
