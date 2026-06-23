@@ -1,9 +1,14 @@
+import os
 from fastapi import FastAPI, Response
 from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
 
-origins = ["http://localhost:5173"]
+VITE_FRONTEND_URL = os.environ.get("VITE_FRONTEND_URL")
+if not VITE_FRONTEND_URL:
+    raise RuntimeError("VITE_FRONTEND_URL environment variable not set")
+
+origins = [VITE_FRONTEND_URL]
 
 app.add_middleware(
     CORSMiddleware,
