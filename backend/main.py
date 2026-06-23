@@ -13,9 +13,11 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+
 @app.get("/")
 async def home():
     return {"status": "home"}
+
 
 @app.get("/health")
 async def health():
