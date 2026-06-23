@@ -10,14 +10,16 @@ services:
     build: ./backend
     depends_on:
       - db
+    environment:
+      DATABASE_URL: ${DATABASE_URL}
     ports:
       - '8000:8000'
 
   db:
     image: postgres:18
     environment:
-      POSTGRES_DB: monostich
-      POSTGRES_USER: monostich_admin
-      POSTGRES_PASSWORD: secret
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
     ports:
       - '5432:5432'

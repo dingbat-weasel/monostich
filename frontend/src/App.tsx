@@ -9,6 +9,7 @@ function App() {
       .then((res) => res.json())
       .then((json) => setData(json));
   }, []);
+  console.log(data);
 
   return <div>{data && <p>{data.status}</p>}</div>;
 }
