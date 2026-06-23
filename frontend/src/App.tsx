@@ -5,7 +5,7 @@ function App() {
   const [data, setData] = useState<{ status: string | null }>({ status: null });
 
   useEffect(() => {
-    fetch('http://localhost:8000/health')
+    fetch(`${import.meta.env.VITE_API_URL}/health`)
       .then((res) => res.json())
       .then((json) => setData(json));
   }, []);

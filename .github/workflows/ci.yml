@@ -1,0 +1,70 @@
+name: monostich ci pipeline
+
+on:
+  push:
+    branches:
+      - 'main'
+  pull_request:
+    branches:
+      - 'main'
+
+jobs:
+  backend:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: backend
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v7
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@08807647e7069bb48b6ef5acd8ec9567f424441b
+
+      - name: Install python
+        run: uv python install
+
+      - name: Install the dependencies
+        run: uv sync --locked --all-extras
+
+      - name: Lint & Format
+        run: 'uv run ruff check . && uv run ruff format --check .'
+
+  frontend:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: frontend
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v7
+
+      - name: Setup Node
+        uses: actions/setup-node@v6
+        with:
+          node-version: 26
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Compile ts
+        run: npx tsc --noEmit
+
+      - name: Linting
+        run: npx eslint .
+
+      # - name: Run Tests
+      #   run: npm test -- --watchAll=false --passWithNoTests
+
+      # - name: Build Application
+      #   run: npm run Build
+
+      # - name: Upload Build Artifacts
+      #   uses: actions/upload-artifact@v7
+      #   with:
+      #     name: production-build
+      #     path: |
+      #       dist
+      #       build
+      #     retention-days: 7
