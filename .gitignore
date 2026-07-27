@@ -1,7 +1,10 @@
 # Environment
 .env
+.env.docker
+.env.host
 .env.local
 .env.*.local
+.direnv/
 
 # Python
 backend/.venv/
