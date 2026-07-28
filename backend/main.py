@@ -1,28 +1,34 @@
 from collections.abc import AsyncGenerator
 from contextlib import asynccontextmanager
+from typing import TypedDict
 
 from fastapi import FastAPI, Request, Response
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
+from psycopg_pool import AsyncConnectionPool
 
 from api.v1.auth import router as auth_router
 from core.config import settings
 from core.errors import DomainError
-from db.pool import pool
+from db.types import Pool
 
+
+
+class LifespanState(TypedDict):
+    pool: Pool
 
 @asynccontextmanager
-async def lifespan(app: FastAPI) -> AsyncGenerator[None]:
+async def lifespan(app: FastAPI) -> AsyncGenerator[LifespanState]:
+    pool: Pool = AsyncConnectionPool(conninfo=str(settings.database_url), open=False)
     async with pool:
         await pool.wait(timeout=10)
-        yield
-
+        yield {"pool": pool}
 
 app = FastAPI(title="monostich", lifespan=lifespan)
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[settings.vite_frontend_url],
+    allow_origins=[settings.frontend_url],
     allow_credentials=True,
     allow_methods=["GET", "POST", "PATCH", "DELETE"],
     allow_headers=["Authorization", "Content-Type"],
