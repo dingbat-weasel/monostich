@@ -8,7 +8,7 @@ function App() {
   useEffect(() => {
     const baseUrl = import.meta.env.VITE_API_URL;
 
-    fetch(`${baseUrl}/db-check`)
+    fetch(`${baseUrl}/health`)
       .then(async (res) => {
         const rawText = await res.text();
         console.log('Raw payload from railway: ', rawText);
