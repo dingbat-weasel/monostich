@@ -13,16 +13,23 @@ from core.errors import DomainError
 from db.types import Pool
 
 
-
 class LifespanState(TypedDict):
     pool: Pool
 
+
 @asynccontextmanager
 async def lifespan(app: FastAPI) -> AsyncGenerator[LifespanState]:
-    pool: Pool = AsyncConnectionPool(conninfo=str(settings.database_url), open=False)
+    pool: Pool = AsyncConnectionPool(
+        conninfo=str(settings.database_url),
+        min_size=2,
+        max_size=10,
+        check=AsyncConnectionPool.check_connection,
+        open=False,
+    )
     async with pool:
         await pool.wait(timeout=10)
         yield {"pool": pool}
+
 
 app = FastAPI(title="monostich", lifespan=lifespan)
 

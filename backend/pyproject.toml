@@ -25,3 +25,6 @@ dev = [
 [tool.pyright]
 venvPath = "."
 venv = ".venv"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "A", "B", "UP"]

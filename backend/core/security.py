@@ -1,9 +1,9 @@
 from datetime import UTC, datetime, timedelta
 from uuid import UUID
 
+import jwt
 from argon2 import PasswordHasher
 from argon2.exceptions import VerificationError
-import jwt
 
 from core.config import settings
 from core.errors import InvalidCredentials
@@ -32,12 +32,16 @@ def create_access_token(user_id: UUID) -> str:
         "iat": int(now.timestamp()),
         "exp": int((now + ACCESS_TOKEN_TTL).timestamp()),
     }
-    return jwt.encode(payload, settings.jwt_secret.get_secret_value(), algorithm=ALGORITHM)
+    return jwt.encode(
+        payload, settings.jwt_secret.get_secret_value(), algorithm=ALGORITHM
+    )
 
 
 def decode_access_token(token: str) -> UUID:
     try:
-        payload = jwt.decode(token, settings.jwt_secret.get_secret_value(), algorithms=[ALGORITHM])
+        payload = jwt.decode(
+            token, settings.jwt_secret.get_secret_value(), algorithms=[ALGORITHM]
+        )
         return UUID(payload["sub"])
     except (jwt.InvalidTokenError, KeyError, ValueError, TypeError) as exc:
         raise InvalidCredentials from exc
