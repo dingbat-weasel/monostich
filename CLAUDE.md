@@ -4,7 +4,9 @@
 
 A social media site where users compose single-line poems (monostichs) by dragging and placing word tiles, like magnetic poetry. Functionally mirrors Twitter at a basic level. Goal: 1000 active users. Built for learning fundamental software engineering skills.
 
-See `principles.md`, `architecture.md`, and `gameplan.md` for the original planning documentation. Note that `architecture.md` predates several decisions below and is partly stale — this file is the authority on current state.
+See `product.md` for the product design and the reasoning behind it — modes, values, the poem/tile model, and build order. Together with this file it is the authority on current state.
+
+The original planning documents are archived in `docs/` for history. They predate almost every decision below and should not be read as current.
 
 ---
 
@@ -118,6 +120,20 @@ Row types are only introduced when a query's shape genuinely differs from a doma
 - **Login timing is deliberately equalized.** The "no such user" branch hashes against `_DUMMY_HASH` before failing. Removing it reintroduces an account-enumeration oracle. Both failure paths raise the same `InvalidCredentials`.
 - **Known accepted risk:** registration distinguishes `EMAIL_TAKEN` from `USERNAME_TAKEN`, which leaks whether an email has an account. Documented in `services/auth.py`. The proper fix needs email sending.
 
+### Error contract
+
+Every error response, from any layer, has the shape:
+
+```json
+{ "error": "human readable", "code": "MACHINE_READABLE", "details": [] }
+```
+
+`details` is optional and currently only present on validation errors.
+
+Three handlers in `main.py` produce it. `DomainError` covers everything the application raises — one handler serves every subclass, because Starlette dispatches by walking the exception's MRO. `StarletteHTTPException` covers routing 404s and 405s, deriving the code from `HTTPStatus(...).name` so new status codes need no new code. `RequestValidationError` covers Pydantic 422s, and **must** wrap `exc.errors()` in `jsonable_encoder` — Pydantic error `ctx` values can contain exception instances that `json.dumps` refuses.
+
+Registering the *Starlette* `HTTPException`, not FastAPI's subclass, is deliberate: the router raises the base class, so registering the subclass would miss every 404.
+
 ### Config and environments
 
 - `pydantic-settings`, instantiated at import so missing variables crash at startup rather than at first use. `PostgresDsn` and `SecretStr` — both need unwrapping at use sites (`str(...)`, `.get_secret_value()`).
@@ -144,19 +160,49 @@ Row types are only introduced when a query's shape genuinely differs from a doma
 
 ---
 
+## Frontend conventions
+
+Not yet built beyond the Phase 1 scaffold, but these are decided.
+
+### Structure
+
+```
+src/
+  pages/       route-level only. Thin assemblers. No logic, no state.
+  features/    one folder per product feature, colocating components, hooks, styles
+  shared/      genuinely reusable components and hooks
+  lib/         api client, shared types
+  styles/      global.css, tokens.css
+```
+
+Deleting a feature folder should break nothing outside it except the page that imports it.
+
+Note the asymmetry with the backend: **the backend groups by layer, the frontend groups by feature.** That's deliberate, not an inconsistency — a backend has few layers crossed by many entities, while a frontend has many features that each own a whole vertical slice.
+
+### Styling
+
+CSS Modules, because scoping should be structural rather than a thing you remember to do. Design tokens as CSS custom properties in `tokens.css`; module files reference variables, never raw values. BEM-style naming within a module (`.card`, `.card__title`, `.card--featured`).
+
+### Hooks
+
+- **A hook owns state, derived values, and actions. A component maps them to markup and contains no business logic.** When a component starts feeling complicated, extract a hook.
+- **Local interaction state and server state are different problems.** Never put fetch logic in a hook that manages UI interaction state. `useTileState` owns tiles; something else owns fetching them.
+- **Don't store what you can derive.** Storing two arrays that must be kept in sync is how tiles get duplicated or lost. Store the minimum and compute the rest — this is the central design decision in `useTileState`.
+- **Build the state shape before the UI.** Validate transitions with placeholder buttons, then wire the real interaction on top. Applies directly to `useTileState` before dnd-kit: the library handles gestures, the hook decides what a gesture *means*.
+- Prefer `useReducer` over `useState` once several actions touch the same state — the reducer is a pure function, testable with no React at all.
+
 ## Open items
 
 - **No tests at all.** Highest value first: duplicate email → 409 (pins the constraint-name coupling), wrong password → 401, `/me` without a token → 401. Needs pytest, `httpx` `ASGITransport`, and a test-database strategy.
-- **Inconsistent error shapes.** `DomainError` produces `{"error", "code"}`, but Starlette 404s return `{"detail": ...}` and Pydantic 422s a third shape. Needs handlers for `StarletteHTTPException` and `RequestValidationError`.
 - **Refresh tokens and the `sessions` table** are unbuilt. Access tokens alone mean a 15-minute session. Deferred until after the composer.
 - **Password hashing runs on the event loop.** `hash_password` is ~100ms of CPU inside an `async def`, blocking all concurrent requests in that worker. `asyncio.to_thread` is the fix; deliberately deferred as premature at current traffic.
-- `domain/poem.py` is empty — the poem composer is the next feature.
-- Frontend is still the Phase 1 scaffold; it fetches `/health` and renders the status.
+- `domain/poem.py` is empty. The poem/tile data model is **designed but not built** — see `product.md`. Deliberately not written as a migration yet: the schema is downstream of the composer interaction, so `useTileState` comes first.
+- Frontend is still the Phase 1 scaffold; it fetches `/health` and renders the status. Next work is React, not Python: `useTileState` as a pure reducer with button interactions, before dnd-kit and before any persistence.
 
 ---
 
 ## Walkthrough progress
 
-The user is working through a structured explanation of everything built. Covered so far: async and the event loop, config, connections and pooling, the DAL, services and transactions, and the layered type discussion that produced the domain layer.
+**Complete.** The user worked through a structured explanation of the whole backend: async and the event loop, config, connections and pooling, the DAL, services and transactions, the layered type discussion that produced the domain layer, the API layer (`Depends` resolution, dependency caching, `yield` lifecycle), and `main.py` as a composition root (middleware ordering, MRO-based handler dispatch).
 
-Remaining: the API layer (how `Depends` resolves the dependency graph, `yield` dependencies, `response_model` vs. return annotations) and `main.py` assembly (middleware ordering, exception handler dispatch).
+Next work is the frontend — `useTileState` as a pure reducer before any React, dnd-kit, or persistence.

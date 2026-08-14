@@ -18,15 +18,21 @@ async def get_pool(request: Request) -> Pool:
     return request.state.pool
 
 
+PoolDep = Annotated[Pool, Depends(get_pool)]
+
+
 async def get_conn(
-    pool: Annotated[Pool, Depends(get_pool)],
+    pool: PoolDep,
 ) -> AsyncGenerator[AsyncConnection]:
     async with pool.connection() as conn:
         yield conn
 
 
+ConnDep = Annotated[AsyncConnection, Depends(get_conn)]
+
+
 async def get_current_user(
-    conn: Annotated[AsyncConnection, Depends(get_conn)],
+    conn: ConnDep,
     authorization: Annotated[HTTPAuthorizationCredentials | None, Depends(_bearer)],
 ) -> User:
     if authorization is None:
@@ -38,3 +44,6 @@ async def get_current_user(
         raise InvalidCredentials
 
     return user
+
+
+CurrentUserDep = Annotated[User, Depends(get_current_user)]

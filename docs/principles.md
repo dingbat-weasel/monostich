@@ -1,4 +1,8 @@
-# Principles
+# Principles (archived)
+
+> **Historical. Not current.** Written during initial planning. Superseded by `CLAUDE.md` and `product.md`.
+>
+> This one held up better than the others — the phase sequencing, "don't build Phase 4 in Phase 1," and "lean on Postgres before adding services" all proved right in practice. The AWS-specific sections are obsolete. The React and state-shape principles have been carried into `CLAUDE.md`, where the frontend work will actually see them.
 
 This document captures the reasoning behind the project structure and build sequence. It is stack-agnostic and applies to most web application projects. When in doubt about a decision, come back here.
 

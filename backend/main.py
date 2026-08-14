@@ -1,11 +1,15 @@
 from collections.abc import AsyncGenerator
 from contextlib import asynccontextmanager
+from http import HTTPStatus
 from typing import TypedDict
 
 from fastapi import FastAPI, Request, Response
+from fastapi.encoders import jsonable_encoder
+from fastapi.exceptions import RequestValidationError
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 from psycopg_pool import AsyncConnectionPool
+from starlette.exceptions import HTTPException as StarletteHTTPException
 
 from api.v1.auth import router as auth_router
 from core.config import settings
@@ -46,6 +50,44 @@ app.add_middleware(
 async def handle_domain_error(request: Request, exc: DomainError) -> JSONResponse:
     return JSONResponse(
         status_code=exc.status_code, content={"error": exc.message, "code": exc.code}
+    )
+
+
+@app.exception_handler(StarletteHTTPException)
+async def handle_http_exception(
+    request: Request, exc: StarletteHTTPException
+) -> JSONResponse:
+    try:
+        code = HTTPStatus(exc.status_code).name
+    except ValueError:
+        code = "HTTP_ERROR"
+
+    return JSONResponse(
+        status_code=exc.status_code,
+        content={"error": exc.detail, "code": code},
+        headers=exc.headers,
+    )
+
+
+@app.exception_handler(RequestValidationError)
+async def handle_validation_error(
+    request: Request, exc: RequestValidationError
+) -> JSONResponse:
+    return JSONResponse(
+        status_code=422,
+        content={
+            "error": "Invalid request",
+            "code": "VALIDATION_ERROR",
+            "details": jsonable_encoder(exc.errors()),
+        },
+    )
+
+
+@app.exception_handler(Exception)
+async def handle_unexpected(request: Request, exc: Exception) -> JSONResponse:
+    return JSONResponse(
+        status_code=500,
+        content={"error": "Internal server error", "code": "INTERNAL_ERROR"},
     )
 
 

@@ -1,4 +1,10 @@
-# Gameplan
+# Gameplan (archived)
+
+> **Historical. Not current.** Written during initial planning. Superseded by `product.md` (build sequence) and `CLAUDE.md` (current state).
+>
+> Phases 1 and 2 are complete, though Phase 2 describes Terraform, ECS/Fargate, and an ALB — the actual deployment is Railway. Phase 3's feature ordering has been replaced by the sandbox-first sequence in `product.md`. Phase 4 remains directionally useful.
+>
+> Worth noting: the instinct to build the composer's state before its UI, recorded here long before anyone knew what that meant, has been the right call twice over.
 
 This document describes the four-phase build sequence for this project. Each phase has a clear entry condition, a clear exit condition, and produces something observable. Read PRINCIPLES.md for the reasoning behind this structure.
 

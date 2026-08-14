@@ -1,4 +1,10 @@
-# Architecture
+# Architecture (archived)
+
+> **Historical. Not current.** Written during initial planning, before the project was built. Superseded by `CLAUDE.md` (technical state and decisions) and `product.md` (product design).
+>
+> Most of this is now wrong: the stack table describes SQLAlchemy, AWS, Terraform, and Fargate — none of which are used. The backend layout, database schema, and API design have all been replaced. The AWS security model was never implemented; deployment is Railway.
+>
+> Kept for history. The frontend conventions and hook patterns survived largely intact and now live in `CLAUDE.md`.
 
 This document describes the frontend file structure, styling conventions, and component/hook patterns for this project. It is a living reference — update it as the project evolves.
 
